@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://b2wha4rcgjgfn"]
+
+[ext_resource type="Texture2D" uid="uid://x7ymw2lrbxh8" path="res://sprites/4fa5e1bb919c53b862f0115a5853ad6a.jpg" id="1_smc2o"]
+[ext_resource type="PackedScene" uid="uid://rqve7obh0jbx" path="res://cenas/caju.tscn" id="2_1ikvx"]
+[ext_resource type="Texture2D" uid="uid://bhdofwi4yo3dp" path="res://sprites/poltrona.png" id="3_1ikvx"]
+[ext_resource type="Texture2D" uid="uid://b0bsrma64ocq1" path="res://sprites/gato.png" id="4_ovvm4"]
+
+[node name="Node2D" type="Node2D" unique_id=983264201]
+scale = Vector2(2, 2)
+
+[node name="4Fa5e1Bb919c53b862f0115a5853Ad6a" type="Sprite2D" parent="." unique_id=1744547452]
+position = Vector2(276.75003, 164.75003)
+scale = Vector2(0.49121627, 0.49121627)
+texture = ExtResource("1_smc2o")
+
+[node name="Caju" parent="." unique_id=567579954 instance=ExtResource("2_1ikvx")]
+position = Vector2(279.74994, 165.75002)
+
+[node name="Poltrona" type="Sprite2D" parent="." unique_id=620805242]
+position = Vector2(242.50003, 209.5)
+scale = Vector2(0.28206995, 0.28206995)
+texture = ExtResource("3_1ikvx")
+
+[node name="Gato" type="Sprite2D" parent="." unique_id=1124087767]
+position = Vector2(287.5, 218.50003)
+scale = Vector2(0.5451895, 0.5451895)
+texture = ExtResource("4_ovvm4")
