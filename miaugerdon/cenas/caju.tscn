@@ -355,7 +355,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o7qrh"]
-size = Vector2(27.66667, 32.333336)
+size = Vector2(27.66667, 8.666668)
 
 [node name="Caju" type="CharacterBody2D" unique_id=567579954]
 position = Vector2(572, 323)
@@ -369,5 +369,5 @@ autoplay = "parado_baixo"
 frame_progress = 0.73468477
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1330587073]
-position = Vector2(1.1666718, 0.5)
+position = Vector2(1.166687, 12.3333435)
 shape = SubResource("RectangleShape2D_o7qrh")
