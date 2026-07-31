@@ -3206,3 +3206,97 @@ position = Vector2(701, 446)
 
 [node name="Alfredo" parent="." unique_id=1445397297 instance=ExtResource("3_rn1ff")]
 position = Vector2(693, 257)
+
+[node name="Colisoes" type="StaticBody2D" parent="." unique_id=1676693421]
+
+[node name="parede01" type="CollisionPolygon2D" parent="Colisoes" unique_id=886634647]
+position = Vector2(-740, 150)
+polygon = PackedVector2Array(751, 440, 1252, 730, 1252, 712, 751, 422)
+
+[node name="parede02" type="CollisionPolygon2D" parent="Colisoes" unique_id=205507726]
+position = Vector2(-240, 440)
+polygon = PackedVector2Array(752, 440, 899, 524, 899, 507, 752, 422)
+
+[node name="parede03" type="CollisionPolygon2D" parent="Colisoes" unique_id=1450104806]
+position = Vector2(-541, 35)
+polygon = PackedVector2Array(752, 440, 1039, 605, 1039, 588, 752, 422)
+
+[node name="parede04" type="CollisionPolygon2D" parent="Colisoes" unique_id=10652255]
+position = Vector2(-214, 224)
+polygon = PackedVector2Array(752, 440, 764, 447, 764, 429, 752, 422)
+
+[node name="parede05" type="CollisionPolygon2D" parent="Colisoes" unique_id=604342931]
+position = Vector2(-191, 237)
+polygon = PackedVector2Array(752, 440, 787, 460, 787, 442, 752, 422)
+
+[node name="parede06" type="CollisionPolygon2D" parent="Colisoes" unique_id=287273990]
+position = Vector2(-116, 280)
+polygon = PackedVector2Array(752, 440, 818, 478, 818, 460, 752, 422)
+
+[node name="parede07" type="CollisionPolygon2D" parent="Colisoes" unique_id=858788303]
+position = Vector2(-194, -113)
+polygon = PackedVector2Array(705, 413, 879, 514, 879, 496, 705, 396)
+
+[node name="parede08" type="CollisionPolygon2D" parent="Colisoes" unique_id=1203682510]
+position = Vector2(1, 0)
+polygon = PackedVector2Array(752, 440, 879, 513, 879, 496, 752, 422)
+
+[node name="parede09" type="CollisionPolygon2D" parent="Colisoes" unique_id=2021632811]
+position = Vector2(-51, -87)
+polygon = PackedVector2Array(752, 440, 808, 472, 808, 454, 752, 422)
+
+[node name="parede10" type="CollisionPolygon2D" parent="Colisoes" unique_id=534249409]
+position = Vector2(49, -30)
+polygon = PackedVector2Array(752, 440, 764, 447, 764, 429, 752, 422)
+
+[node name="parede11" type="CollisionPolygon2D" parent="Colisoes" unique_id=727015825]
+position = Vector2(89, -156)
+polygon = PackedVector2Array(752, 440, 834, 487, 834, 479, 752, 432)
+
+[node name="parede12" type="CollisionPolygon2D" parent="Colisoes" unique_id=201691059]
+position = Vector2(10, -284)
+polygon = PackedVector2Array(752, 440, 1119, 654, 1120, 507, 752, 295)
+
+[node name="parede13" type="CollisionPolygon2D" parent="Colisoes" unique_id=2127698448]
+position = Vector2(389, -77)
+polygon = PackedVector2Array(752, 440, 1029, 600, 1029, 446, 752, 295)
+
+[node name="parede14" type="CollisionPolygon2D" parent="Colisoes" unique_id=127229748]
+position = Vector2(-740, 150)
+polygon = PackedVector2Array(751, 441, 1502, 7, 1502, -139, 751, 295)
+
+[node name="parede15" type="CollisionPolygon2D" parent="Colisoes" unique_id=808142938]
+position = Vector2(-254, 199)
+polygon = PackedVector2Array(752, 441, 763, 435, 763, 418, 752, 424)
+
+[node name="parede16" type="CollisionPolygon2D" parent="Colisoes" unique_id=1408647407]
+position = Vector2(-391, 351)
+polygon = PackedVector2Array(752, 441, 952, 326, 952, 308, 752, 424)
+
+[node name="parede17" type="CollisionPolygon2D" parent="Colisoes" unique_id=2007697214]
+position = Vector2(-157, 255)
+polygon = PackedVector2Array(753, 442, 763, 436, 763, 418, 753, 424)
+
+[node name="parede18" type="CollisionPolygon2D" parent="Colisoes" unique_id=722863429]
+position = Vector2(-240, 438)
+polygon = PackedVector2Array(752, 441, 1263, 146, 1263, 128, 752, 424)
+
+[node name="parede19" type="CollisionPolygon2D" parent="Colisoes" unique_id=1300527995]
+position = Vector2(-68, -41)
+polygon = PackedVector2Array(753, 442, 763, 436, 763, 418, 753, 424)
+
+[node name="parede20" type="CollisionPolygon2D" parent="Colisoes" unique_id=949366249]
+position = Vector2(127, 71)
+polygon = PackedVector2Array(753, 442, 1014, 291, 1014, 273, 753, 425)
+
+[node name="parede21" type="CollisionPolygon2D" parent="Colisoes" unique_id=484336656]
+position = Vector2(-42, -83)
+polygon = PackedVector2Array(753, 442, 954, 326, 954, 308, 753, 425)
+
+[node name="parede22" type="CollisionPolygon2D" parent="Colisoes" unique_id=2080597157]
+position = Vector2(60, -26)
+polygon = PackedVector2Array(753, 443, 954, 326, 954, 308, 753, 425)
+
+[node name="parede23" type="CollisionPolygon2D" parent="Colisoes" unique_id=1045407985]
+position = Vector2(454, 203)
+polygon = PackedVector2Array(203, 760, 964, 320, 964, 303, 203, 745)
