@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://df12om10aou3p"
-path="res://.godot/imported/moveis14.png-51a791b1c9f3d65bbbfe0455bb979ab1.ctex"
+uid="uid://detdyhci0d26"
+path="res://.godot/imported/FINAL_rack tv.png-cf7ec131a55c8b51b890fdde1cd859d9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/moveis14.png"
-dest_files=["res://.godot/imported/moveis14.png-51a791b1c9f3d65bbbfe0455bb979ab1.ctex"]
+source_file="res://sprites/objetos/FINAL_rack tv.png"
+dest_files=["res://.godot/imported/FINAL_rack tv.png-cf7ec131a55c8b51b890fdde1cd859d9.ctex"]
 
 [params]
 
