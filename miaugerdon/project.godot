@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Miaugerdon"
-run/main_scene="uid://bcfbk3rv8ejkj"
+run/main_scene="uid://buvqj8a6m7xy7"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
