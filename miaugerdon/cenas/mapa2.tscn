@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://df12om10aou3p" path="res://sprites/moveis14.png" id="1_glfb5"]
 [ext_resource type="PackedScene" uid="uid://rqve7obh0jbx" path="res://cenas/caju.tscn" id="2_rn1ff"]
+[ext_resource type="PackedScene" uid="uid://cernmukarhqdv" path="res://cenas/alfredo.tscn" id="3_rn1ff"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rn1ff"]
 texture = ExtResource("1_glfb5")
@@ -3201,3 +3202,7 @@ tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAAAAAEAAAAAAAEAAAAAAAIAAAAAAAI
 tile_set = SubResource("TileSet_my2cs")
 
 [node name="Caju" parent="." unique_id=567579954 instance=ExtResource("2_rn1ff")]
+position = Vector2(701, 446)
+
+[node name="Alfredo" parent="." unique_id=1445397297 instance=ExtResource("3_rn1ff")]
+position = Vector2(693, 257)

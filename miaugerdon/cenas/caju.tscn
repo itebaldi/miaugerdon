@@ -358,7 +358,6 @@ animations = [{
 size = Vector2(27.66667, 8.666668)
 
 [node name="Caju" type="CharacterBody2D" unique_id=567579954]
-position = Vector2(572, 323)
 script = ExtResource("1_1ilrh")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=653151880]
