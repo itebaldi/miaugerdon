@@ -62,6 +62,12 @@ miar={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="mundo"
+2d_physics/layer_2="caju"
+2d_physics/layer_3="alfredo"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"

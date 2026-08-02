@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://buvqj8a6m7xy7"]
 
 [ext_resource type="Script" path="res://scripts/mapa2.gd" id="1_mapa2"]
+[ext_resource type="NavigationPolygon" path="res://cenas/navmesh_casa.tres" id="1_navmesh"]
 [ext_resource type="PackedScene" path="res://cenas/objetos/objetivo.tscn" id="1_objetivo"]
 [ext_resource type="PackedScene" path="res://cenas/objetos/acao_gato.tscn" id="1_acao"]
 [ext_resource type="PackedScene" path="res://cenas/ui/hud.tscn" id="1_hud"]
@@ -439,7 +440,39 @@ polygon = PackedVector2Array(752, 441, 1514, 1, 1512, 0, 749, 439)
 position = Vector2(701, 446)
 
 [node name="Alfredo" parent="." unique_id=1445397297 instance=ExtResource("3_rn1ff")]
-position = Vector2(693, 257)
+position = Vector2(455, 470)
+
+[node name="Navegacao" type="NavigationRegion2D" parent="."]
+navigation_polygon = ExtResource("1_navmesh")
+
+[node name="Rotas" type="Node2D" parent="." groups=["rotas"]]
+
+[node name="SalaEstar" type="Marker2D" parent="Rotas"]
+position = Vector2(455, 470)
+
+[node name="SalaJantar" type="Marker2D" parent="Rotas"]
+position = Vector2(600, 470)
+
+[node name="Cozinha" type="Marker2D" parent="Rotas"]
+position = Vector2(700, 665)
+
+[node name="Quarto" type="Marker2D" parent="Rotas"]
+position = Vector2(640, 300)
+
+[node name="Banheiro" type="Marker2D" parent="Rotas"]
+position = Vector2(800, 300)
+
+[node name="Escritorio" type="Marker2D" parent="Rotas"]
+position = Vector2(960, 400)
+
+[node name="Garagem" type="Marker2D" parent="Rotas"]
+position = Vector2(280, 470)
+
+[node name="Quintal" type="Marker2D" parent="Rotas"]
+position = Vector2(1150, 470)
+
+[node name="AreaServico" type="Marker2D" parent="Rotas"]
+position = Vector2(500, 790)
 
 [node name="Objetivos" type="Node2D" parent="."]
 

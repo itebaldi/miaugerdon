@@ -205,19 +205,25 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o7qrh"]
-size = Vector2(14, 5.5)
+size = Vector2(28, 11)
 
 [node name="Alfredo" type="CharacterBody2D" unique_id=1445397297]
-scale = Vector2(2, 2)
+collision_layer = 4
+collision_mask = 1
 script = ExtResource("1_7wuy5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=576687181]
+position = Vector2(0, -26.5)
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_o7qrh")
 animation = &"andando_baixo"
 autoplay = "parado_baixo"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1404093490]
-position = Vector2(0, 13.25)
 shape = SubResource("RectangleShape2D_o7qrh")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1692530427]
+path_desired_distance = 8.0
+target_desired_distance = 12.0
+radius = 14.0
+avoidance_enabled = false
