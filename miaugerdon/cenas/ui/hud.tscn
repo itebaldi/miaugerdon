@@ -167,6 +167,96 @@ theme_override_styles/background = SubResource("StyleBoxFlat_barra_fundo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_progresso")
 show_percentage = false
 
+[node name="PainelTutorial" type="PanelContainer" parent="Raiz"]
+unique_name_in_owner = true
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -330.0
+offset_top = -190.0
+offset_right = 330.0
+offset_bottom = 190.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_painel")
+
+[node name="Coluna" type="VBoxContainer" parent="Raiz/PainelTutorial"]
+theme_override_constants/separation = 12
+
+[node name="Titulo" type="Label" parent="Raiz/PainelTutorial/Coluna"]
+theme_override_colors/font_color = Color(1, 0.85, 0.45, 1)
+theme_override_font_sizes/font_size = 24
+text = "Miaugerdon"
+horizontal_alignment = 1
+
+[node name="Texto" type="Label" parent="Raiz/PainelTutorial/Coluna"]
+theme_override_colors/font_color = Color(0.93, 0.9, 0.84, 1)
+theme_override_font_sizes/font_size = 14
+text = "Você é o Caju. O Alfredo vai adotar um cachorro, e você tem um plano.
+
+WASD    andar pela casa
+E       segurar para interagir
+F       limpar-se (parado) — baixa a suspeita devagar
+Q       miar — chama o Alfredo para onde você está
+Tab     ver o plano e o que você já conseguiu
+
+DUAS FORMAS DE PERDER:
+· o cronômetro zerar antes de você terminar
+· a barra de suspeita encher até o fim
+
+Agir como um gato normal pela casa é o que baixa a suspeita.
+Trabalhar no plano com o Alfredo TE VENDO custa muito mais."
+autowrap_mode = 2
+
+[node name="Dica" type="Label" parent="Raiz/PainelTutorial/Coluna"]
+theme_override_colors/font_color = Color(0.75, 0.85, 0.95, 1)
+theme_override_font_sizes/font_size = 14
+text = "[Enter] começar"
+horizontal_alignment = 1
+
+[node name="PainelEscolha" type="PanelContainer" parent="Raiz"]
+unique_name_in_owner = true
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -340.0
+offset_top = -160.0
+offset_right = 340.0
+offset_bottom = 160.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_painel")
+
+[node name="Coluna" type="VBoxContainer" parent="Raiz/PainelEscolha"]
+alignment = 1
+theme_override_constants/separation = 14
+
+[node name="Titulo" type="Label" parent="Raiz/PainelEscolha/Coluna"]
+theme_override_colors/font_color = Color(1, 0.85, 0.45, 1)
+theme_override_font_sizes/font_size = 24
+text = "A máquina está pronta"
+horizontal_alignment = 1
+
+[node name="Texto" type="Label" parent="Raiz/PainelEscolha/Coluna"]
+theme_override_colors/font_color = Color(0.93, 0.9, 0.84, 1)
+theme_override_font_sizes/font_size = 15
+text = "Caju olha a máquina. Olha a porta da frente.
+Lá fora, a van com o cachorro está chegando."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="OpcaoAtivar" type="Label" parent="Raiz/PainelEscolha/Coluna"]
+theme_override_colors/font_color = Color(1, 0.7, 0.6, 1)
+theme_override_font_sizes/font_size = 18
+text = "[E]   Ativar a máquina"
+horizontal_alignment = 1
+
+[node name="OpcaoDesistir" type="Label" parent="Raiz/PainelEscolha/Coluna"]
+theme_override_colors/font_color = Color(0.7, 0.92, 0.75, 1)
+theme_override_font_sizes/font_size = 18
+text = "[F]   Desistir e esperar o cachorro"
+horizontal_alignment = 1
+
 [node name="PainelInventario" type="PanelContainer" parent="Raiz"]
 unique_name_in_owner = true
 visible = false
@@ -253,25 +343,40 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -280.0
-offset_top = -90.0
-offset_right = 280.0
-offset_bottom = 90.0
+offset_left = -360.0
+offset_top = -190.0
+offset_right = 360.0
+offset_bottom = 190.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_painel")
 
 [node name="Coluna" type="VBoxContainer" parent="Raiz/PainelFim"]
-alignment = 1
-theme_override_constants/separation = 18
+theme_override_constants/separation = 16
 
-[node name="FimTexto" type="Label" parent="Raiz/PainelFim/Coluna"]
+[node name="FimTitulo" type="Label" parent="Raiz/PainelFim/Coluna"]
 unique_name_in_owner = true
-theme_override_colors/font_color = Color(0.96, 0.6, 0.52, 1)
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 27
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="Dica" type="Label" parent="Raiz/PainelFim/Coluna"]
-theme_override_colors/font_color = Color(0.75, 0.85, 0.95, 1)
-theme_override_font_sizes/font_size = 14
-text = "[Enter] tentar de novo"
+[node name="FimTexto" type="Label" parent="Raiz/PainelFim/Coluna"]
+unique_name_in_owner = true
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.93, 0.9, 0.84, 1)
+theme_override_font_sizes/font_size = 15
 horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Botoes" type="HBoxContainer" parent="Raiz/PainelFim/Coluna"]
+alignment = 1
+theme_override_constants/separation = 20
+
+[node name="BotaoTentar" type="Button" parent="Raiz/PainelFim/Coluna/Botoes"]
+unique_name_in_owner = true
+theme_override_font_sizes/font_size = 16
+text = "  Tentar novamente  "
+
+[node name="BotaoMenu" type="Button" parent="Raiz/PainelFim/Coluna/Botoes"]
+unique_name_in_owner = true
+theme_override_font_sizes/font_size = 16
+text = "  Menu  "

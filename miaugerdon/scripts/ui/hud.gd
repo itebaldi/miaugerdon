@@ -23,8 +23,13 @@ const DURACAO_AVISO := 3.0
 @onready var _caixa_dialogo: PanelContainer = %CaixaDialogo
 @onready var _falante: Label = %Falante
 @onready var _fala: Label = %Fala
+@onready var _painel_tutorial: PanelContainer = %PainelTutorial
+@onready var _painel_escolha: PanelContainer = %PainelEscolha
 @onready var _painel_fim: PanelContainer = %PainelFim
+@onready var _fim_titulo: Label = %FimTitulo
 @onready var _fim_texto: Label = %FimTexto
+@onready var _botao_tentar: Button = %BotaoTentar
+@onready var _botao_menu: Button = %BotaoMenu
 
 @onready var _estilo_suspeita: StyleBoxFlat = _barra_suspeita.get_theme_stylebox("fill")
 
@@ -43,7 +48,15 @@ func _ready() -> void:
 	Jogo.dialogo.connect(_ao_abrir_dialogo)
 	Jogo.observado_alterado.connect(_ao_mudar_observado)
 	Jogo.aviso.connect(_ao_avisar)
+	Jogo.escolha_final.connect(_ao_pedir_escolha)
 	Jogo.partida_terminada.connect(_ao_terminar)
+
+	_botao_tentar.pressed.connect(_reiniciar)
+	_botao_menu.pressed.connect(_voltar_ao_menu)
+
+	# o _ready() do nível roda depois deste e chama iniciar_partida(), que
+	# despausa; pausar aqui direto seria desfeito em seguida
+	_mostrar_tutorial.call_deferred()
 
 
 func _process(delta: float) -> void:
@@ -68,7 +81,41 @@ func _ao_avisar(texto: String) -> void:
 	_aviso_restante = DURACAO_AVISO
 
 
+func _mostrar_tutorial() -> void:
+	_painel_tutorial.visible = true
+	get_tree().paused = true
+
+
+func _ao_pedir_escolha() -> void:
+	_caixa_progresso.visible = false
+	_painel_escolha.visible = true
+	get_tree().paused = true
+
+
+func _reiniciar() -> void:
+	get_tree().paused = false
+	get_tree().reload_current_scene()
+
+
+func _voltar_ao_menu() -> void:
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://cenas/ui/menu.tscn")
+
+
 func _unhandled_input(evento: InputEvent) -> void:
+	if _painel_tutorial.visible:
+		if evento.is_action_pressed("ui_accept") or evento.is_action_pressed("interagir"):
+			_painel_tutorial.visible = false
+			get_tree().paused = false
+		return
+
+	if _painel_escolha.visible:
+		if evento.is_action_pressed("interagir"):
+			Jogo.decidir(true)
+		elif evento.is_action_pressed("disfarce"):
+			Jogo.decidir(false)
+		return
+
 	if _caixa_dialogo.visible:
 		if evento.is_action_pressed("interagir") or evento.is_action_pressed("ui_accept"):
 			_avancar_dialogo()
@@ -76,8 +123,7 @@ func _unhandled_input(evento: InputEvent) -> void:
 
 	if _painel_fim.visible:
 		if evento.is_action_pressed("ui_accept"):
-			get_tree().paused = false
-			get_tree().reload_current_scene()
+			_reiniciar()
 		return
 
 	if evento.is_action_pressed("inventario"):
@@ -186,12 +232,10 @@ func _ao_terminar(motivo: Jogo.Motivo) -> void:
 	_observado.visible = false
 	_caixa_dialogo.visible = false
 	_painel_inventario.visible = false
-	match motivo:
-		Jogo.Motivo.SUSPEITA:
-			_fim_texto.text = "Alfredo descobriu o plano."
-		Jogo.Motivo.TEMPO:
-			_fim_texto.text = "O cachorro chegou."
-		Jogo.Motivo.VITORIA:
-			_fim_texto.text = "A máquina está pronta."
-			_fim_texto.modulate = Color(0.72, 0.94, 0.7)
+	_painel_escolha.visible = false
+
+	var final: Dictionary = Jogo.FINAIS[motivo]
+	_fim_titulo.text = final["titulo"]
+	_fim_texto.text = final["texto"]
+	_fim_titulo.modulate = Color(0.72, 0.94, 0.7) if final["vitoria"] else Color(0.96, 0.6, 0.52)
 	_painel_fim.visible = true

@@ -16,6 +16,7 @@ signal pensamento(texto: String)
 signal dialogo(nome: String, falas: PackedStringArray)
 signal dialogo_terminado()
 signal aviso(texto: String)
+signal escolha_final()
 signal partida_terminada(motivo: Motivo)
 
 const TEMPO_TOTAL := 300.0
@@ -34,7 +35,32 @@ const FLAGRANTE := 15.0
 const FATOR_OBSERVADO := 2.5
 
 enum Faixa { BAIXA, MEDIA, ALTA }
-enum Motivo { SUSPEITA, TEMPO, VITORIA }
+enum Motivo { SUSPEITA, TEMPO, ATIVOU, DESISTIU }
+
+# indexado pelo enum Motivo, na mesma ordem
+const FINAIS := [
+	{
+		"vitoria": false,
+		"titulo": "Alfredo descobriu o plano",
+		"texto": "Ele juntou as peças: o papel sumido, o computador ligado, o gato onde não devia.\nCaju passou a tarde trancado no quintal — e o cachorro chegou sem ele poder fazer nada.",
+	},
+	{
+		"vitoria": false,
+		"titulo": "O cachorro chegou",
+		"texto": "A campainha tocou antes de Caju decidir o que sentia.\nO cachorro entrou correndo e o abraçou. Caju ficou ali, duro, ainda com o plano no bolso.",
+	},
+	{
+		"vitoria": true,
+		"titulo": "O mundo agora pertence aos gatos",
+		"texto": "A máquina zumbiu. Alfredo parou no meio da sala e piscou devagar.\nLá fora, o carteiro parou. O cachorro, na van, parou.\nCaju subiu no sofá e olhou a rua como quem olha um império.",
+	},
+	{
+		"vitoria": true,
+		"titulo": "Caju mudou de ideia",
+		"texto": "Caju olhou a máquina por um tempo longo. Depois puxou o fio com a pata.\nFoi até a porta e sentou, com o rabo enrolado nas patas, esperando.\nQuando o cachorro entrou, ele não correu. Cheirou, bufou uma vez — e deitou do lado.",
+	},
+]
+
 
 const OBJETIVOS := [
 	{
@@ -184,7 +210,8 @@ func concluir_objetivo(id: String) -> void:
 	progresso_alterado.emit(0.0)
 
 	if indice >= OBJETIVOS.size():
-		_terminar(Motivo.VITORIA)
+		# a máquina está pronta, mas quem decide o que fazer com ela é o jogador
+		escolha_final.emit()
 		return
 	objetivo_alterado.emit(indice, OBJETIVOS[indice]["titulo"])
 	pensar(frase)
@@ -236,6 +263,10 @@ func avisar(texto: String) -> void:
 
 func definir_progresso(fracao: float) -> void:
 	progresso_alterado.emit(clampf(fracao, 0.0, 1.0))
+
+
+func decidir(ativou: bool) -> void:
+	_terminar(Motivo.ATIVOU if ativou else Motivo.DESISTIU)
 
 
 func _terminar(motivo: Motivo) -> void:
