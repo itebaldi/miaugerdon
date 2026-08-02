@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://rqve7obh0jbx"]
 
-[ext_resource type="Script" uid="uid://b4hifr7cp4xqa" path="res://scripts/caju.gd" id="1_1ilrh"]
-[ext_resource type="Texture2D" uid="uid://kwfixa86aldn" path="res://sprites/caju.png" id="2_1ilrh"]
+[ext_resource type="Script" uid="uid://b4hifr7cp4xqa" path="res://scripts/personagens/caju.gd" id="1_1ilrh"]
+[ext_resource type="Texture2D" uid="uid://kwfixa86aldn" path="res://sprites/personagens/caju.png" id="2_1ilrh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mmu6j"]
 atlas = ExtResource("2_1ilrh")

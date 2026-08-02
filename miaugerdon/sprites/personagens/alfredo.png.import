@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://x7ymw2lrbxh8"
-path="res://.godot/imported/4fa5e1bb919c53b862f0115a5853ad6a.jpg-3a3e63ae22160368a0e6e3898eddc05c.ctex"
+uid="uid://d0spqj8iyrep2"
+path="res://.godot/imported/alfredo.png-2ac3758fb841b3057d061acec7caf9c5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/4fa5e1bb919c53b862f0115a5853ad6a.jpg"
-dest_files=["res://.godot/imported/4fa5e1bb919c53b862f0115a5853ad6a.jpg-3a3e63ae22160368a0e6e3898eddc05c.ctex"]
+source_file="res://sprites/personagens/alfredo.png"
+dest_files=["res://.godot/imported/alfredo.png-2ac3758fb841b3057d061acec7caf9c5.ctex"]
 
 [params]
 

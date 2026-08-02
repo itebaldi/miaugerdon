@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0spqj8iyrep2"
-path="res://.godot/imported/alfredo.png-1aed3676a0948b7324bfea3e4cf741e0.ctex"
+uid="uid://kwfixa86aldn"
+path="res://.godot/imported/caju.png-53ae61c01c9eca9925bc1183825c81aa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/alfredo.png"
-dest_files=["res://.godot/imported/alfredo.png-1aed3676a0948b7324bfea3e4cf741e0.ctex"]
+source_file="res://sprites/personagens/caju.png"
+dest_files=["res://.godot/imported/caju.png-53ae61c01c9eca9925bc1183825c81aa.ctex"]
 
 [params]
 

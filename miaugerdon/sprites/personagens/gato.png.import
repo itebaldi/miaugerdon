@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c2hq1n2uxtwyy"
-path="res://.godot/imported/poltrona2.png-8e19f34994f81dad55db5545b9ea92dc.ctex"
+uid="uid://b0bsrma64ocq1"
+path="res://.godot/imported/gato.png-d5772eb2b0f45ed2572beb9516616907.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/poltrona2.png"
-dest_files=["res://.godot/imported/poltrona2.png-8e19f34994f81dad55db5545b9ea92dc.ctex"]
+source_file="res://sprites/personagens/gato.png"
+dest_files=["res://.godot/imported/gato.png-d5772eb2b0f45ed2572beb9516616907.ctex"]
 
 [params]
 

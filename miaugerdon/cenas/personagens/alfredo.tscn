@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cernmukarhqdv"]
 
-[ext_resource type="Script" uid="uid://duo1rrvap56g6" path="res://scripts/alfredo.gd" id="1_7wuy5"]
-[ext_resource type="Texture2D" uid="uid://d0spqj8iyrep2" path="res://sprites/alfredo.png" id="1_65q7j"]
+[ext_resource type="Script" uid="uid://duo1rrvap56g6" path="res://scripts/personagens/alfredo.gd" id="1_7wuy5"]
+[ext_resource type="Texture2D" uid="uid://d0spqj8iyrep2" path="res://sprites/personagens/alfredo.png" id="1_65q7j"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_liwsn"]
 atlas = ExtResource("1_65q7j")
