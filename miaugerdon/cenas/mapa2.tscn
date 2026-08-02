@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/mapa2.gd" id="1_mapa2"]
 [ext_resource type="NavigationPolygon" path="res://cenas/navmesh_casa.tres" id="1_navmesh"]
+[ext_resource type="Texture2D" uid="uid://b0bsrma64ocq1" path="res://sprites/personagens/gato.png" id="1_gato"]
 [ext_resource type="PackedScene" path="res://cenas/objetos/objetivo.tscn" id="1_objetivo"]
 [ext_resource type="PackedScene" path="res://cenas/objetos/acao_gato.tscn" id="1_acao"]
 [ext_resource type="PackedScene" path="res://cenas/ui/hud.tscn" id="1_hud"]
@@ -478,12 +479,24 @@ position = Vector2(1165, 496)
 [node name="AreaServico" type="Marker2D" parent="Rotas"]
 position = Vector2(500, 790)
 
+[node name="MrT" type="Sprite2D" parent="."]
+position = Vector2(1215, 482)
+scale = Vector2(0.6, 0.6)
+offset = Vector2(-43.5, -48.5)
+texture = ExtResource("1_gato")
+
+[node name="Topete" type="Polygon2D" parent="MrT"]
+color = Color(0.94, 0.81, 0.42, 1)
+polygon = PackedVector2Array(-17, -40, -8, -53, 1, -45, 11, -55, 17, -38)
+
 [node name="Objetivos" type="Node2D" parent="."]
 
 [node name="MrT" parent="Objetivos" instance=ExtResource("1_objetivo")]
 position = Vector2(1215, 505)
 id = "mr_t"
 rotulo = "Falar com o Mr. T"
+falas = PackedStringArray("Ora, ora. Outro gato pequeno com problemas pequenos.", "Eu tenho o melhor quintal. O maior quintal. Todos os gatos comentam.", "Um cachorro? Na SUA casa? Isso é uma invasão. Uma invasão total.", "Você precisa de uma máquina. Uma máquina de controle mental. As melhores máquinas são de controle mental.", "Humanos, cachorros, o carteiro — todos vão obedecer. Vai ser tremendo.", "Faça, Caju. Ninguém nunca fez isso melhor do que você vai fazer.")
+nome_falante = "Mr. T"
 
 [node name="PapelCaneta" parent="Objetivos" instance=ExtResource("1_objetivo")]
 position = Vector2(1045, 400)

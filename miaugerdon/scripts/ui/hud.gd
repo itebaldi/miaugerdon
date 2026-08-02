@@ -17,12 +17,17 @@ const DURACAO_AVISO := 3.0
 @onready var _barra_progresso: ProgressBar = %BarraProgresso
 @onready var _aviso: Label = %Aviso
 @onready var _observado: Label = %Observado
+@onready var _caixa_dialogo: PanelContainer = %CaixaDialogo
+@onready var _falante: Label = %Falante
+@onready var _fala: Label = %Fala
 @onready var _painel_fim: PanelContainer = %PainelFim
 @onready var _fim_texto: Label = %FimTexto
 
 @onready var _estilo_suspeita: StyleBoxFlat = _barra_suspeita.get_theme_stylebox("fill")
 
 var _aviso_restante := 0.0
+var _falas: PackedStringArray = []
+var _fala_atual := 0
 
 
 func _ready() -> void:
@@ -31,6 +36,7 @@ func _ready() -> void:
 	Jogo.tempo_alterado.connect(_ao_mudar_tempo)
 	Jogo.objetivo_alterado.connect(_ao_mudar_objetivo)
 	Jogo.progresso_alterado.connect(_ao_mudar_progresso)
+	Jogo.dialogo.connect(_ao_abrir_dialogo)
 	Jogo.observado_alterado.connect(_ao_mudar_observado)
 	Jogo.aviso.connect(_ao_avisar)
 	Jogo.partida_terminada.connect(_ao_terminar)
@@ -59,9 +65,35 @@ func _ao_avisar(texto: String) -> void:
 
 
 func _unhandled_input(evento: InputEvent) -> void:
+	if _caixa_dialogo.visible:
+		if evento.is_action_pressed("interagir") or evento.is_action_pressed("ui_accept"):
+			_avancar_dialogo()
+		return
+
 	if _painel_fim.visible and evento.is_action_pressed("ui_accept"):
 		get_tree().paused = false
 		get_tree().reload_current_scene()
+
+
+func _ao_abrir_dialogo(nome: String, falas: PackedStringArray) -> void:
+	_falas = falas
+	_fala_atual = 0
+	_falante.text = nome
+	_fala.text = _falas[0]
+	_caixa_dialogo.visible = true
+	get_tree().paused = true
+
+
+func _avancar_dialogo() -> void:
+	_fala_atual += 1
+	if _fala_atual < _falas.size():
+		_fala.text = _falas[_fala_atual]
+		return
+
+	_caixa_dialogo.visible = false
+	# despausar antes de avisar: concluir a etapa dispara coisas que não animam pausadas
+	get_tree().paused = false
+	Jogo.encerrar_dialogo()
 
 
 func _ao_mudar_suspeita(valor: float) -> void:
@@ -97,6 +129,7 @@ func _ao_terminar(motivo: Jogo.Motivo) -> void:
 	_caixa_progresso.visible = false
 	_aviso.visible = false
 	_observado.visible = false
+	_caixa_dialogo.visible = false
 	match motivo:
 		Jogo.Motivo.SUSPEITA:
 			_fim_texto.text = "Alfredo descobriu o plano."

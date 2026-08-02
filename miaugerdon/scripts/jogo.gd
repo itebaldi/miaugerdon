@@ -11,6 +11,8 @@ signal objetivo_alterado(indice: int, titulo: String)
 signal progresso_alterado(fracao: float)
 signal ruido(posicao: Vector2)
 signal observado_alterado(observado: bool)
+signal dialogo(nome: String, falas: PackedStringArray)
+signal dialogo_terminado()
 signal aviso(texto: String)
 signal partida_terminada(motivo: Motivo)
 
@@ -146,6 +148,16 @@ func definir_observado(valor: bool) -> void:
 		return
 	observado = valor
 	observado_alterado.emit(valor)
+
+
+func conversar(nome: String, falas: PackedStringArray) -> void:
+	if not falas.is_empty():
+		dialogo.emit(nome, falas)
+
+
+# a HUD chama isto quando o jogador fecha a última fala
+func encerrar_dialogo() -> void:
+	dialogo_terminado.emit()
 
 
 func avisar(texto: String) -> void:

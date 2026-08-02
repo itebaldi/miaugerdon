@@ -1,5 +1,10 @@
 extends Interagivel
 
+@export var falas: PackedStringArray = []
+@export var nome_falante: String = ""
+
+var _aguardando_dialogo := false
+
 
 func _ready() -> void:
 	super()
@@ -10,6 +15,8 @@ func _ready() -> void:
 
 
 func _esta_ativo() -> bool:
+	if _aguardando_dialogo:
+		return false
 	var atual := Jogo.objetivo_atual()
 	return not atual.is_empty() and atual["id"] == id
 
@@ -24,6 +31,18 @@ func _ao_progredir(delta: float) -> void:
 
 
 func _concluir() -> void:
+	if falas.is_empty():
+		Jogo.concluir_objetivo(id)
+		return
+
+	# ONE_SHOT desconecta sozinho, senão cada partida acumularia uma ligação
+	_aguardando_dialogo = true
+	Jogo.dialogo_terminado.connect(_no_fim_do_dialogo, CONNECT_ONE_SHOT)
+	Jogo.conversar(nome_falante, falas)
+
+
+func _no_fim_do_dialogo() -> void:
+	_aguardando_dialogo = false
 	Jogo.concluir_objetivo(id)
 
 
