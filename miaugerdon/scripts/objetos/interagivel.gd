@@ -6,6 +6,7 @@ const DECAIMENTO_PROGRESSO := 0.25
 @export var id: String = ""
 @export var rotulo: String = ""
 @export var duracao: float = 3.0
+@export_multiline var pensamento: String = ""
 
 @onready var _label: Label = $Label
 
@@ -42,8 +43,10 @@ func _process(delta: float) -> void:
 
 
 func _ao_entrar(corpo: Node2D) -> void:
-	if corpo.is_in_group("jogador"):
-		_caju = corpo
+	if not corpo.is_in_group("jogador"):
+		return
+	_caju = corpo
+	Jogo.pensar_uma_vez("prox:" + id, pensamento)
 
 
 func _ao_sair(corpo: Node2D) -> void:

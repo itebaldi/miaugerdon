@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b4hifr7cp4xqa" path="res://scripts/personagens/caju.gd" id="1_1ilrh"]
 [ext_resource type="Texture2D" uid="uid://kwfixa86aldn" path="res://sprites/personagens/caju.png" id="2_1ilrh"]
+[ext_resource type="PackedScene" path="res://cenas/ui/balao.tscn" id="3_balao"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mmu6j"]
 atlas = ExtResource("2_1ilrh")
@@ -374,3 +375,5 @@ position = Vector2(1.166687, 12.3333435)
 shape = SubResource("RectangleShape2D_o7qrh")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1423540039]
+
+[node name="Balao" parent="." instance=ExtResource("3_balao")]

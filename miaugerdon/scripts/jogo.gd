@@ -11,6 +11,8 @@ signal objetivo_alterado(indice: int, titulo: String)
 signal progresso_alterado(fracao: float)
 signal ruido(posicao: Vector2)
 signal observado_alterado(observado: bool)
+signal inventario_alterado()
+signal pensamento(texto: String)
 signal dialogo(nome: String, falas: PackedStringArray)
 signal dialogo_terminado()
 signal aviso(texto: String)
@@ -35,11 +37,46 @@ enum Faixa { BAIXA, MEDIA, ALTA }
 enum Motivo { SUSPEITA, TEMPO, VITORIA }
 
 const OBJETIVOS := [
-	{"id": "mr_t", "titulo": "Fale com o Mr. T no quintal", "duracao": 2.0, "suspeita": 3.0},
-	{"id": "papel_caneta", "titulo": "Pegue papel e caneta na estante", "duracao": 4.0, "suspeita": 5.0},
-	{"id": "escrever_plano", "titulo": "Escreva o plano na mesa de centro", "duracao": 7.0, "suspeita": 5.0},
-	{"id": "computador", "titulo": "Acesse o PurrrgleMiaut no computador", "duracao": 7.0, "suspeita": 5.0},
-	{"id": "maquina", "titulo": "Monte a máquina na garagem", "duracao": 10.0, "suspeita": 5.0},
+	{
+		"id": "mr_t",
+		"titulo": "Fale com o Mr. T no quintal",
+		"duracao": 2.0,
+		"suspeita": 3.0,
+		"itens": [],
+		"pensamento": "Ele fala bonito... mas por que eu saí de lá me sentindo pior?",
+	},
+	{
+		"id": "papel_caneta",
+		"titulo": "Pegue papel e caneta na estante",
+		"duracao": 4.0,
+		"suspeita": 5.0,
+		"itens": ["Papel", "Caneta"],
+		"pensamento": "O Alfredo comprou essa caneta pra fazer a lista de compras. Ele anota ração de gato primeiro.",
+	},
+	{
+		"id": "escrever_plano",
+		"titulo": "Escreva o plano na mesa de centro",
+		"duracao": 7.0,
+		"suspeita": 5.0,
+		"itens": ["Plano de dominação mundial (rascunho)"],
+		"pensamento": "Escrito assim no papel, parece meio... exagerado?",
+	},
+	{
+		"id": "computador",
+		"titulo": "Acesse o PurrrgleMiaut no computador",
+		"duracao": 7.0,
+		"suspeita": 5.0,
+		"itens": ["Pedido no Miauzon: peça #TR-4"],
+		"pensamento": "O Mr. T tem o maior quintal do bairro. E não tem mais ninguém nele.",
+	},
+	{
+		"id": "maquina",
+		"titulo": "Monte a máquina na garagem",
+		"duracao": 10.0,
+		"suspeita": 5.0,
+		"itens": ["Máquina de controle mental"],
+		"pensamento": "",
+	},
 ]
 
 var em_partida := false
@@ -47,8 +84,11 @@ var observado := false
 var suspeita := 0.0
 var tempo_restante := TEMPO_TOTAL
 var indice := 0
+var concluidos: Array[bool] = []
+var itens: Array[String] = []
 
 var _faixa := Faixa.BAIXA
+var _pensamentos_vistos := {}
 
 
 func iniciar_partida() -> void:
@@ -56,6 +96,11 @@ func iniciar_partida() -> void:
 	suspeita = 0.0
 	tempo_restante = TEMPO_TOTAL
 	indice = 0
+	concluidos.clear()
+	concluidos.resize(OBJETIVOS.size())
+	concluidos.fill(false)
+	itens.clear()
+	_pensamentos_vistos.clear()
 	_faixa = Faixa.BAIXA
 	observado = false
 	em_partida = true
@@ -65,6 +110,7 @@ func iniciar_partida() -> void:
 	observado_alterado.emit(false)
 	tempo_alterado.emit(tempo_restante)
 	progresso_alterado.emit(0.0)
+	inventario_alterado.emit()
 	objetivo_alterado.emit(indice, OBJETIVOS[indice]["titulo"])
 
 
@@ -128,6 +174,12 @@ func concluir_objetivo(id: String) -> void:
 	if atual.is_empty() or atual["id"] != id:
 		return
 
+	concluidos[indice] = true
+	for item in atual["itens"]:
+		itens.append(item)
+	inventario_alterado.emit()
+
+	var frase: String = atual["pensamento"]
 	indice += 1
 	progresso_alterado.emit(0.0)
 
@@ -135,6 +187,7 @@ func concluir_objetivo(id: String) -> void:
 		_terminar(Motivo.VITORIA)
 		return
 	objetivo_alterado.emit(indice, OBJETIVOS[indice]["titulo"])
+	pensar(frase)
 
 
 func emitir_ruido(posicao: Vector2) -> void:
@@ -148,6 +201,23 @@ func definir_observado(valor: bool) -> void:
 		return
 	observado = valor
 	observado_alterado.emit(valor)
+
+
+func esta_concluido(i: int) -> bool:
+	return i >= 0 and i < concluidos.size() and concluidos[i]
+
+
+func pensar(texto: String) -> void:
+	if texto != "":
+		pensamento.emit(texto)
+
+
+# pensamento de descoberta: sai uma vez só por partida
+func pensar_uma_vez(chave: String, texto: String) -> void:
+	if texto == "" or _pensamentos_vistos.has(chave):
+		return
+	_pensamentos_vistos[chave] = true
+	pensamento.emit(texto)
 
 
 func conversar(nome: String, falas: PackedStringArray) -> void:

@@ -17,6 +17,9 @@ const DURACAO_AVISO := 3.0
 @onready var _barra_progresso: ProgressBar = %BarraProgresso
 @onready var _aviso: Label = %Aviso
 @onready var _observado: Label = %Observado
+@onready var _painel_inventario: PanelContainer = %PainelInventario
+@onready var _lista_etapas: VBoxContainer = %ListaEtapas
+@onready var _lista_itens: VBoxContainer = %ListaItens
 @onready var _caixa_dialogo: PanelContainer = %CaixaDialogo
 @onready var _falante: Label = %Falante
 @onready var _fala: Label = %Fala
@@ -36,6 +39,7 @@ func _ready() -> void:
 	Jogo.tempo_alterado.connect(_ao_mudar_tempo)
 	Jogo.objetivo_alterado.connect(_ao_mudar_objetivo)
 	Jogo.progresso_alterado.connect(_ao_mudar_progresso)
+	Jogo.inventario_alterado.connect(_ao_mudar_inventario)
 	Jogo.dialogo.connect(_ao_abrir_dialogo)
 	Jogo.observado_alterado.connect(_ao_mudar_observado)
 	Jogo.aviso.connect(_ao_avisar)
@@ -70,9 +74,60 @@ func _unhandled_input(evento: InputEvent) -> void:
 			_avancar_dialogo()
 		return
 
-	if _painel_fim.visible and evento.is_action_pressed("ui_accept"):
-		get_tree().paused = false
-		get_tree().reload_current_scene()
+	if _painel_fim.visible:
+		if evento.is_action_pressed("ui_accept"):
+			get_tree().paused = false
+			get_tree().reload_current_scene()
+		return
+
+	if evento.is_action_pressed("inventario"):
+		_alternar_inventario()
+
+
+func _alternar_inventario() -> void:
+	# sem isto, Tab na tela de derrota despausaria o jogo por baixo dela
+	if not Jogo.em_partida:
+		return
+	var abrir := not _painel_inventario.visible
+	_painel_inventario.visible = abrir
+	get_tree().paused = abrir
+
+
+func _ao_mudar_inventario() -> void:
+	# remove_child antes do queue_free: o queue_free só apaga no fim do quadro, e até lá
+	# as linhas velhas ainda contam
+	for lista in [_lista_etapas, _lista_itens]:
+		for filho in lista.get_children():
+			lista.remove_child(filho)
+			filho.queue_free()
+
+	for i in Jogo.OBJETIVOS.size():
+		var linha := Label.new()
+		linha.add_theme_font_size_override("font_size", 14)
+		var feito := Jogo.esta_concluido(i)
+		linha.text = "%s  %s" % ["[x]" if feito else "[ ]", Jogo.OBJETIVOS[i]["titulo"]]
+		if feito:
+			linha.modulate = Color(0.6, 0.86, 0.6)
+		elif i == Jogo.indice:
+			linha.modulate = Color(1, 0.9, 0.55)
+		else:
+			linha.modulate = Color(0.58, 0.56, 0.52)
+		_lista_etapas.add_child(linha)
+
+	if Jogo.itens.is_empty():
+		var vazio := Label.new()
+		vazio.add_theme_font_size_override("font_size", 13)
+		vazio.text = "(nada ainda)"
+		vazio.modulate = Color(0.58, 0.56, 0.52)
+		_lista_itens.add_child(vazio)
+		return
+
+	for item in Jogo.itens:
+		var linha := Label.new()
+		linha.add_theme_font_size_override("font_size", 13)
+		linha.text = "·  " + item
+		linha.modulate = Color(0.9, 0.88, 0.8)
+		_lista_itens.add_child(linha)
 
 
 func _ao_abrir_dialogo(nome: String, falas: PackedStringArray) -> void:
@@ -130,6 +185,7 @@ func _ao_terminar(motivo: Jogo.Motivo) -> void:
 	_aviso.visible = false
 	_observado.visible = false
 	_caixa_dialogo.visible = false
+	_painel_inventario.visible = false
 	match motivo:
 		Jogo.Motivo.SUSPEITA:
 			_fim_texto.text = "Alfredo descobriu o plano."
