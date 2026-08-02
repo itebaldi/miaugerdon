@@ -10,6 +10,7 @@ signal tempo_alterado(segundos: float)
 signal objetivo_alterado(indice: int, titulo: String)
 signal progresso_alterado(fracao: float)
 signal ruido(posicao: Vector2)
+signal observado_alterado(observado: bool)
 signal aviso(texto: String)
 signal partida_terminada(motivo: Motivo)
 
@@ -24,6 +25,10 @@ const LIMPAR_SE := 4.0
 const SUSPEITA_MIADO := 3.0
 const FLAGRANTE := 15.0
 
+# quanto a suspeita sobe mais rápido com o Alfredo olhando. Vale só para as etapas do
+# plano: ele pode ver o gato arranhando o sofá à vontade, é o ponto do disfarce.
+const FATOR_OBSERVADO := 2.5
+
 enum Faixa { BAIXA, MEDIA, ALTA }
 enum Motivo { SUSPEITA, TEMPO, VITORIA }
 
@@ -36,6 +41,7 @@ const OBJETIVOS := [
 ]
 
 var em_partida := false
+var observado := false
 var suspeita := 0.0
 var tempo_restante := TEMPO_TOTAL
 var indice := 0
@@ -49,10 +55,12 @@ func iniciar_partida() -> void:
 	tempo_restante = TEMPO_TOTAL
 	indice = 0
 	_faixa = Faixa.BAIXA
+	observado = false
 	em_partida = true
 
 	suspeita_alterada.emit(suspeita)
 	faixa_alterada.emit(_faixa)
+	observado_alterado.emit(false)
 	tempo_alterado.emit(tempo_restante)
 	progresso_alterado.emit(0.0)
 	objetivo_alterado.emit(indice, OBJETIVOS[indice]["titulo"])
@@ -130,6 +138,14 @@ func concluir_objetivo(id: String) -> void:
 func emitir_ruido(posicao: Vector2) -> void:
 	if em_partida:
 		ruido.emit(posicao)
+
+
+# o Alfredo escreve isto todo quadro; só avisa a HUD na troca
+func definir_observado(valor: bool) -> void:
+	if observado == valor:
+		return
+	observado = valor
+	observado_alterado.emit(valor)
 
 
 func avisar(texto: String) -> void:

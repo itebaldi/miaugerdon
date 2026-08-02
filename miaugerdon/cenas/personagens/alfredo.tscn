@@ -204,8 +204,9 @@ animations = [{
 "speed": 2.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_o7qrh"]
-size = Vector2(28, 11)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_corpo"]
+radius = 7.0
+height = 28.0
 
 [node name="Alfredo" type="CharacterBody2D" unique_id=1445397297]
 collision_layer = 4
@@ -220,7 +221,8 @@ animation = &"andando_baixo"
 autoplay = "parado_baixo"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1404093490]
-shape = SubResource("RectangleShape2D_o7qrh")
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_corpo")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1692530427]
 path_desired_distance = 8.0

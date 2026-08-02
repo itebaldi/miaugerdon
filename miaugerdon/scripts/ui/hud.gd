@@ -16,6 +16,7 @@ const DURACAO_AVISO := 3.0
 @onready var _caixa_progresso: VBoxContainer = %CaixaProgresso
 @onready var _barra_progresso: ProgressBar = %BarraProgresso
 @onready var _aviso: Label = %Aviso
+@onready var _observado: Label = %Observado
 @onready var _painel_fim: PanelContainer = %PainelFim
 @onready var _fim_texto: Label = %FimTexto
 
@@ -30,6 +31,7 @@ func _ready() -> void:
 	Jogo.tempo_alterado.connect(_ao_mudar_tempo)
 	Jogo.objetivo_alterado.connect(_ao_mudar_objetivo)
 	Jogo.progresso_alterado.connect(_ao_mudar_progresso)
+	Jogo.observado_alterado.connect(_ao_mudar_observado)
 	Jogo.aviso.connect(_ao_avisar)
 	Jogo.partida_terminada.connect(_ao_terminar)
 
@@ -39,6 +41,15 @@ func _process(delta: float) -> void:
 		_aviso_restante -= delta
 		if _aviso_restante <= 0.0:
 			_aviso.visible = false
+
+	if _observado.visible:
+		_observado.modulate.a = 0.55 + 0.45 * (sin(Time.get_ticks_msec() / 170.0) * 0.5 + 0.5)
+
+
+# aparece sempre que ele tem o gato à vista, não só depois de o jogador começar uma etapa:
+# a informação útil é "não comece agora"
+func _ao_mudar_observado(observado: bool) -> void:
+	_observado.visible = observado
 
 
 func _ao_avisar(texto: String) -> void:
@@ -85,6 +96,7 @@ func _ao_mudar_progresso(fracao: float) -> void:
 func _ao_terminar(motivo: Jogo.Motivo) -> void:
 	_caixa_progresso.visible = false
 	_aviso.visible = false
+	_observado.visible = false
 	match motivo:
 		Jogo.Motivo.SUSPEITA:
 			_fim_texto.text = "Alfredo descobriu o plano."

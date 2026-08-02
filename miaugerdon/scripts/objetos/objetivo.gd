@@ -17,7 +17,8 @@ func _esta_ativo() -> bool:
 func _ao_progredir(delta: float) -> void:
 	var atual := Jogo.objetivo_atual()
 	if not atual.is_empty():
-		Jogo.aumentar_suspeita(atual["suspeita"] * delta)
+		var fator := Jogo.FATOR_OBSERVADO if Jogo.observado else 1.0
+		Jogo.aumentar_suspeita(atual["suspeita"] * fator * delta)
 	if _caju and _caju.has_method("marcar_acao_secreta"):
 		_caju.marcar_acao_secreta()
 

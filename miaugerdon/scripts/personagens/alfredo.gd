@@ -8,6 +8,8 @@ const ESPERA_MAX := 3.0
 const ESPERA_INVESTIGANDO := 2.0
 const ESPERA_BRAVO := 1.5
 const RAIO_FLAGRANTE := 60.0
+# ~1/4 da tela: ele nota de um lado ao outro de um cômodo, não da cozinha ao quintal
+const ALCANCE_VISAO := 260.0
 const INTERVALO_RECALCULO := 0.2
 
 # um agente empurrado para fora da área caminhável não acha caminho nenhum, e passa a
@@ -77,6 +79,7 @@ func _physics_process(delta: float) -> void:
 	if _resgatar_se_fora_do_piso():
 		return
 	_vigiar_travamento(delta)
+	Jogo.definir_observado(_esta_vendo_o_caju())
 	_verificar_flagrante()
 	_atualizar_estado()
 
@@ -166,6 +169,25 @@ func _ao_ouvir_ruido(posicao: Vector2) -> void:
 	nav_agent.target_position = _no_piso(posicao)
 
 
+# Alcance e caminho livre, sem cone de visão: o Alfredo é um boneco de 32 px com quatro
+# direções, e o jogador não consegue ler para onde ele olha. Parede e móvel no caminho, sim.
+func _esta_vendo_o_caju() -> bool:
+	if alvo == null:
+		return false
+	if global_position.distance_to(alvo.global_position) > ALCANCE_VISAO:
+		return false
+	return _tem_linha_de_visao(alvo.global_position)
+
+
+# máscara 1 = só o mundo bloqueia; o Caju e o Alfredo estão nas camadas 2 e 4, senão o raio
+# bateria neles mesmos e a resposta seria sempre "não vejo"
+func _tem_linha_de_visao(ponto: Vector2) -> bool:
+	var consulta := PhysicsRayQueryParameters2D.create(global_position, ponto)
+	consulta.collision_mask = 1
+	consulta.collide_with_areas = false
+	return get_world_2d().direct_space_state.intersect_ray(consulta).is_empty()
+
+
 # só pega o gato numa etapa do plano; arranhar o sofá ele pode olhar à vontade
 func _verificar_flagrante() -> void:
 	if _estado == Estado.BRAVO or alvo == null:
@@ -173,6 +195,9 @@ func _verificar_flagrante() -> void:
 	if not alvo.has_method("esta_em_acao_secreta") or not alvo.esta_em_acao_secreta():
 		return
 	if global_position.distance_to(alvo.global_position) > RAIO_FLAGRANTE:
+		return
+	# antes era só distância, e ele pegava o gato através da parede
+	if not _tem_linha_de_visao(alvo.global_position):
 		return
 
 	_estado = Estado.BRAVO
