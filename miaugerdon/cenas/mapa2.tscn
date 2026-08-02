@@ -439,11 +439,15 @@ polygon = PackedVector2Array(752, 441, 1514, 1, 1512, 0, 749, 439)
 [node name="Caju" parent="." unique_id=567579954 instance=ExtResource("2_rn1ff")]
 position = Vector2(701, 446)
 
-[node name="Alfredo" parent="." unique_id=1445397297 instance=ExtResource("3_rn1ff")]
+[node name="Alfredo" parent="." unique_id=1445397297 node_paths=PackedStringArray("alvo") instance=ExtResource("3_rn1ff")]
 position = Vector2(455, 470)
+alvo = NodePath("../Caju")
 
 [node name="Navegacao" type="NavigationRegion2D" parent="."]
 navigation_polygon = ExtResource("1_navmesh")
+
+[node name="PontoInicial" type="Marker2D" parent="." groups=["ponto_inicial"]]
+position = Vector2(701, 446)
 
 [node name="Rotas" type="Node2D" parent="." groups=["rotas"]]
 
@@ -460,16 +464,16 @@ position = Vector2(700, 665)
 position = Vector2(640, 300)
 
 [node name="Banheiro" type="Marker2D" parent="Rotas"]
-position = Vector2(800, 300)
+position = Vector2(786, 286)
 
 [node name="Escritorio" type="Marker2D" parent="Rotas"]
-position = Vector2(960, 400)
+position = Vector2(980, 400)
 
 [node name="Garagem" type="Marker2D" parent="Rotas"]
 position = Vector2(280, 470)
 
 [node name="Quintal" type="Marker2D" parent="Rotas"]
-position = Vector2(1150, 470)
+position = Vector2(1165, 496)
 
 [node name="AreaServico" type="Marker2D" parent="Rotas"]
 position = Vector2(500, 790)
@@ -509,6 +513,7 @@ id = "copo"
 rotulo = "Derrubar o copo"
 duracao = 1.5
 reduz_suspeita = 12.0
+atrai_alfredo = true
 recarga = 15.0
 usos = 2
 cor_placeholder = Color(0.72, 0.82, 0.9, 0.95)
@@ -529,6 +534,7 @@ id = "arranhar_sofa"
 rotulo = "Arranhar o sofá"
 duracao = 1.5
 reduz_suspeita = 18.0
+atrai_alfredo = true
 recarga = 15.0
 usos = 3
 
@@ -547,6 +553,7 @@ id = "cavar_terra"
 rotulo = "Cavar a terra"
 duracao = 1.5
 reduz_suspeita = 10.0
+atrai_alfredo = true
 recarga = 15.0
 usos = 2
 

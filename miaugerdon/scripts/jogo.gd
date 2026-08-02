@@ -9,6 +9,8 @@ signal faixa_alterada(nova: Faixa)
 signal tempo_alterado(segundos: float)
 signal objetivo_alterado(indice: int, titulo: String)
 signal progresso_alterado(fracao: float)
+signal ruido(posicao: Vector2)
+signal aviso(texto: String)
 signal partida_terminada(motivo: Motivo)
 
 const TEMPO_TOTAL := 300.0
@@ -20,6 +22,7 @@ const DECAIMENTO_BAIXA := 1.0
 
 const LIMPAR_SE := 4.0
 const SUSPEITA_MIADO := 3.0
+const FLAGRANTE := 15.0
 
 enum Faixa { BAIXA, MEDIA, ALTA }
 enum Motivo { SUSPEITA, TEMPO, VITORIA }
@@ -122,6 +125,15 @@ func concluir_objetivo(id: String) -> void:
 		_terminar(Motivo.VITORIA)
 		return
 	objetivo_alterado.emit(indice, OBJETIVOS[indice]["titulo"])
+
+
+func emitir_ruido(posicao: Vector2) -> void:
+	if em_partida:
+		ruido.emit(posicao)
+
+
+func avisar(texto: String) -> void:
+	aviso.emit(texto)
 
 
 func definir_progresso(fracao: float) -> void:

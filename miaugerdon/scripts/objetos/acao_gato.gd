@@ -3,6 +3,7 @@ extends Interagivel
 # Comportamento de gato: é o que faz a suspeita descer.
 
 @export var reduz_suspeita := 12.0
+@export var atrai_alfredo := false
 @export var recarga := 12.0
 @export var usos := -1
 @export var cor_placeholder: Color = Color(0, 0, 0, 0)
@@ -32,6 +33,8 @@ func _esta_ativo() -> bool:
 
 func _concluir() -> void:
 	Jogo.reduzir_suspeita(reduz_suspeita)
+	if atrai_alfredo:
+		Jogo.emitir_ruido(global_position)
 	if _usos_restantes > 0:
 		_usos_restantes -= 1
 	_recarga_restante = recarga

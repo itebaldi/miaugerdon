@@ -14,6 +14,7 @@ var _progresso := 0.0
 
 
 func _ready() -> void:
+	add_to_group("interagivel")
 	_label.visible = false
 	body_entered.connect(_ao_entrar)
 	body_exited.connect(_ao_sair)
@@ -48,6 +49,13 @@ func _ao_entrar(corpo: Node2D) -> void:
 func _ao_sair(corpo: Node2D) -> void:
 	if corpo == _caju:
 		_caju = null
+		Jogo.definir_progresso(0.0)
+
+
+# o Alfredo chama isto em todo o grupo quando pega o gato
+func cancelar() -> void:
+	if _progresso > 0.0:
+		_progresso = 0.0
 		Jogo.definir_progresso(0.0)
 
 

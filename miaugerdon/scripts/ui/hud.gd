@@ -8,16 +8,20 @@ extends CanvasLayer
 const COR_BAIXA := Color(0.45, 0.75, 0.4)
 const COR_MEDIA := Color(0.92, 0.76, 0.3)
 const COR_ALTA := Color(0.87, 0.32, 0.26)
+const DURACAO_AVISO := 3.0
 
 @onready var _barra_suspeita: ProgressBar = %BarraSuspeita
 @onready var _cronometro: Label = %Cronometro
 @onready var _objetivo: Label = %Objetivo
 @onready var _caixa_progresso: VBoxContainer = %CaixaProgresso
 @onready var _barra_progresso: ProgressBar = %BarraProgresso
+@onready var _aviso: Label = %Aviso
 @onready var _painel_fim: PanelContainer = %PainelFim
 @onready var _fim_texto: Label = %FimTexto
 
 @onready var _estilo_suspeita: StyleBoxFlat = _barra_suspeita.get_theme_stylebox("fill")
+
+var _aviso_restante := 0.0
 
 
 func _ready() -> void:
@@ -26,7 +30,21 @@ func _ready() -> void:
 	Jogo.tempo_alterado.connect(_ao_mudar_tempo)
 	Jogo.objetivo_alterado.connect(_ao_mudar_objetivo)
 	Jogo.progresso_alterado.connect(_ao_mudar_progresso)
+	Jogo.aviso.connect(_ao_avisar)
 	Jogo.partida_terminada.connect(_ao_terminar)
+
+
+func _process(delta: float) -> void:
+	if _aviso_restante > 0.0:
+		_aviso_restante -= delta
+		if _aviso_restante <= 0.0:
+			_aviso.visible = false
+
+
+func _ao_avisar(texto: String) -> void:
+	_aviso.text = texto
+	_aviso.visible = true
+	_aviso_restante = DURACAO_AVISO
 
 
 func _unhandled_input(evento: InputEvent) -> void:
@@ -66,6 +84,7 @@ func _ao_mudar_progresso(fracao: float) -> void:
 
 func _ao_terminar(motivo: Jogo.Motivo) -> void:
 	_caixa_progresso.visible = false
+	_aviso.visible = false
 	match motivo:
 		Jogo.Motivo.SUSPEITA:
 			_fim_texto.text = "Alfredo descobriu o plano."
