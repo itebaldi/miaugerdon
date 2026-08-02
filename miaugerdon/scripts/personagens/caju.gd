@@ -5,11 +5,21 @@ const SPEED := 100.0
 # Tangente do ângulo da câmera (30°)
 const TANGENTE_CAMERA := 0.57735026919
 
+const RECARGA_MIADO := 8.0
+
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
 var ultima_direcao := "baixo"
+var recarga_miado := 0.0
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
+	if recarga_miado > 0.0:
+		recarga_miado = maxf(0.0, recarga_miado - delta)
+
+	if Input.is_action_just_pressed("miar") and recarga_miado <= 0.0:
+		recarga_miado = RECARGA_MIADO
+		Jogo.aumentar_suspeita(Jogo.SUSPEITA_MIADO)
+
 	var direcao := Input.get_vector("esquerda", "direita", "cima", "baixo")
 
 	# rotaciona o vetor de input para os eixos visuais da câmera isométrica
@@ -25,7 +35,9 @@ func _physics_process(_delta: float) -> void:
 		animated_sprite_2d.play("andando_" + ultima_direcao)
 	else:
 		animated_sprite_2d.play("parado_" + ultima_direcao)
-		
-	y_sort_enabled = true
+		# limpar-se só funciona parado: baixar a suspeita custa tempo, e tempo é a outra
+		# forma de perder
+		if Input.is_action_pressed("disfarce"):
+			Jogo.reduzir_suspeita(Jogo.LIMPAR_SE * delta)
 
 	move_and_slide()
