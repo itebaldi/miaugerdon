@@ -364,16 +364,17 @@ collision_mask = 1
 script = ExtResource("1_1ilrh")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=653151880]
-position = Vector2(0, 0.33332825)
+position = Vector2(-1.166687, -12.000015)
 sprite_frames = SubResource("SpriteFrames_o7qrh")
 animation = &"parado_cima"
 autoplay = "parado_baixo"
 frame_progress = 0.73468477
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1330587073]
-position = Vector2(1.166687, 12.3333435)
 shape = SubResource("RectangleShape2D_o7qrh")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1423540039]
+position = Vector2(-1.166687, -12.3333435)
 
 [node name="Balao" parent="." instance=ExtResource("3_balao")]
+position = Vector2(-1.166687, -12.3333435)
