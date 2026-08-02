@@ -69,6 +69,15 @@ const OBJETIVOS := [
 		"duracao": 2.0,
 		"suspeita": 3.0,
 		"itens": [],
+		"falante": "Mr. T",
+		"falas": [
+			"Ora, ora. Outro gato pequeno com problemas pequenos.",
+			"Eu tenho o melhor quintal. O maior quintal. Todos os gatos comentam.",
+			"Um cachorro? Na SUA casa? Isso é uma invasão. Uma invasão total.",
+			"Você precisa de uma máquina. Uma máquina de controle mental. As melhores máquinas são de controle mental.",
+			"Humanos, cachorros, o carteiro — todos vão obedecer. Vai ser tremendo.",
+			"Faça, Caju. Ninguém nunca fez isso melhor do que você vai fazer.",
+		],
 		"pensamento": "Ele fala bonito... mas por que eu saí de lá me sentindo pior?",
 	},
 	{

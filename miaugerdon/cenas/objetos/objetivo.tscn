@@ -13,6 +13,9 @@ script = ExtResource("1_objetivo")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_alcance")
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+
 [node name="Label" type="Label" parent="."]
 visible = false
 z_index = 20

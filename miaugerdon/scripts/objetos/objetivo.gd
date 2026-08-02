@@ -1,7 +1,9 @@
 extends Interagivel
 
-@export var falas: PackedStringArray = []
-@export var nome_falante: String = ""
+# as falas vivem no jogo.gd junto do resto do texto: como export elas eram
+# apagadas quando o editor re-salvava a cena
+var falas: PackedStringArray = []
+var nome_falante := ""
 
 var _aguardando_dialogo := false
 
@@ -9,9 +11,12 @@ var _aguardando_dialogo := false
 func _ready() -> void:
 	super()
 	for etapa in Jogo.OBJETIVOS:
-		if etapa["id"] == id:
-			duracao = etapa["duracao"]
-			break
+		if etapa["id"] != id:
+			continue
+		duracao = etapa["duracao"]
+		falas = PackedStringArray(etapa.get("falas", []))
+		nome_falante = etapa.get("falante", "")
+		break
 
 
 func _esta_ativo() -> bool:

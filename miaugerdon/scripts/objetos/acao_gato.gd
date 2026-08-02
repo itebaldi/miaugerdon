@@ -6,9 +6,6 @@ extends Interagivel
 @export var atrai_alfredo := false
 @export var recarga := 12.0
 @export var usos := -1
-@export var cor_placeholder: Color = Color(0, 0, 0, 0)
-
-@onready var _placeholder: Polygon2D = $Placeholder
 
 var _usos_restantes := -1
 var _recarga_restante := 0.0
@@ -17,8 +14,6 @@ var _recarga_restante := 0.0
 func _ready() -> void:
 	super()
 	_usos_restantes = usos
-	_placeholder.color = cor_placeholder
-	_placeholder.visible = cor_placeholder.a > 0.0
 
 
 func _process(delta: float) -> void:

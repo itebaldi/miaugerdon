@@ -1,13 +1,21 @@
 [gd_scene format=3 uid="uid://buvqj8a6m7xy7"]
 
-[ext_resource type="Script" path="res://scripts/mapa2.gd" id="1_mapa2"]
-[ext_resource type="NavigationPolygon" path="res://cenas/navmesh_casa.tres" id="1_navmesh"]
-[ext_resource type="Texture2D" uid="uid://b0bsrma64ocq1" path="res://sprites/personagens/gato.png" id="1_gato"]
-[ext_resource type="PackedScene" path="res://cenas/objetos/objetivo.tscn" id="1_objetivo"]
 [ext_resource type="PackedScene" path="res://cenas/objetos/acao_gato.tscn" id="1_acao"]
+[ext_resource type="Texture2D" uid="uid://b0bsrma64ocq1" path="res://sprites/personagens/gato.png" id="1_gato"]
 [ext_resource type="PackedScene" path="res://cenas/ui/hud.tscn" id="1_hud"]
 [ext_resource type="Texture2D" uid="uid://ck7avcfa5srao" path="res://sprites/objetos/FINAL_Base.png" id="1_lbi2w"]
+[ext_resource type="Script" uid="uid://b3ksmpmnr147a" path="res://scripts/mapa2.gd" id="1_mapa2"]
+[ext_resource type="NavigationPolygon" path="res://cenas/navmesh_casa.tres" id="1_navmesh"]
+[ext_resource type="PackedScene" path="res://cenas/objetos/objetivo.tscn" id="1_objetivo"]
+[ext_resource type="Texture2D" uid="uid://dlrqeamwx5syv" path="res://sprites/interativo/FINAL_arranhar sofá.png" id="2_arranhar"]
+[ext_resource type="Texture2D" uid="uid://b0ry3n0na0jek" path="res://sprites/interativo/FINAL_Brinquedo.png" id="2_brinq"]
+[ext_resource type="Texture2D" uid="uid://cvfx4pdoqauxu" path="res://sprites/interativo/FINAL_copo.png" id="2_copo"]
+[ext_resource type="Texture2D" uid="uid://22xop0w3rk1v" path="res://sprites/interativo/FINAL_ferramenta.png" id="2_ferram"]
+[ext_resource type="Texture2D" uid="uid://btd45ox51vhgu" path="res://sprites/interativo/FINAL_escrever o plano.png" id="2_plano"]
 [ext_resource type="PackedScene" uid="uid://rqve7obh0jbx" path="res://cenas/personagens/caju.tscn" id="2_rn1ff"]
+[ext_resource type="Texture2D" uid="uid://46tdmjt2dpxm" path="res://sprites/interativo/FINAL_cavar terra.png" id="2_terra"]
+[ext_resource type="Texture2D" uid="uid://o1iqthgagql7" path="res://sprites/interativo/FINAL_tijela.png" id="2_tigela"]
+[ext_resource type="Texture2D" uid="uid://cn6fwissd3lye" path="res://sprites/interativo/FINAL_Zzz.png" id="2_zzz"]
 [ext_resource type="Texture2D" uid="uid://rt35h0yej0v" path="res://sprites/objetos/FINAL_parede5.png" id="3_br4ow"]
 [ext_resource type="PackedScene" uid="uid://cernmukarhqdv" path="res://cenas/personagens/alfredo.tscn" id="3_rn1ff"]
 [ext_resource type="Texture2D" uid="uid://b6y60sg06ajp2" path="res://sprites/objetos/FINAL_parede4.png" id="4_r7d6m"]
@@ -50,7 +58,7 @@ radius = 3.0
 y_sort_enabled = true
 script = ExtResource("1_mapa2")
 
-[node name="Piso" type="Node2D" parent="."]
+[node name="Piso" type="Node2D" parent="." unique_id=1537648193]
 z_index = -1
 
 [node name="FinalBase" type="Sprite2D" parent="Piso" unique_id=1162229225]
@@ -63,31 +71,139 @@ position = Vector2(500, 427)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("9_qbfir")
 
-[node name="Parede5" type="StaticBody2D" parent="." unique_id=818390335]
+[node name="Paredes" type="Node2D" parent="."]
+z_index = -1
+y_sort_enabled = true
+
+[node name="Parede5" type="StaticBody2D" parent="Paredes" unique_id=818390335]
 position = Vector2(360, 545)
 
-[node name="FinalParede5" type="Sprite2D" parent="Parede5" unique_id=265888295]
+[node name="FinalParede5" type="Sprite2D" parent="Paredes/Parede5" unique_id=265888295]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_br4ow")
 
-[node name="01" type="CollisionPolygon2D" parent="Parede5" unique_id=1450104806]
+[node name="01" type="CollisionPolygon2D" parent="Paredes/Parede5" unique_id=1450104806]
 position = Vector2(-901, -510)
 polygon = PackedVector2Array(752, 440, 1039, 605, 1051, 598, 762, 434)
 
-[node name="Parede4" type="StaticBody2D" parent="." unique_id=679485082]
+[node name="Parede4" type="StaticBody2D" parent="Paredes" unique_id=679485082]
 position = Vector2(484, 709)
 
-[node name="FinalParede4" type="Sprite2D" parent="Parede4" unique_id=1517691515]
+[node name="FinalParede4" type="Sprite2D" parent="Paredes/Parede4" unique_id=1517691515]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_r7d6m")
 
-[node name="01" type="CollisionPolygon2D" parent="Parede4" unique_id=604342931]
+[node name="01" type="CollisionPolygon2D" parent="Paredes/Parede4" unique_id=604342931]
 position = Vector2(-675, -472)
 polygon = PackedVector2Array(730, 427, 787, 460, 798, 453, 742, 420)
 
-[node name="02" type="CollisionPolygon2D" parent="Parede4" unique_id=1408647407]
+[node name="02" type="CollisionPolygon2D" parent="Paredes/Parede4" unique_id=1408647407]
 position = Vector2(-875, -358)
 polygon = PackedVector2Array(752, 441, 964, 319, 952, 312, 741, 435)
+
+[node name="Parede3" type="StaticBody2D" parent="Paredes" unique_id=422683899]
+position = Vector2(883, 301)
+
+[node name="FinalParede3" type="Sprite2D" parent="Paredes/Parede3" unique_id=278858683]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("11_6w6ao")
+
+[node name="01" type="CollisionPolygon2D" parent="Paredes/Parede3" unique_id=727015825]
+position = Vector2(-794, -457)
+polygon = PackedVector2Array(752, 440, 843, 492, 850, 488, 760, 435)
+
+[node name="Parede7" type="StaticBody2D" parent="Paredes" unique_id=449204729]
+position = Vector2(907, 347)
+
+[node name="FinalParede7" type="Sprite2D" parent="Paredes/Parede7" unique_id=1699438059]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("12_d4245")
+
+[node name="01" type="CollisionPolygon2D" parent="Paredes/Parede7" unique_id=2080597157]
+position = Vector2(-847, -373)
+polygon = PackedVector2Array(752, 442, 951, 327, 942, 322, 742, 436)
+
+[node name="Parede2" type="StaticBody2D" parent="Paredes" unique_id=463862888]
+position = Vector2(807, 302)
+
+[node name="FinalParede2" type="Sprite2D" parent="Paredes/Parede2" unique_id=748629634]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("21_1kv7y")
+
+[node name="01" type="CollisionPolygon2D" parent="Paredes/Parede2" unique_id=2021632811]
+position = Vector2(-858, -389)
+polygon = PackedVector2Array(753, 440, 808, 472, 818, 466, 763, 434)
+
+[node name="02" type="CollisionPolygon2D" parent="Paredes/Parede2" unique_id=484336656]
+position = Vector2(-849, -385)
+polygon = PackedVector2Array(754, 442, 954, 326, 945, 321, 744, 436)
+
+[node name="Parede1" type="StaticBody2D" parent="Paredes" unique_id=1515018926]
+position = Vector2(603, 339)
+
+[node name="FinalParede1" type="Sprite2D" parent="Paredes/Parede1" unique_id=488551069]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("26_m2cr7")
+
+[node name="01" type="CollisionPolygon2D" parent="Paredes/Parede1" unique_id=858788303]
+position = Vector2(-797, -452)
+polygon = PackedVector2Array(706, 414, 879, 514, 889, 508, 715, 409)
+
+[node name="Parede6" type="StaticBody2D" parent="Paredes" unique_id=1695346737]
+position = Vector2(941, 429)
+
+[node name="FinalParede6" type="Sprite2D" parent="Paredes/Parede6" unique_id=37000336]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("29_wchsd")
+
+[node name="01" type="CollisionPolygon2D" parent="Paredes/Parede6" unique_id=1203682510]
+position = Vector2(-940, -429)
+polygon = PackedVector2Array(752, 440, 879, 513, 889, 507, 762, 434)
+
+[node name="02" type="CollisionPolygon2D" parent="Paredes/Parede6" unique_id=949366249]
+position = Vector2(-814, -358)
+polygon = PackedVector2Array(753, 442, 1014, 291, 1003, 285, 742, 436)
+
+[node name="Parede8" type="StaticBody2D" parent="Paredes" unique_id=735529724]
+position = Vector2(517, 720)
+
+[node name="FinalParede8" type="Sprite2D" parent="Paredes/Parede8" unique_id=1308578107]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("31_evc1v")
+
+[node name="01" type="CollisionPolygon2D" parent="Paredes/Parede8" unique_id=886634647]
+position = Vector2(-1257, -570)
+polygon = PackedVector2Array(752, 441, 1251, 729, 1262, 723, 761, 435)
+
+[node name="02" type="CollisionPolygon2D" parent="Paredes/Parede8" unique_id=722863429]
+position = Vector2(-757, -282)
+polygon = PackedVector2Array(752, 441, 1263, 146, 1253, 141, 742, 435)
+
+[node name="03" type="CollisionPolygon2D" parent="Paredes/Parede8" unique_id=509771109]
+position = Vector2(-611, -428)
+polygon = PackedVector2Array(730, 427, 807, 471, 818, 465, 740, 421)
+
+[node name="ParedesExternas" type="StaticBody2D" parent="Paredes" unique_id=1676693421]
+
+[node name="01" type="CollisionPolygon2D" parent="Paredes/ParedesExternas" unique_id=192472738]
+position = Vector2(-594, 234)
+polygon = PackedVector2Array(1105, 645, 1251, 729, 1254, 727, 1108, 643)
+
+[node name="02" type="CollisionPolygon2D" parent="Paredes/ParedesExternas" unique_id=201691059]
+position = Vector2(10, -284)
+polygon = PackedVector2Array(752, 440, 1119, 652, 1119, 648, 752, 437)
+
+[node name="03" type="CollisionPolygon2D" parent="Paredes/ParedesExternas" unique_id=2127698448]
+position = Vector2(389, -77)
+polygon = PackedVector2Array(752, 440, 1029, 600, 1029, 596, 752, 436)
+
+[node name="04" type="CollisionPolygon2D" parent="Paredes/ParedesExternas" unique_id=127229748]
+position = Vector2(-740, 150)
+polygon = PackedVector2Array(751, 441, 1502, 6, 1502, 3, 751, 438)
+
+[node name="05" type="CollisionPolygon2D" parent="Paredes/ParedesExternas" unique_id=2079897455]
+position = Vector2(-95, 522)
+polygon = PackedVector2Array(752, 441, 1514, 1, 1512, 0, 749, 439)
 
 [node name="Armario" type="StaticBody2D" parent="." unique_id=462462071]
 position = Vector2(798, 132)
@@ -152,28 +268,6 @@ polygon = PackedVector2Array(270, 588, 196, 631, 197.61154, 631.8749, 201, 631, 
 position = Vector2(889, 198)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("10_jrpuh")
-
-[node name="Parede3" type="StaticBody2D" parent="." unique_id=422683899]
-position = Vector2(883, 301)
-
-[node name="FinalParede3" type="Sprite2D" parent="Parede3" unique_id=278858683]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("11_6w6ao")
-
-[node name="01" type="CollisionPolygon2D" parent="Parede3" unique_id=727015825]
-position = Vector2(-794, -457)
-polygon = PackedVector2Array(752, 440, 843, 492, 850, 488, 760, 435)
-
-[node name="Parede7" type="StaticBody2D" parent="." unique_id=449204729]
-position = Vector2(907, 347)
-
-[node name="FinalParede7" type="Sprite2D" parent="Parede7" unique_id=1699438059]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("12_d4245")
-
-[node name="01" type="CollisionPolygon2D" parent="Parede7" unique_id=2080597157]
-position = Vector2(-847, -373)
-polygon = PackedVector2Array(752, 442, 951, 327, 942, 322, 742, 436)
 
 [node name="Escrivaninha" type="StaticBody2D" parent="." unique_id=1107725662]
 position = Vector2(918, 351)
@@ -268,21 +362,6 @@ texture = ExtResource("20_0cg0i")
 position = Vector2(-156, -556)
 polygon = PackedVector2Array(159, 559, 116, 584, 153, 605, 198, 581)
 
-[node name="Parede2" type="StaticBody2D" parent="." unique_id=463862888]
-position = Vector2(807, 302)
-
-[node name="FinalParede2" type="Sprite2D" parent="Parede2" unique_id=748629634]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("21_1kv7y")
-
-[node name="01" type="CollisionPolygon2D" parent="Parede2" unique_id=2021632811]
-position = Vector2(-858, -389)
-polygon = PackedVector2Array(753, 440, 808, 472, 818, 466, 763, 434)
-
-[node name="02" type="CollisionPolygon2D" parent="Parede2" unique_id=484336656]
-position = Vector2(-849, -385)
-polygon = PackedVector2Array(754, 442, 954, 326, 945, 321, 744, 436)
-
 [node name="Privada" type="StaticBody2D" parent="." unique_id=2024686202]
 position = Vector2(820, 270)
 
@@ -321,17 +400,6 @@ texture = ExtResource("25_gnjfx")
 position = Vector2(-181, -572)
 polygon = PackedVector2Array(140, 569, 116, 582, 209, 635, 232, 622)
 
-[node name="Parede1" type="StaticBody2D" parent="." unique_id=1515018926]
-position = Vector2(603, 339)
-
-[node name="FinalParede1" type="Sprite2D" parent="Parede1" unique_id=488551069]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("26_m2cr7")
-
-[node name="01" type="CollisionPolygon2D" parent="Parede1" unique_id=858788303]
-position = Vector2(-797, -452)
-polygon = PackedVector2Array(706, 414, 879, 514, 889, 508, 715, 409)
-
 [node name="Carro" type="StaticBody2D" parent="." unique_id=2037356184]
 position = Vector2(263, 579)
 
@@ -353,21 +421,6 @@ texture = ExtResource("28_l8j7f")
 [node name="01" type="CollisionPolygon2D" parent="Sofa" unique_id=623351167]
 position = Vector2(-177, -568)
 polygon = PackedVector2Array(143, 551, 104, 574, 209, 635, 249, 612)
-
-[node name="Parede6" type="StaticBody2D" parent="." unique_id=1695346737]
-position = Vector2(941, 429)
-
-[node name="FinalParede6" type="Sprite2D" parent="Parede6" unique_id=37000336]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("29_wchsd")
-
-[node name="01" type="CollisionPolygon2D" parent="Parede6" unique_id=1203682510]
-position = Vector2(-940, -429)
-polygon = PackedVector2Array(752, 440, 879, 513, 889, 507, 762, 434)
-
-[node name="02" type="CollisionPolygon2D" parent="Parede6" unique_id=949366249]
-position = Vector2(-814, -358)
-polygon = PackedVector2Array(753, 442, 1014, 291, 1003, 285, 742, 436)
 
 [node name="MesaJardim" type="StaticBody2D" parent="." unique_id=1766183901]
 position = Vector2(1102, 450)
@@ -400,198 +453,167 @@ polygon = PackedVector2Array(247, 631, 219, 631, 219, 653, 247, 653)
 position = Vector2(-1, 22)
 shape = SubResource("CircleShape2D_o7qrh")
 
-[node name="Parede8" type="StaticBody2D" parent="." unique_id=735529724]
-position = Vector2(517, 720)
-
-[node name="FinalParede8" type="Sprite2D" parent="Parede8" unique_id=1308578107]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("31_evc1v")
-
-[node name="01" type="CollisionPolygon2D" parent="Parede8" unique_id=886634647]
-position = Vector2(-1257, -570)
-polygon = PackedVector2Array(752, 441, 1251, 729, 1262, 723, 761, 435)
-
-[node name="02" type="CollisionPolygon2D" parent="Parede8" unique_id=722863429]
-position = Vector2(-757, -282)
-polygon = PackedVector2Array(752, 441, 1263, 146, 1253, 141, 742, 435)
-
-[node name="03" type="CollisionPolygon2D" parent="Parede8" unique_id=509771109]
-position = Vector2(-611, -428)
-polygon = PackedVector2Array(730, 427, 807, 471, 818, 465, 740, 421)
-
-[node name="ParedesExternas" type="StaticBody2D" parent="." unique_id=1676693421]
-
-[node name="01" type="CollisionPolygon2D" parent="ParedesExternas" unique_id=192472738]
-position = Vector2(-594, 234)
-polygon = PackedVector2Array(1105, 645, 1251, 729, 1254, 727, 1108, 643)
-
-[node name="02" type="CollisionPolygon2D" parent="ParedesExternas" unique_id=201691059]
-position = Vector2(10, -284)
-polygon = PackedVector2Array(752, 440, 1119, 652, 1119, 648, 752, 437)
-
-[node name="03" type="CollisionPolygon2D" parent="ParedesExternas" unique_id=2127698448]
-position = Vector2(389, -77)
-polygon = PackedVector2Array(752, 440, 1029, 600, 1029, 596, 752, 436)
-
-[node name="04" type="CollisionPolygon2D" parent="ParedesExternas" unique_id=127229748]
-position = Vector2(-740, 150)
-polygon = PackedVector2Array(751, 441, 1502, 6, 1502, 3, 751, 438)
-
-[node name="05" type="CollisionPolygon2D" parent="ParedesExternas" unique_id=2079897455]
-position = Vector2(-95, 522)
-polygon = PackedVector2Array(752, 441, 1514, 1, 1512, 0, 749, 439)
-
 [node name="Caju" parent="." unique_id=567579954 instance=ExtResource("2_rn1ff")]
-position = Vector2(702.166687, 458.333344)
+position = Vector2(702.1667, 458.33334)
 
 [node name="Alfredo" parent="." unique_id=1445397297 node_paths=PackedStringArray("alvo") instance=ExtResource("3_rn1ff")]
 position = Vector2(455, 470)
 alvo = NodePath("../Caju")
 
-[node name="Navegacao" type="NavigationRegion2D" parent="."]
+[node name="Navegacao" type="NavigationRegion2D" parent="." unique_id=67468370]
 navigation_polygon = ExtResource("1_navmesh")
 
-[node name="PontoInicial" type="Marker2D" parent="." groups=["ponto_inicial"]]
-position = Vector2(702.166687, 458.333344)
+[node name="PontoInicial" type="Marker2D" parent="." unique_id=1202997173 groups=["ponto_inicial"]]
+position = Vector2(702.1667, 458.33334)
 
-[node name="Rotas" type="Node2D" parent="." groups=["rotas"]]
+[node name="Rotas" type="Node2D" parent="." unique_id=2110807453 groups=["rotas"]]
 
-[node name="SalaEstar" type="Marker2D" parent="Rotas"]
+[node name="SalaEstar" type="Marker2D" parent="Rotas" unique_id=1646455637]
 position = Vector2(455, 470)
 
-[node name="SalaJantar" type="Marker2D" parent="Rotas"]
+[node name="SalaJantar" type="Marker2D" parent="Rotas" unique_id=280056869]
 position = Vector2(600, 470)
 
-[node name="Cozinha" type="Marker2D" parent="Rotas"]
+[node name="Cozinha" type="Marker2D" parent="Rotas" unique_id=1843689286]
 position = Vector2(700, 665)
 
-[node name="Quarto" type="Marker2D" parent="Rotas"]
+[node name="Quarto" type="Marker2D" parent="Rotas" unique_id=716967179]
 position = Vector2(640, 300)
 
-[node name="Banheiro" type="Marker2D" parent="Rotas"]
+[node name="Banheiro" type="Marker2D" parent="Rotas" unique_id=531119514]
 position = Vector2(786, 286)
 
-[node name="Escritorio" type="Marker2D" parent="Rotas"]
+[node name="Escritorio" type="Marker2D" parent="Rotas" unique_id=25609162]
 position = Vector2(980, 400)
 
-[node name="Garagem" type="Marker2D" parent="Rotas"]
+[node name="Garagem" type="Marker2D" parent="Rotas" unique_id=2099430137]
 position = Vector2(280, 470)
 
-[node name="Quintal" type="Marker2D" parent="Rotas"]
+[node name="Quintal" type="Marker2D" parent="Rotas" unique_id=1873386138]
 position = Vector2(1165, 496)
 
-[node name="AreaServico" type="Marker2D" parent="Rotas"]
+[node name="AreaServico" type="Marker2D" parent="Rotas" unique_id=682987319]
 position = Vector2(500, 790)
 
-[node name="MrT" type="Sprite2D" parent="."]
+[node name="MrT" type="Sprite2D" parent="." unique_id=325206593]
 position = Vector2(1215, 482)
 scale = Vector2(0.6, 0.6)
-offset = Vector2(-43.5, -48.5)
 texture = ExtResource("1_gato")
+offset = Vector2(-43.5, -48.5)
 
-[node name="Topete" type="Polygon2D" parent="MrT"]
+[node name="Topete" type="Polygon2D" parent="MrT" unique_id=773217670]
 color = Color(0.94, 0.81, 0.42, 1)
 polygon = PackedVector2Array(-17, -40, -8, -53, 1, -45, 11, -55, 17, -38)
 
-[node name="Objetivos" type="Node2D" parent="."]
+[node name="Objetivos" type="Node2D" parent="." unique_id=1112875554]
+y_sort_enabled = true
 
-[node name="MrT" parent="Objetivos" instance=ExtResource("1_objetivo")]
+[node name="MrT" parent="Objetivos" unique_id=2125144498 instance=ExtResource("1_objetivo")]
 position = Vector2(1215, 505)
 id = "mr_t"
 rotulo = "Falar com o Mr. T"
 pensamento = "Aquele é o Mr. T. Dizem que ele resolve as coisas."
-falas = PackedStringArray("Ora, ora. Outro gato pequeno com problemas pequenos.", "Eu tenho o melhor quintal. O maior quintal. Todos os gatos comentam.", "Um cachorro? Na SUA casa? Isso é uma invasão. Uma invasão total.", "Você precisa de uma máquina. Uma máquina de controle mental. As melhores máquinas são de controle mental.", "Humanos, cachorros, o carteiro — todos vão obedecer. Vai ser tremendo.", "Faça, Caju. Ninguém nunca fez isso melhor do que você vai fazer.")
-nome_falante = "Mr. T"
 
-[node name="PapelCaneta" parent="Objetivos" instance=ExtResource("1_objetivo")]
+[node name="PapelCaneta" parent="Objetivos" unique_id=1137580839 instance=ExtResource("1_objetivo")]
 position = Vector2(1045, 400)
 id = "papel_caneta"
 rotulo = "Pegar papel e caneta"
 pensamento = "Papel e caneta na estante. Todo plano começa escrito."
 
-[node name="EscreverPlano" parent="Objetivos" instance=ExtResource("1_objetivo")]
-position = Vector2(505, 455)
+[node name="EscreverPlano" parent="Objetivos" unique_id=1489469019 instance=ExtResource("1_objetivo")]
+position = Vector2(738, 199)
 id = "escrever_plano"
 rotulo = "Escrever o plano"
 pensamento = "A mesa de centro serve. O Alfredo nunca olha aqui."
+textura = ExtResource("2_plano")
+escala_arte = 0.5
 
-[node name="Computador" parent="Objetivos" instance=ExtResource("1_objetivo")]
+[node name="Computador" parent="Objetivos" unique_id=1891954633 instance=ExtResource("1_objetivo")]
 position = Vector2(900, 425)
 id = "computador"
 rotulo = "Usar o computador"
 pensamento = "O computador do Alfredo. A senha dele é o nome do gato. É o meu nome."
 
-[node name="Maquina" parent="Objetivos" instance=ExtResource("1_objetivo")]
-position = Vector2(340, 480)
+[node name="Maquina" parent="Objetivos" unique_id=838498670 instance=ExtResource("1_objetivo")]
+position = Vector2(283, 704)
 id = "maquina"
 rotulo = "Montar a máquina"
 pensamento = "Será que seria tão ruim ter mais um animal em casa?"
+textura = ExtResource("2_ferram")
+escala_arte = 0.6
 
-[node name="Acoes" type="Node2D" parent="."]
+[node name="Acoes" type="Node2D" parent="." unique_id=683011875]
+y_sort_enabled = true
 
-[node name="Copo" parent="Acoes" instance=ExtResource("1_acao")]
-position = Vector2(655, 550)
-id = "copo"
-rotulo = "Derrubar o copo"
-pensamento = "Um copo na beirada da mesa. É quase um convite."
-duracao = 1.5
-reduz_suspeita = 12.0
+[node name="Copo" parent="Acoes" unique_id=908688410 instance=ExtResource("1_acao")]
+position = Vector2(554, 407)
 atrai_alfredo = true
 recarga = 15.0
 usos = 2
-cor_placeholder = Color(0.72, 0.82, 0.9, 0.95)
+id = "copo"
+rotulo = "Derrubar o copo"
+duracao = 1.5
+pensamento = "Um copo na beirada da mesa. É quase um convite."
+textura = ExtResource("2_copo")
+escala_arte = 0.6
 
-[node name="Comer" parent="Acoes" instance=ExtResource("1_acao")]
-position = Vector2(700, 665)
+[node name="Comer" parent="Acoes" unique_id=1854817436 instance=ExtResource("1_acao")]
+position = Vector2(614, 625)
+reduz_suspeita = 15.0
 id = "comer"
 rotulo = "Comer na tigela"
+duracao = 1.5
 pensamento = "Comida. Comer é a coisa mais normal que um gato faz."
-duracao = 1.5
-reduz_suspeita = 15.0
-recarga = 12.0
-usos = -1
-cor_placeholder = Color(0.72, 0.82, 0.9, 0.95)
+textura = ExtResource("2_tigela")
+escala_arte = 0.6
 
-[node name="ArranharSofa" parent="Acoes" instance=ExtResource("1_acao")]
-position = Vector2(592, 418)
-id = "arranhar_sofa"
-rotulo = "Arranhar o sofá"
-pensamento = "Se eu arranhar o sofá, o Alfredo vem brigar aqui — e me esquece no resto da casa."
-duracao = 1.5
+[node name="ArranharSofa" parent="Acoes" unique_id=1993352809 instance=ExtResource("1_acao")]
+position = Vector2(650, 412)
 reduz_suspeita = 18.0
 atrai_alfredo = true
 recarga = 15.0
 usos = 3
-
-[node name="Dormir" parent="Acoes" instance=ExtResource("1_acao")]
-position = Vector2(650, 285)
-id = "dormir"
-rotulo = "Dormir na cama"
-pensamento = "A cama dele. Dormir aqui é praticamente meu trabalho."
+id = "arranhar_sofa"
+rotulo = "Arranhar o sofá"
 duracao = 1.5
+pensamento = "Se eu arranhar o sofá, o Alfredo vem brigar aqui — e me esquece no resto da casa."
+textura = ExtResource("2_arranhar")
+deslocamento_arte = Vector2(6, -30)
+escala_arte = 0.7
+
+[node name="Dormir" parent="Acoes" unique_id=1188311234 instance=ExtResource("1_acao")]
+position = Vector2(650, 285)
 reduz_suspeita = 25.0
 recarga = 20.0
-usos = -1
-
-[node name="CavarTerra" parent="Acoes" instance=ExtResource("1_acao")]
-position = Vector2(1105, 525)
-id = "cavar_terra"
-rotulo = "Cavar a terra"
-pensamento = "Terra fofa. Dá vontade de cavar só de olhar."
+id = "dormir"
+rotulo = "Dormir na cama"
 duracao = 1.5
+pensamento = "A cama dele. Dormir aqui é praticamente meu trabalho."
+textura = ExtResource("2_zzz")
+deslocamento_arte = Vector2(36, -58)
+escala_arte = 0.5
+
+[node name="CavarTerra" parent="Acoes" unique_id=2058337135 instance=ExtResource("1_acao")]
+position = Vector2(1105, 525)
 reduz_suspeita = 10.0
 atrai_alfredo = true
 recarga = 15.0
 usos = 2
+id = "cavar_terra"
+rotulo = "Cavar a terra"
+duracao = 1.5
+pensamento = "Terra fofa. Dá vontade de cavar só de olhar."
+textura = ExtResource("2_terra")
+escala_arte = 0.5
 
-[node name="Brincar" parent="Acoes" instance=ExtResource("1_acao")]
-position = Vector2(420, 460)
+[node name="Brincar" parent="Acoes" unique_id=1092835511 instance=ExtResource("1_acao")]
+position = Vector2(441, 466)
+recarga = 10.0
 id = "brincar"
 rotulo = "Brincar no tapete"
-pensamento = "O tapete. Bom para fingir que sou um gato bobo."
 duracao = 1.5
-reduz_suspeita = 12.0
-recarga = 10.0
-usos = -1
+pensamento = "O tapete. Bom para fingir que sou um gato bobo."
+textura = ExtResource("2_brinq")
+escala_arte = 0.4
 
-[node name="HUD" parent="." instance=ExtResource("1_hud")]
+[node name="HUD" parent="." unique_id=1910574967 instance=ExtResource("1_hud")]

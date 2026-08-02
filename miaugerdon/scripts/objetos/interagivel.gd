@@ -7,7 +7,12 @@ const DECAIMENTO_PROGRESSO := 0.25
 @export var rotulo: String = ""
 @export var duracao: float = 3.0
 @export_multiline var pensamento: String = ""
+@export var textura: Texture2D
+# a area fica onde o gato consegue pisar; a arte pode subir para cima do movel
+@export var deslocamento_arte := Vector2.ZERO
+@export var escala_arte := 1.0
 
+@onready var _sprite: Sprite2D = $Sprite2D
 @onready var _label: Label = $Label
 
 var _caju: Node2D = null
@@ -16,6 +21,12 @@ var _progresso := 0.0
 
 func _ready() -> void:
 	add_to_group("interagivel")
+	_sprite.texture = textura
+	_sprite.offset = deslocamento_arte
+	_sprite.scale = Vector2.ONE * escala_arte
+	_sprite.visible = textura != null
+	# o rótulo sobe junto, senão fica escrito em cima do desenho
+	_label.position.y += minf(deslocamento_arte.y, 0.0)
 	_label.visible = false
 	body_entered.connect(_ao_entrar)
 	body_exited.connect(_ao_sair)

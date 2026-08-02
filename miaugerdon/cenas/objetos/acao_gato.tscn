@@ -13,9 +13,8 @@ script = ExtResource("1_acao")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_alcance")
 
-[node name="Placeholder" type="Polygon2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
-polygon = PackedVector2Array(-13, 0, 0, -7, 13, 0, 0, 7)
 
 [node name="Label" type="Label" parent="."]
 visible = false
