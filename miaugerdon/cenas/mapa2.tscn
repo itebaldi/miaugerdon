@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/mapa2.gd" id="1_mapa2"]
 [ext_resource type="PackedScene" path="res://cenas/objetos/objetivo.tscn" id="1_objetivo"]
+[ext_resource type="PackedScene" path="res://cenas/objetos/acao_gato.tscn" id="1_acao"]
 [ext_resource type="PackedScene" path="res://cenas/ui/hud.tscn" id="1_hud"]
 [ext_resource type="Texture2D" uid="uid://ck7avcfa5srao" path="res://sprites/objetos/FINAL_Base.png" id="1_lbi2w"]
 [ext_resource type="PackedScene" uid="uid://rqve7obh0jbx" path="res://cenas/personagens/caju.tscn" id="2_rn1ff"]
@@ -466,5 +467,63 @@ rotulo = "Usar o computador"
 position = Vector2(340, 480)
 id = "maquina"
 rotulo = "Montar a máquina"
+
+[node name="Acoes" type="Node2D" parent="."]
+
+[node name="Copo" parent="Acoes" instance=ExtResource("1_acao")]
+position = Vector2(655, 550)
+id = "copo"
+rotulo = "Derrubar o copo"
+duracao = 1.5
+reduz_suspeita = 12.0
+recarga = 15.0
+usos = 2
+cor_placeholder = Color(0.72, 0.82, 0.9, 0.95)
+
+[node name="Comer" parent="Acoes" instance=ExtResource("1_acao")]
+position = Vector2(700, 665)
+id = "comer"
+rotulo = "Comer na tigela"
+duracao = 1.5
+reduz_suspeita = 15.0
+recarga = 12.0
+usos = -1
+cor_placeholder = Color(0.72, 0.82, 0.9, 0.95)
+
+[node name="ArranharSofa" parent="Acoes" instance=ExtResource("1_acao")]
+position = Vector2(592, 418)
+id = "arranhar_sofa"
+rotulo = "Arranhar o sofá"
+duracao = 1.5
+reduz_suspeita = 18.0
+recarga = 15.0
+usos = 3
+
+[node name="Dormir" parent="Acoes" instance=ExtResource("1_acao")]
+position = Vector2(650, 285)
+id = "dormir"
+rotulo = "Dormir na cama"
+duracao = 1.5
+reduz_suspeita = 25.0
+recarga = 20.0
+usos = -1
+
+[node name="CavarTerra" parent="Acoes" instance=ExtResource("1_acao")]
+position = Vector2(1105, 525)
+id = "cavar_terra"
+rotulo = "Cavar a terra"
+duracao = 1.5
+reduz_suspeita = 10.0
+recarga = 15.0
+usos = 2
+
+[node name="Brincar" parent="Acoes" instance=ExtResource("1_acao")]
+position = Vector2(420, 460)
+id = "brincar"
+rotulo = "Brincar no tapete"
+duracao = 1.5
+reduz_suspeita = 12.0
+recarga = 10.0
+usos = -1
 
 [node name="HUD" parent="." instance=ExtResource("1_hud")]
