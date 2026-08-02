@@ -11,6 +11,8 @@ const RAIO_FLAGRANTE := 60.0
 # ~1/4 da tela: ele nota de um lado ao outro de um cômodo, não da cozinha ao quintal
 const ALCANCE_VISAO := 260.0
 const INTERVALO_RECALCULO := 0.2
+# o par de marcadores mais próximo está a 145 px, então isto só descarta o de onde ele sai
+const DISTANCIA_MINIMA_ROTA := 80.0
 
 # um agente empurrado para fora da área caminhável não acha caminho nenhum, e passa a
 # responder "cheguei" para qualquer destino: sem estas duas redes ele congela de vez
@@ -236,7 +238,16 @@ func _ir_para_rota() -> void:
 	var piso := _no_piso(global_position)
 	if global_position.distance_to(piso) > 0.5:
 		global_position = piso
-	nav_agent.target_position = _no_piso(_rotas[randi() % _rotas.size()].global_position)
+
+	# sortear o marcador onde ele já está faz ele "chegar" na hora e esperar de novo:
+	# duas esperas seguidas no mesmo canto dão até 6 s parado
+	var longe: Array[Node2D] = []
+	for rota in _rotas:
+		if piso.distance_to(rota.global_position) > DISTANCIA_MINIMA_ROTA:
+			longe.append(rota)
+	if longe.is_empty():
+		longe = _rotas
+	nav_agent.target_position = _no_piso(longe[randi() % longe.size()].global_position)
 
 
 # um Marker2D é posicionado a olho no editor; se cair dentro de uma parede o destino fica
