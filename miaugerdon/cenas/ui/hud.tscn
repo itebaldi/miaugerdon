@@ -30,6 +30,13 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_progresso"]
+bg_color = Color(0.55, 0.72, 0.9, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_suspeita"]
 bg_color = Color(0.45, 0.75, 0.4, 1)
 corner_radius_top_left = 3
@@ -82,16 +89,55 @@ theme_override_font_sizes/font_size = 30
 text = "05:00"
 horizontal_alignment = 2
 
-[node name="Dicas" type="Label" parent="Raiz"]
+[node name="Objetivo" type="Label" parent="Raiz"]
+unique_name_in_owner = true
 offset_left = 16.0
 offset_top = 68.0
-offset_right = 600.0
-offset_bottom = 88.0
+offset_right = 620.0
+offset_bottom = 94.0
+theme_override_colors/font_color = Color(1, 0.9, 0.55, 1)
+theme_override_colors/font_outline_color = Color(0.05, 0.04, 0.03, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 15
+
+[node name="Dicas" type="Label" parent="Raiz"]
+offset_left = 16.0
+offset_top = 94.0
+offset_right = 620.0
+offset_bottom = 114.0
 theme_override_colors/font_color = Color(0.82, 0.78, 0.7, 0.7)
 theme_override_colors/font_outline_color = Color(0.05, 0.04, 0.03, 1)
 theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 11
-text = "WASD andar   ·   F limpar-se   ·   Q miar"
+text = "WASD andar   ·   E interagir   ·   F limpar-se   ·   Q miar"
+
+[node name="CaixaProgresso" type="VBoxContainer" parent="Raiz"]
+unique_name_in_owner = true
+visible = false
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -170.0
+offset_top = -78.0
+offset_right = 170.0
+offset_bottom = -38.0
+theme_override_constants/separation = 3
+
+[node name="RotuloProgresso" type="Label" parent="Raiz/CaixaProgresso"]
+theme_override_colors/font_color = Color(0.85, 0.9, 1, 0.9)
+theme_override_colors/font_outline_color = Color(0.05, 0.04, 0.03, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 11
+text = "progresso da ação"
+horizontal_alignment = 1
+
+[node name="BarraProgresso" type="ProgressBar" parent="Raiz/CaixaProgresso"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(340, 13)
+theme_override_styles/background = SubResource("StyleBoxFlat_barra_fundo")
+theme_override_styles/fill = SubResource("StyleBoxFlat_progresso")
+show_percentage = false
 
 [node name="PainelFim" type="PanelContainer" parent="Raiz"]
 unique_name_in_owner = true

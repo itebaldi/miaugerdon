@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://buvqj8a6m7xy7"]
 
 [ext_resource type="Script" path="res://scripts/mapa2.gd" id="1_mapa2"]
+[ext_resource type="PackedScene" path="res://cenas/objetos/objetivo.tscn" id="1_objetivo"]
 [ext_resource type="PackedScene" path="res://cenas/ui/hud.tscn" id="1_hud"]
 [ext_resource type="Texture2D" uid="uid://ck7avcfa5srao" path="res://sprites/objetos/FINAL_Base.png" id="1_lbi2w"]
 [ext_resource type="PackedScene" uid="uid://rqve7obh0jbx" path="res://cenas/personagens/caju.tscn" id="2_rn1ff"]
@@ -438,5 +439,32 @@ position = Vector2(701, 446)
 
 [node name="Alfredo" parent="." unique_id=1445397297 instance=ExtResource("3_rn1ff")]
 position = Vector2(693, 257)
+
+[node name="Objetivos" type="Node2D" parent="."]
+
+[node name="MrT" parent="Objetivos" instance=ExtResource("1_objetivo")]
+position = Vector2(1215, 505)
+id = "mr_t"
+rotulo = "Falar com o Mr. T"
+
+[node name="PapelCaneta" parent="Objetivos" instance=ExtResource("1_objetivo")]
+position = Vector2(1045, 400)
+id = "papel_caneta"
+rotulo = "Pegar papel e caneta"
+
+[node name="EscreverPlano" parent="Objetivos" instance=ExtResource("1_objetivo")]
+position = Vector2(505, 455)
+id = "escrever_plano"
+rotulo = "Escrever o plano"
+
+[node name="Computador" parent="Objetivos" instance=ExtResource("1_objetivo")]
+position = Vector2(900, 425)
+id = "computador"
+rotulo = "Usar o computador"
+
+[node name="Maquina" parent="Objetivos" instance=ExtResource("1_objetivo")]
+position = Vector2(340, 480)
+id = "maquina"
+rotulo = "Montar a máquina"
 
 [node name="HUD" parent="." instance=ExtResource("1_hud")]

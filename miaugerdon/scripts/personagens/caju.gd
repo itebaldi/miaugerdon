@@ -12,6 +12,11 @@ const RECARGA_MIADO := 8.0
 var ultima_direcao := "baixo"
 var recarga_miado := 0.0
 
+
+func _ready() -> void:
+	add_to_group("jogador")
+
+
 func _physics_process(delta: float) -> void:
 	if recarga_miado > 0.0:
 		recarga_miado = maxf(0.0, recarga_miado - delta)
