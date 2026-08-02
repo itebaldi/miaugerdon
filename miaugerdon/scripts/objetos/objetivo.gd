@@ -6,6 +6,7 @@ var falas: PackedStringArray = []
 var nome_falante := ""
 
 var _aguardando_dialogo := false
+var _oculto_ate_liberar := false
 
 
 func _ready() -> void:
@@ -16,14 +17,32 @@ func _ready() -> void:
 		duracao = etapa["duracao"]
 		falas = PackedStringArray(etapa.get("falas", []))
 		nome_falante = etapa.get("falante", "")
+		_oculto_ate_liberar = etapa.get("oculto", false)
 		break
+
+	if _oculto_ate_liberar:
+		visible = false
+		Jogo.objetivo_alterado.connect(_ao_trocar_objetivo)
+
+
+# some de novo ao reiniciar, porque iniciar_partida() também emite o sinal
+func _ao_trocar_objetivo(_indice: int, _titulo: String) -> void:
+	var liberado := _e_a_vez_dele()
+	if liberado == visible:
+		return
+	visible = liberado
+	# o Caju pode estar parado na garagem justo na hora em que a máquina aparece
+	if liberado and _caju:
+		Jogo.pensar_uma_vez("prox:" + id, pensamento)
+
+
+func _e_a_vez_dele() -> bool:
+	var atual := Jogo.objetivo_atual()
+	return not atual.is_empty() and atual["id"] == id
 
 
 func _esta_ativo() -> bool:
-	if _aguardando_dialogo:
-		return false
-	var atual := Jogo.objetivo_atual()
-	return not atual.is_empty() and atual["id"] == id
+	return not _aguardando_dialogo and _e_a_vez_dele()
 
 
 func _ao_progredir(delta: float) -> void:

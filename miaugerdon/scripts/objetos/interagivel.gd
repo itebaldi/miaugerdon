@@ -57,7 +57,9 @@ func _ao_entrar(corpo: Node2D) -> void:
 	if not corpo.is_in_group("jogador"):
 		return
 	_caju = corpo
-	Jogo.pensar_uma_vez("prox:" + id, pensamento)
+	# passar por cima de um objeto que ainda não apareceu não gasta o pensamento
+	if visible:
+		Jogo.pensar_uma_vez("prox:" + id, pensamento)
 
 
 func _ao_sair(corpo: Node2D) -> void:

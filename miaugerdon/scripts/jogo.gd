@@ -110,6 +110,9 @@ const OBJETIVOS := [
 		"duracao": 10.0,
 		"suspeita": 5.0,
 		"itens": ["Máquina de controle mental"],
+		# sem o plano escrito e sem a peça encomendada não há nada na garagem
+		# para montar: a máquina só aparece quando chega a vez dela
+		"oculto": true,
 		"pensamento": "",
 	},
 ]
