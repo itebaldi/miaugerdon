@@ -1,0 +1,10 @@
+# O Godot guarda texto de várias linhas dentro do próprio .tscn, e trata o \r como
+# quebra de linha. Com CRLF, cada linha de um painel conta em dobro e a interface estoura
+# a tela — sem isto, o core.autocrlf do Windows desfaz o ajuste no próximo checkout.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.ttf binary
+*.wav binary
+*.ogg binary
