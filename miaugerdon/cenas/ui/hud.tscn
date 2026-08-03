@@ -1,6 +1,32 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dnk54et3cctl"]
 
-[ext_resource type="Script" path="res://scripts/ui/hud.gd" id="1_hud"]
+[ext_resource type="Script" uid="uid://bne83vuug3ybn" path="res://scripts/ui/hud.gd" id="1_hud"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_barra_fundo"]
+bg_color = Color(0.09, 0.08, 0.07, 0.85)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.5, 0.42, 0.3, 0.9)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_suspeita"]
+bg_color = Color(0.45, 0.75, 0.4, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_progresso"]
+bg_color = Color(0.55, 0.72, 0.9, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_painel"]
 content_margin_left = 24.0
@@ -18,65 +44,45 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_barra_fundo"]
-bg_color = Color(0.09, 0.08, 0.07, 0.85)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.5, 0.42, 0.3, 0.9)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_progresso"]
-bg_color = Color(0.55, 0.72, 0.9, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_suspeita"]
-bg_color = Color(0.45, 0.75, 0.4, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-
-[node name="HUD" type="CanvasLayer"]
+[node name="HUD" type="CanvasLayer" unique_id=53067765]
 process_mode = 3
 script = ExtResource("1_hud")
 
-[node name="Raiz" type="Control" parent="."]
+[node name="Raiz" type="Control" parent="." unique_id=1256994733]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 
-[node name="CaixaSuspeita" type="VBoxContainer" parent="Raiz"]
+[node name="CaixaSuspeita" type="VBoxContainer" parent="Raiz" unique_id=1765545887]
+layout_mode = 0
 offset_left = 16.0
 offset_top = 12.0
 offset_right = 292.0
 offset_bottom = 62.0
 theme_override_constants/separation = 2
 
-[node name="RotuloSuspeita" type="Label" parent="Raiz/CaixaSuspeita"]
+[node name="RotuloSuspeita" type="Label" parent="Raiz/CaixaSuspeita" unique_id=946852592]
+layout_mode = 2
 theme_override_colors/font_color = Color(0.86, 0.82, 0.72, 1)
 theme_override_colors/font_outline_color = Color(0.05, 0.04, 0.03, 1)
 theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 11
 text = "SUSPEITA DO ALFREDO"
 
-[node name="BarraSuspeita" type="ProgressBar" parent="Raiz/CaixaSuspeita"]
+[node name="BarraSuspeita" type="ProgressBar" parent="Raiz/CaixaSuspeita" unique_id=1695929648]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(276, 15)
+layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_barra_fundo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_suspeita")
 show_percentage = false
 
-[node name="Observado" type="Label" parent="Raiz"]
+[node name="Observado" type="Label" parent="Raiz" unique_id=363602299]
 unique_name_in_owner = true
 visible = false
+layout_mode = 0
 offset_left = 304.0
 offset_top = 18.0
 offset_right = 720.0
@@ -87,8 +93,9 @@ theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 16
 text = "Alfredo está te vendo"
 
-[node name="Cronometro" type="Label" parent="Raiz"]
+[node name="Cronometro" type="Label" parent="Raiz" unique_id=100028567]
 unique_name_in_owner = true
+layout_mode = 0
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -216.0
@@ -102,8 +109,9 @@ theme_override_font_sizes/font_size = 30
 text = "05:00"
 horizontal_alignment = 2
 
-[node name="Objetivo" type="Label" parent="Raiz"]
+[node name="Objetivo" type="Label" parent="Raiz" unique_id=1761428834]
 unique_name_in_owner = true
+layout_mode = 0
 offset_left = 16.0
 offset_top = 68.0
 offset_right = 620.0
@@ -113,7 +121,8 @@ theme_override_colors/font_outline_color = Color(0.05, 0.04, 0.03, 1)
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 15
 
-[node name="Dicas" type="Label" parent="Raiz"]
+[node name="Dicas" type="Label" parent="Raiz" unique_id=36817258]
+layout_mode = 0
 offset_left = 16.0
 offset_top = 94.0
 offset_right = 620.0
@@ -124,9 +133,10 @@ theme_override_constants/outline_size = 4
 theme_override_font_sizes/font_size = 11
 text = "WASD andar   ·   E interagir   ·   F limpar-se   ·   Q miar   ·   Tab plano"
 
-[node name="Aviso" type="Label" parent="Raiz"]
+[node name="Aviso" type="Label" parent="Raiz" unique_id=1212328897]
 unique_name_in_owner = true
 visible = false
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -340.0
@@ -139,9 +149,10 @@ theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 17
 horizontal_alignment = 1
 
-[node name="CaixaProgresso" type="VBoxContainer" parent="Raiz"]
+[node name="CaixaProgresso" type="VBoxContainer" parent="Raiz" unique_id=1629938495]
 unique_name_in_owner = true
 visible = false
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -152,7 +163,8 @@ offset_right = 170.0
 offset_bottom = -38.0
 theme_override_constants/separation = 3
 
-[node name="RotuloProgresso" type="Label" parent="Raiz/CaixaProgresso"]
+[node name="RotuloProgresso" type="Label" parent="Raiz/CaixaProgresso" unique_id=537542972]
+layout_mode = 2
 theme_override_colors/font_color = Color(0.85, 0.9, 1, 0.9)
 theme_override_colors/font_outline_color = Color(0.05, 0.04, 0.03, 1)
 theme_override_constants/outline_size = 5
@@ -160,16 +172,18 @@ theme_override_font_sizes/font_size = 11
 text = "progresso da ação"
 horizontal_alignment = 1
 
-[node name="BarraProgresso" type="ProgressBar" parent="Raiz/CaixaProgresso"]
+[node name="BarraProgresso" type="ProgressBar" parent="Raiz/CaixaProgresso" unique_id=79377137]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(340, 13)
+layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_barra_fundo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_progresso")
 show_percentage = false
 
-[node name="PainelTutorial" type="PanelContainer" parent="Raiz"]
+[node name="PainelTutorial" type="PanelContainer" parent="Raiz" unique_id=1766682442]
 unique_name_in_owner = true
 visible = false
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -180,16 +194,19 @@ offset_right = 330.0
 offset_bottom = 190.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_painel")
 
-[node name="Coluna" type="VBoxContainer" parent="Raiz/PainelTutorial"]
+[node name="Coluna" type="VBoxContainer" parent="Raiz/PainelTutorial" unique_id=1628435013]
+layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="Titulo" type="Label" parent="Raiz/PainelTutorial/Coluna"]
+[node name="Titulo" type="Label" parent="Raiz/PainelTutorial/Coluna" unique_id=208732003]
+layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.85, 0.45, 1)
 theme_override_font_sizes/font_size = 24
 text = "Miaugerdon"
 horizontal_alignment = 1
 
-[node name="Texto" type="Label" parent="Raiz/PainelTutorial/Coluna"]
+[node name="Texto2" type="Label" parent="Raiz/PainelTutorial/Coluna" unique_id=1901429798]
+layout_mode = 2
 theme_override_colors/font_color = Color(0.93, 0.9, 0.84, 1)
 theme_override_font_sizes/font_size = 14
 text = "Você é o Caju. O Alfredo vai adotar um cachorro, e você tem um plano.
@@ -199,8 +216,14 @@ E       segurar para interagir
 F       limpar-se (parado) — baixa a suspeita devagar
 Q       miar — chama o Alfredo para onde você está
 Tab     ver o plano e o que você já conseguiu
+"
+autowrap_mode = 2
 
-DUAS FORMAS DE PERDER:
+[node name="Texto" type="Label" parent="Raiz/PainelTutorial/Coluna" unique_id=734503819]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.93, 0.9, 0.84, 1)
+theme_override_font_sizes/font_size = 14
+text = "DUAS FORMAS DE PERDER:
 · o cronômetro zerar antes de você terminar
 · a barra de suspeita encher até o fim
 
@@ -208,15 +231,17 @@ Agir como um gato normal pela casa é o que baixa a suspeita.
 Trabalhar no plano com o Alfredo TE VENDO custa muito mais."
 autowrap_mode = 2
 
-[node name="Dica" type="Label" parent="Raiz/PainelTutorial/Coluna"]
+[node name="Dica" type="Label" parent="Raiz/PainelTutorial/Coluna" unique_id=1295094658]
+layout_mode = 2
 theme_override_colors/font_color = Color(0.75, 0.85, 0.95, 1)
 theme_override_font_sizes/font_size = 14
 text = "[Enter] começar"
 horizontal_alignment = 1
 
-[node name="PainelEscolha" type="PanelContainer" parent="Raiz"]
+[node name="PainelEscolha" type="PanelContainer" parent="Raiz" unique_id=2027219564]
 unique_name_in_owner = true
 visible = false
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -227,17 +252,20 @@ offset_right = 340.0
 offset_bottom = 160.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_painel")
 
-[node name="Coluna" type="VBoxContainer" parent="Raiz/PainelEscolha"]
-alignment = 1
+[node name="Coluna" type="VBoxContainer" parent="Raiz/PainelEscolha" unique_id=794284131]
+layout_mode = 2
 theme_override_constants/separation = 14
+alignment = 1
 
-[node name="Titulo" type="Label" parent="Raiz/PainelEscolha/Coluna"]
+[node name="Titulo" type="Label" parent="Raiz/PainelEscolha/Coluna" unique_id=772227771]
+layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.85, 0.45, 1)
 theme_override_font_sizes/font_size = 24
 text = "A máquina está pronta"
 horizontal_alignment = 1
 
-[node name="Texto" type="Label" parent="Raiz/PainelEscolha/Coluna"]
+[node name="Texto" type="Label" parent="Raiz/PainelEscolha/Coluna" unique_id=1528070539]
+layout_mode = 2
 theme_override_colors/font_color = Color(0.93, 0.9, 0.84, 1)
 theme_override_font_sizes/font_size = 15
 text = "Caju olha a máquina. Olha a porta da frente.
@@ -245,21 +273,24 @@ Lá fora, a van com o cachorro está chegando."
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="OpcaoAtivar" type="Label" parent="Raiz/PainelEscolha/Coluna"]
+[node name="OpcaoAtivar" type="Label" parent="Raiz/PainelEscolha/Coluna" unique_id=576075844]
+layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.7, 0.6, 1)
 theme_override_font_sizes/font_size = 18
 text = "[E]   Ativar a máquina"
 horizontal_alignment = 1
 
-[node name="OpcaoDesistir" type="Label" parent="Raiz/PainelEscolha/Coluna"]
+[node name="OpcaoDesistir" type="Label" parent="Raiz/PainelEscolha/Coluna" unique_id=145652849]
+layout_mode = 2
 theme_override_colors/font_color = Color(0.7, 0.92, 0.75, 1)
 theme_override_font_sizes/font_size = 18
 text = "[F]   Desistir e esperar o cachorro"
 horizontal_alignment = 1
 
-[node name="PainelInventario" type="PanelContainer" parent="Raiz"]
+[node name="PainelInventario" type="PanelContainer" parent="Raiz" unique_id=590274129]
 unique_name_in_owner = true
 visible = false
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -270,42 +301,50 @@ offset_right = 320.0
 offset_bottom = 200.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_painel")
 
-[node name="Coluna" type="VBoxContainer" parent="Raiz/PainelInventario"]
+[node name="Coluna" type="VBoxContainer" parent="Raiz/PainelInventario" unique_id=1798968917]
+layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Titulo" type="Label" parent="Raiz/PainelInventario/Coluna"]
+[node name="Titulo" type="Label" parent="Raiz/PainelInventario/Coluna" unique_id=1216053782]
+layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.85, 0.45, 1)
 theme_override_font_sizes/font_size = 21
 text = "Plano de dominação mundial"
 
-[node name="ListaEtapas" type="VBoxContainer" parent="Raiz/PainelInventario/Coluna"]
+[node name="ListaEtapas" type="VBoxContainer" parent="Raiz/PainelInventario/Coluna" unique_id=691651187]
 unique_name_in_owner = true
+layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="Separador" type="HSeparator" parent="Raiz/PainelInventario/Coluna"]
+[node name="Separador" type="HSeparator" parent="Raiz/PainelInventario/Coluna" unique_id=1189183313]
+layout_mode = 2
 
-[node name="TituloItens" type="Label" parent="Raiz/PainelInventario/Coluna"]
+[node name="TituloItens" type="Label" parent="Raiz/PainelInventario/Coluna" unique_id=347948115]
+layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.85, 0.45, 1)
 theme_override_font_sizes/font_size = 16
 text = "Na mochila"
 
-[node name="ListaItens" type="VBoxContainer" parent="Raiz/PainelInventario/Coluna"]
+[node name="ListaItens" type="VBoxContainer" parent="Raiz/PainelInventario/Coluna" unique_id=213374043]
 unique_name_in_owner = true
+layout_mode = 2
 theme_override_constants/separation = 3
 
-[node name="Espaco" type="Control" parent="Raiz/PainelInventario/Coluna"]
+[node name="Espaco" type="Control" parent="Raiz/PainelInventario/Coluna" unique_id=747635720]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Dica" type="Label" parent="Raiz/PainelInventario/Coluna"]
+[node name="Dica" type="Label" parent="Raiz/PainelInventario/Coluna" unique_id=1178112464]
+layout_mode = 2
 theme_override_colors/font_color = Color(0.75, 0.85, 0.95, 1)
 theme_override_font_sizes/font_size = 13
 text = "[Tab] voltar ao jogo"
 horizontal_alignment = 1
 
-[node name="CaixaDialogo" type="PanelContainer" parent="Raiz"]
+[node name="CaixaDialogo" type="PanelContainer" parent="Raiz" unique_id=311555070]
 unique_name_in_owner = true
 visible = false
+layout_mode = 0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -315,30 +354,35 @@ offset_right = -96.0
 offset_bottom = -36.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_painel")
 
-[node name="Coluna" type="VBoxContainer" parent="Raiz/CaixaDialogo"]
+[node name="Coluna" type="VBoxContainer" parent="Raiz/CaixaDialogo" unique_id=1844407916]
+layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Falante" type="Label" parent="Raiz/CaixaDialogo/Coluna"]
+[node name="Falante" type="Label" parent="Raiz/CaixaDialogo/Coluna" unique_id=642353544]
 unique_name_in_owner = true
+layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.78, 0.35, 1)
 theme_override_font_sizes/font_size = 19
 
-[node name="Fala" type="Label" parent="Raiz/CaixaDialogo/Coluna"]
+[node name="Fala" type="Label" parent="Raiz/CaixaDialogo/Coluna" unique_id=407479327]
 unique_name_in_owner = true
+layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.95, 0.93, 0.88, 1)
 theme_override_font_sizes/font_size = 16
 autowrap_mode = 2
 
-[node name="Dica" type="Label" parent="Raiz/CaixaDialogo/Coluna"]
+[node name="Dica" type="Label" parent="Raiz/CaixaDialogo/Coluna" unique_id=475189843]
+layout_mode = 2
 theme_override_colors/font_color = Color(0.75, 0.85, 0.95, 1)
 theme_override_font_sizes/font_size = 12
 text = "[E] continuar"
 horizontal_alignment = 2
 
-[node name="PainelFim" type="PanelContainer" parent="Raiz"]
+[node name="PainelFim" type="PanelContainer" parent="Raiz" unique_id=521763046]
 unique_name_in_owner = true
 visible = false
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -349,17 +393,20 @@ offset_right = 360.0
 offset_bottom = 190.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_painel")
 
-[node name="Coluna" type="VBoxContainer" parent="Raiz/PainelFim"]
+[node name="Coluna" type="VBoxContainer" parent="Raiz/PainelFim" unique_id=330964060]
+layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="FimTitulo" type="Label" parent="Raiz/PainelFim/Coluna"]
+[node name="FimTitulo" type="Label" parent="Raiz/PainelFim/Coluna" unique_id=613981773]
 unique_name_in_owner = true
+layout_mode = 2
 theme_override_font_sizes/font_size = 27
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="FimTexto" type="Label" parent="Raiz/PainelFim/Coluna"]
+[node name="FimTexto" type="Label" parent="Raiz/PainelFim/Coluna" unique_id=1945487231]
 unique_name_in_owner = true
+layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.93, 0.9, 0.84, 1)
 theme_override_font_sizes/font_size = 15
@@ -367,16 +414,19 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="Botoes" type="HBoxContainer" parent="Raiz/PainelFim/Coluna"]
-alignment = 1
+[node name="Botoes" type="HBoxContainer" parent="Raiz/PainelFim/Coluna" unique_id=1974751287]
+layout_mode = 2
 theme_override_constants/separation = 20
+alignment = 1
 
-[node name="BotaoTentar" type="Button" parent="Raiz/PainelFim/Coluna/Botoes"]
+[node name="BotaoTentar" type="Button" parent="Raiz/PainelFim/Coluna/Botoes" unique_id=1639320594]
 unique_name_in_owner = true
+layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "  Tentar novamente  "
 
-[node name="BotaoMenu" type="Button" parent="Raiz/PainelFim/Coluna/Botoes"]
+[node name="BotaoMenu" type="Button" parent="Raiz/PainelFim/Coluna/Botoes" unique_id=2053219617]
 unique_name_in_owner = true
+layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "  Menu  "

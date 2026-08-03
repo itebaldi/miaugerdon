@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://buvqj8a6m7xy7"]
 
 [ext_resource type="PackedScene" path="res://cenas/objetos/acao_gato.tscn" id="1_acao"]
-[ext_resource type="Texture2D" uid="uid://vro6881k443m" path="res://sprites/personagens/FINAL_mr t.png" id="1_mrt"]
 [ext_resource type="PackedScene" path="res://cenas/ui/hud.tscn" id="1_hud"]
 [ext_resource type="Texture2D" uid="uid://ck7avcfa5srao" path="res://sprites/objetos/FINAL_Base.png" id="1_lbi2w"]
 [ext_resource type="Script" uid="uid://b3ksmpmnr147a" path="res://scripts/mapa2.gd" id="1_mapa2"]
+[ext_resource type="Texture2D" uid="uid://vro6881k443m" path="res://sprites/personagens/FINAL_mr t.png" id="1_mrt"]
 [ext_resource type="NavigationPolygon" path="res://cenas/navmesh_casa.tres" id="1_navmesh"]
 [ext_resource type="PackedScene" path="res://cenas/objetos/objetivo.tscn" id="1_objetivo"]
 [ext_resource type="Texture2D" uid="uid://dlrqeamwx5syv" path="res://sprites/interativo/FINAL_arranhar sofá.png" id="2_arranhar"]
@@ -46,6 +46,7 @@
 [ext_resource type="Texture2D" uid="uid://c0xklsy16w23s" path="res://sprites/objetos/FINAL_parede6.png" id="29_wchsd"]
 [ext_resource type="Texture2D" uid="uid://camy06ykgct1k" path="res://sprites/objetos/FINAL_Mesa jardim.png" id="30_0l6vf"]
 [ext_resource type="Texture2D" uid="uid://b31hyhyovh6y" path="res://sprites/objetos/FINAL_parede8.png" id="31_evc1v"]
+[ext_resource type="Texture2D" uid="uid://c75b2bvxbw6tv" path="res://sprites/interativo/FINAL_papel e caneta.png" id="37_647cg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m4srr"]
 radius = 7.0
@@ -71,7 +72,7 @@ position = Vector2(500, 427)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("9_qbfir")
 
-[node name="Paredes" type="Node2D" parent="."]
+[node name="Paredes" type="Node2D" parent="." unique_id=1300059788]
 z_index = -1
 y_sort_enabled = true
 
@@ -511,10 +512,12 @@ rotulo = "Falar com o Mr. T"
 pensamento = "Aquele é o Mr. T. Dizem que ele resolve as coisas."
 
 [node name="PapelCaneta" parent="Objetivos" unique_id=1137580839 instance=ExtResource("1_objetivo")]
-position = Vector2(1045, 400)
+position = Vector2(1046, 355)
 id = "papel_caneta"
 rotulo = "Pegar papel e caneta"
 pensamento = "Papel e caneta na estante. Todo plano começa escrito."
+textura = ExtResource("37_647cg")
+escala_arte = 0.5
 
 [node name="EscreverPlano" parent="Objetivos" unique_id=1489469019 instance=ExtResource("1_objetivo")]
 position = Vector2(738, 199)
