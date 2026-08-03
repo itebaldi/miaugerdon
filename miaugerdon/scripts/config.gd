@@ -4,7 +4,7 @@ class_name Config
 #
 # Isto é um .gd de propósito. O editor do Godot reescreve os .tscn quando salva a cena, e
 # já apagou as falas do Mr. T duas vezes; um script ele nunca toca. Não é autoload porque
-# não guarda estado nenhum — só constante — e class_name dispensa registrar no projeto.
+# não guarda estado nenhum e class_name dispensa registrar no projeto.
 #
 # Regra: aqui só entra o que dá para reescrever sem entender o código. As regras da
 # partida (tempo, faixas de suspeita, flagrante) continuam no jogo.gd, e a arte de cada
@@ -38,7 +38,7 @@ const OBJETIVOS := [
 			"Eu tenho o melhor quintal. O maior quintal. Todos os gatos comentam.",
 			"Um cachorro? Na SUA casa? Isso é uma invasão. Uma invasão total.",
 			"Você precisa de uma máquina. Uma máquina de controle mental. As melhores máquinas são de controle mental.",
-			"Humanos, cachorros, o carteiro — todos vão obedecer. Vai ser tremendo.",
+			"Humanos, cachorros, o carteiro, todos vão obedecer. Vai ser tremendo.",
 			"Faça, Caju. Ninguém nunca fez isso melhor do que você vai fazer.",
 		],
 		"pensamento_depois": "Ele fala bonito... mas por que eu saí de lá me sentindo pior?",
@@ -94,7 +94,7 @@ const FINAIS := [
 	{
 		"vitoria": false,
 		"titulo": "Alfredo descobriu o plano",
-		"texto": "Ele juntou as peças: o papel sumido, o computador ligado, o gato onde não devia.\nCaju passou a tarde trancado no quintal — e o cachorro chegou sem ele poder fazer nada.",
+		"texto": "Ele juntou as peças: o papel sumido, o computador ligado, o gato onde não devia.\nCaju passou a tarde trancado no quintal e o cachorro chegou sem ele poder fazer nada.",
 	},
 	{
 		"vitoria": false,
@@ -111,7 +111,7 @@ const FINAIS := [
 		"vitoria": true,
 		"titulo": "Caju mudou de ideia",
 		"imagem": "res://sprites/finais/FINAL_com cachorro.png",
-		"texto": "Caju olhou a máquina por um tempo longo. Depois puxou o fio com a pata.\nFoi até a porta e sentou, com o rabo enrolado nas patas, esperando.\nQuando o cachorro entrou, ele não correu. Cheirou, bufou uma vez — e deitou do lado.",
+		"texto": "Caju olhou a máquina por um tempo longo. Depois puxou o fio com a pata.\nFoi até a porta e sentou, com o rabo enrolado nas patas, esperando.\nQuando o cachorro entrou, ele não correu. Cheirou, bufou uma vez e deitou do lado.",
 	},
 ]
 
@@ -142,7 +142,7 @@ const ACOES := {
 	},
 	"arranhar_sofa": {
 		"rotulo": "Arranhar o sofá",
-		"pensamento_perto": "Se eu arranhar o sofá, o Alfredo vem brigar aqui — e me esquece no resto da casa.",
+		"pensamento_perto": "Se eu arranhar o sofá, o Alfredo vem brigar aqui e me esquece no resto da casa.",
 		"duracao": 1.5,
 		"reduz_suspeita": 18.0,
 		"recarga": 15.0,
