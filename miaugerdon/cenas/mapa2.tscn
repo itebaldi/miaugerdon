@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dnk54et3cctl" path="res://cenas/ui/hud.tscn" id="1_hud"]
 [ext_resource type="Texture2D" uid="uid://ck7avcfa5srao" path="res://sprites/objetos/FINAL_Base.png" id="1_lbi2w"]
 [ext_resource type="Script" uid="uid://b3ksmpmnr147a" path="res://scripts/mapa2.gd" id="1_mapa2"]
-[ext_resource type="Texture2D" uid="uid://vro6881k443m" path="res://sprites/personagens/FINAL_mr t.png" id="1_mrt"]
+[ext_resource type="Texture2D" uid="uid://dwdn13fq2mjb5" path="res://sprites/personagens/MrT.png" id="1_mrt"]
 [ext_resource type="NavigationPolygon" path="res://cenas/navmesh_casa.tres" id="1_navmesh"]
 [ext_resource type="PackedScene" path="res://cenas/objetos/objetivo.tscn" id="1_objetivo"]
 [ext_resource type="Texture2D" uid="uid://dlrqeamwx5syv" path="res://sprites/interativo/FINAL_arranhar sofá.png" id="2_arranhar"]
@@ -498,9 +498,9 @@ position = Vector2(500, 790)
 
 [node name="MrT" type="Sprite2D" parent="." unique_id=325206593]
 position = Vector2(1215, 499)
-scale = Vector2(0.195, 0.195)
+scale = Vector2(0.122, 0.122)
 texture = ExtResource("1_mrt")
-offset = Vector2(-1.5, -98)
+offset = Vector2(3, -153.5)
 
 [node name="Objetivos" type="Node2D" parent="." unique_id=1112875554]
 y_sort_enabled = true
