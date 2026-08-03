@@ -1,9 +1,5 @@
 extends CanvasLayer
 
-# Um CanvasLayer não é afetado pela câmera: se a HUD fosse um nó comum do mundo, a câmera
-# que segue o gato arrastaria a barra para fora da tela.
-# O process_mode da cena é "Sempre", senão a tela de fim (que só aparece com o jogo
-# pausado) não responderia a tecla nenhuma.
 
 const COR_BAIXA := Color(0.45, 0.75, 0.4)
 const COR_MEDIA := Color(0.92, 0.76, 0.3)
@@ -59,8 +55,6 @@ func _ready() -> void:
 	_botao_tentar.pressed.connect(_reiniciar)
 	_botao_menu.pressed.connect(_voltar_ao_menu)
 
-	# o _ready() do nível roda depois deste e chama iniciar_partida(), que
-	# despausa; pausar aqui direto seria desfeito em seguida
 	if Jogo.intro_vista:
 		_mostrar_tutorial.call_deferred()
 	else:
@@ -77,8 +71,6 @@ func _process(delta: float) -> void:
 		_observado.modulate.a = 0.55 + 0.45 * (sin(Time.get_ticks_msec() / 170.0) * 0.5 + 0.5)
 
 
-# aparece sempre que ele tem o gato à vista, não só depois de o jogador começar uma etapa:
-# a informação útil é "não comece agora"
 func _ao_mudar_observado(observado: bool) -> void:
 	_observado.visible = observado
 
@@ -97,8 +89,6 @@ func _mostrar_intro() -> void:
 	_pausar_para_ler()
 
 
-# o Alfredo alcança rodar um quadro de física antes de a pausa valer, e se ele nascer de
-# olho no Caju o aviso fica preso na tela durante a leitura inteira
 func _pausar_para_ler() -> void:
 	get_tree().paused = true
 	Jogo.definir_observado(false)
@@ -107,7 +97,7 @@ func _pausar_para_ler() -> void:
 func _pintar_intro() -> void:
 	_texto_intro.text = Config.INTRO[_pagina_da_intro]
 	_pagina_intro.text = "%d / %d" % [_pagina_da_intro + 1, Config.INTRO.size()]
-	# a última página é o primeiro objetivo, não mais história
+
 	var chamada := _pagina_da_intro == Config.INTRO.size() - 1
 	_texto_intro.modulate = Color(1, 0.85, 0.45) if chamada else Color.WHITE
 
@@ -176,7 +166,6 @@ func _unhandled_input(evento: InputEvent) -> void:
 
 
 func _alternar_inventario() -> void:
-	# sem isto, Tab na tela de derrota despausaria o jogo por baixo dela
 	if not Jogo.em_partida:
 		return
 	var abrir := not _painel_inventario.visible
@@ -185,8 +174,6 @@ func _alternar_inventario() -> void:
 
 
 func _ao_mudar_inventario() -> void:
-	# remove_child antes do queue_free: o queue_free só apaga no fim do quadro, e até lá
-	# as linhas velhas ainda contam
 	for lista in [_lista_etapas, _lista_itens]:
 		for filho in lista.get_children():
 			lista.remove_child(filho)
@@ -237,7 +224,7 @@ func _avancar_dialogo() -> void:
 		return
 
 	_caixa_dialogo.visible = false
-	# despausar antes de avisar: concluir a etapa dispara coisas que não animam pausadas
+
 	get_tree().paused = false
 	Jogo.encerrar_dialogo()
 
@@ -284,14 +271,11 @@ func _ao_terminar(motivo: Jogo.Motivo) -> void:
 	_fim_texto.text = final["texto"]
 	_fim_titulo.modulate = Color(0.72, 0.94, 0.7) if final["vitoria"] else Color(0.96, 0.6, 0.52)
 
-	# só os dois finais bons têm ilustração, e ela carrega aqui: guardar um preload no
-	# config faria as duas imagens ocuparem memória desde o menu
 	var arte: String = final.get("imagem", "")
 	_fim_imagem.visible = arte != ""
 	if arte != "":
 		_fim_imagem.texture = load(arte)
 
-	# o painel só cresce quando tem ilustração; nas derrotas isso viraria um vazio
 	var meia_altura := 240.0 if arte != "" else 150.0
 	_painel_fim.offset_top = -meia_altura
 	_painel_fim.offset_bottom = meia_altura

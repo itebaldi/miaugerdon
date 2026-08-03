@@ -1,9 +1,5 @@
 extends Interagivel
 
-# Comportamento de gato: é o que faz a suspeita descer.
-
-# tudo vem do config.gd pelo id, inclusive o atrai_alfredo, que é o que separa a ação
-# segura da barulhenta
 var reduz_suspeita := 12.0
 var atrai_alfredo := false
 var recarga := 12.0

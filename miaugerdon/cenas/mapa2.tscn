@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://buvqj8a6m7xy7"]
 
 [ext_resource type="PackedScene" path="res://cenas/objetos/acao_gato.tscn" id="1_acao"]
-[ext_resource type="PackedScene" path="res://cenas/ui/hud.tscn" id="1_hud"]
+[ext_resource type="PackedScene" uid="uid://dnk54et3cctl" path="res://cenas/ui/hud.tscn" id="1_hud"]
 [ext_resource type="Texture2D" uid="uid://ck7avcfa5srao" path="res://sprites/objetos/FINAL_Base.png" id="1_lbi2w"]
 [ext_resource type="Script" uid="uid://b3ksmpmnr147a" path="res://scripts/mapa2.gd" id="1_mapa2"]
 [ext_resource type="Texture2D" uid="uid://vro6881k443m" path="res://sprites/personagens/FINAL_mr t.png" id="1_mrt"]
@@ -510,7 +510,7 @@ position = Vector2(1215, 505)
 id = "mr_t"
 
 [node name="PapelCaneta" parent="Objetivos" unique_id=1137580839 instance=ExtResource("1_objetivo")]
-position = Vector2(1046, 355)
+position = Vector2(1046, 356)
 id = "papel_caneta"
 textura = ExtResource("37_647cg")
 escala_arte = 0.5

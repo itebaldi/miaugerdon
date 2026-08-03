@@ -1,9 +1,5 @@
 extends Node
 
-# Estado da partida: tempo, suspeita e as condições de fim.
-# É autoload, então existe em todas as cenas e não morre na troca de cena.
-# Ninguém aqui conhece o Caju nem a interface: tudo sai por sinal.
-
 signal suspeita_alterada(valor: float)
 signal faixa_alterada(nova: Faixa)
 signal tempo_alterado(segundos: float)
@@ -30,20 +26,14 @@ const LIMPAR_SE := 4.0
 const SUSPEITA_MIADO := 3.0
 const FLAGRANTE := 15.0
 
-# quanto a suspeita sobe mais rápido com o Alfredo olhando. Vale só para as etapas do
-# plano: ele pode ver o gato arranhando o sofá à vontade, é o ponto do disfarce.
 const FATOR_OBSERVADO := 2.5
 
 enum Faixa { BAIXA, MEDIA, ALTA }
 enum Motivo { SUSPEITA, TEMPO, ATIVOU, DESISTIU }
 
-# o texto todo mora no config.gd; aqui ficam só as regras da partida. O alias mantém
-# Jogo.OBJETIVOS e Jogo.FINAIS funcionando em quem já lia daqui.
 const OBJETIVOS := Config.OBJETIVOS
 const FINAIS := Config.FINAIS
 
-# a história de abertura é lida uma vez por partida nova, não a cada morte: o autoload
-# sobrevive ao reload_current_scene() do "Tentar novamente", e o menu zera isto de novo
 var intro_vista := false
 
 var em_partida := false
@@ -151,7 +141,7 @@ func concluir_objetivo(id: String) -> void:
 	progresso_alterado.emit(0.0)
 
 	if indice >= OBJETIVOS.size():
-		# a máquina está pronta, mas quem decide o que fazer com ela é o jogador
+
 		escolha_final.emit()
 		return
 	objetivo_alterado.emit(indice, OBJETIVOS[indice]["titulo"])
@@ -163,7 +153,6 @@ func emitir_ruido(posicao: Vector2) -> void:
 		ruido.emit(posicao)
 
 
-# o Alfredo escreve isto todo quadro; só avisa a HUD na troca
 func definir_observado(valor: bool) -> void:
 	if observado == valor:
 		return
@@ -180,7 +169,6 @@ func pensar(texto: String) -> void:
 		pensamento.emit(texto)
 
 
-# pensamento de descoberta: sai uma vez só por partida
 func pensar_uma_vez(chave: String, texto: String) -> void:
 	if texto == "" or _pensamentos_vistos.has(chave):
 		return
@@ -193,7 +181,6 @@ func conversar(nome: String, falas: PackedStringArray) -> void:
 		dialogo.emit(nome, falas)
 
 
-# a HUD chama isto quando o jogador fecha a última fala
 func encerrar_dialogo() -> void:
 	dialogo_terminado.emit()
 

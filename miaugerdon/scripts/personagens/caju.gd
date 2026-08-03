@@ -13,8 +13,7 @@ const DURACAO_BLOQUEIO := 1.5
 var ultima_direcao := "baixo"
 var recarga_miado := 0.0
 
-# quem esta progredindo numa etapa renova esta marca a cada quadro; ela expira sozinha,
-# entao ninguem precisa se lembrar de desligar
+
 var _acao_secreta_ate := 0
 var _bloqueio := 0.0
 
@@ -41,12 +40,10 @@ func _physics_process(delta: float) -> void:
 
 	var direcao := Input.get_vector("esquerda", "direita", "cima", "baixo")
 
-	# rotaciona o vetor de input para os eixos visuais da câmera isométrica
 	var direcao_iso := Vector2(direcao.x - direcao.y, (direcao.x + direcao.y) * TANGENTE_CAMERA)
 	velocity = direcao_iso.normalized() * SPEED
 
 	if direcao != Vector2.ZERO:
-		# decide se a direção "dominante" é horizontal ou vertical
 		if absf(direcao.x) > absf(direcao.y):
 			ultima_direcao = "direita" if direcao.x > 0 else "esquerda"
 		else:
@@ -54,8 +51,6 @@ func _physics_process(delta: float) -> void:
 		animated_sprite_2d.play("andando_" + ultima_direcao)
 	else:
 		animated_sprite_2d.play("parado_" + ultima_direcao)
-		# limpar-se só funciona parado: baixar a suspeita custa tempo, e tempo é a outra
-		# forma de perder
 		if Input.is_action_pressed("disfarce"):
 			Jogo.reduzir_suspeita(Jogo.LIMPAR_SE * delta)
 

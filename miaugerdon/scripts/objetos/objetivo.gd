@@ -19,13 +19,12 @@ func _ready() -> void:
 		Jogo.objetivo_alterado.connect(_ao_trocar_objetivo)
 
 
-# some de novo ao reiniciar, porque iniciar_partida() também emite o sinal
 func _ao_trocar_objetivo(_indice: int, _titulo: String) -> void:
 	var liberado := _e_a_vez_dele()
 	if liberado == visible:
 		return
 	visible = liberado
-	# o Caju pode estar parado na garagem justo na hora em que a máquina aparece
+
 	if liberado and _caju:
 		Jogo.pensar_uma_vez("prox:" + id, pensamento)
 
@@ -53,7 +52,6 @@ func _concluir() -> void:
 		Jogo.concluir_objetivo(id)
 		return
 
-	# ONE_SHOT desconecta sozinho, senão cada partida acumularia uma ligação
 	_aguardando_dialogo = true
 	Jogo.dialogo_terminado.connect(_no_fim_do_dialogo, CONNECT_ONE_SHOT)
 	Jogo.conversar(nome_falante, falas)

@@ -1,9 +1,6 @@
 extends Node2D
 
-# Balão de pensamento do Caju. Fica dentro da cena do gato, então acompanha ele sem
-# nenhuma linha de código. Não pausa o jogo: pensamento é comentário, não conversa.
-# Se vierem dois seguidos, o segundo espera a vez, senão o primeiro sumiria antes de dar
-# tempo de ler.
+# Balão de pensamento do Caju.
 
 const DURACAO := 4.5
 

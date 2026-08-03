@@ -5,12 +5,10 @@ const DECAIMENTO_PROGRESSO := 0.25
 
 @export var id: String = ""
 @export var textura: Texture2D
-# a area fica onde o gato consegue pisar; a arte pode subir para cima do movel
+
 @export var deslocamento_arte := Vector2.ZERO
 @export var escala_arte := 1.0
 
-# vêm do config.gd pelo id: texto que a autora escreve não fica em .tscn, porque o
-# editor reescreve a cena ao salvar
 var rotulo := ""
 var duracao := 3.0
 var pensamento := ""
@@ -33,7 +31,7 @@ func _ready() -> void:
 	_sprite.offset = deslocamento_arte
 	_sprite.scale = Vector2.ONE * escala_arte
 	_sprite.visible = textura != null
-	# o rótulo sobe junto, senão fica escrito em cima do desenho
+
 	_label.position.y += minf(deslocamento_arte.y, 0.0)
 	_label.visible = false
 	body_entered.connect(_ao_entrar)
@@ -65,7 +63,7 @@ func _ao_entrar(corpo: Node2D) -> void:
 	if not corpo.is_in_group("jogador"):
 		return
 	_caju = corpo
-	# passar por cima de um objeto que ainda não apareceu não gasta o pensamento
+
 	if visible:
 		Jogo.pensar_uma_vez("prox:" + id, pensamento)
 
@@ -76,7 +74,6 @@ func _ao_sair(corpo: Node2D) -> void:
 		Jogo.definir_progresso(0.0)
 
 
-# o Alfredo chama isto em todo o grupo quando pega o gato
 func cancelar() -> void:
 	if _progresso > 0.0:
 		_progresso = 0.0

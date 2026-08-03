@@ -1,18 +1,5 @@
 class_name Config
 
-# Todo o texto que o jogador lê, e os números de cada objeto da casa.
-#
-# Isto é um .gd de propósito. O editor do Godot reescreve os .tscn quando salva a cena, e
-# já apagou as falas do Mr. T duas vezes; um script ele nunca toca. Não é autoload porque
-# não guarda estado nenhum e class_name dispensa registrar no projeto.
-#
-# Regra: aqui só entra o que dá para reescrever sem entender o código. As regras da
-# partida (tempo, faixas de suspeita, flagrante) continuam no jogo.gd, e a arte de cada
-# objeto (textura, escala, posição) continua na cena, que é onde dá para ver.
-
-
-# uma página por vez, avançando com Enter. A última é o primeiro objetivo, e a HUD pinta
-# ela de outra cor porque já não é história.
 const INTRO := [
 	"Caju sempre soube quem realmente mandava naquela casa. Alfredo podia preparar a comida, limpar a bagunça e pagar as contas, mas era apenas seu fiel servo humano.",
 	"Tudo seguia perfeitamente até Alfredo anunciar uma notícia terrível. Ele havia adotado um cachorro, e o novo invasor chegaria em breve.",
@@ -89,7 +76,6 @@ const OBJETIVOS := [
 ]
 
 
-# na mesma ordem do enum Jogo.Motivo: SUSPEITA, TEMPO, ATIVOU, DESISTIU
 const FINAIS := [
 	{
 		"vitoria": false,
@@ -115,12 +101,7 @@ const FINAIS := [
 	},
 ]
 
-# Cada chave é o "id" do nó dentro de Acoes/ no mapa2.tscn.
-#   duracao        segundos segurando E
-#   reduz_suspeita quanto tira da barra ao concluir
-#   recarga        segundos até poder repetir
-#   usos           -1 é ilimitado
-#   atrai_alfredo  faz barulho: ele vem investigar. É o que separa a ação segura da arriscada.
+
 const ACOES := {
 	"copo": {
 		"rotulo": "Derrubar o copo",
@@ -178,8 +159,6 @@ const ACOES := {
 	},
 }
 
-# os nós de Objetivos/ e de Acoes/ dividem o mesmo script base, e ele não sabe de qual
-# lado veio: procura nos dois
 static func dados(id: String) -> Dictionary:
 	if ACOES.has(id):
 		return ACOES[id]
