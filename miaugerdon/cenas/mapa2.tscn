@@ -508,36 +508,26 @@ y_sort_enabled = true
 [node name="MrT" parent="Objetivos" unique_id=2125144498 instance=ExtResource("1_objetivo")]
 position = Vector2(1215, 505)
 id = "mr_t"
-rotulo = "Falar com o Mr. T"
-pensamento = "Aquele é o Mr. T. Dizem que ele resolve as coisas."
 
 [node name="PapelCaneta" parent="Objetivos" unique_id=1137580839 instance=ExtResource("1_objetivo")]
 position = Vector2(1046, 355)
 id = "papel_caneta"
-rotulo = "Pegar papel e caneta"
-pensamento = "Papel e caneta na estante. Todo plano começa escrito."
 textura = ExtResource("37_647cg")
 escala_arte = 0.5
 
 [node name="EscreverPlano" parent="Objetivos" unique_id=1489469019 instance=ExtResource("1_objetivo")]
 position = Vector2(738, 199)
 id = "escrever_plano"
-rotulo = "Escrever o plano"
-pensamento = "A mesa de centro serve. O Alfredo nunca olha aqui."
 textura = ExtResource("2_plano")
 escala_arte = 0.5
 
 [node name="Computador" parent="Objetivos" unique_id=1891954633 instance=ExtResource("1_objetivo")]
 position = Vector2(900, 425)
 id = "computador"
-rotulo = "Usar o computador"
-pensamento = "O computador do Alfredo. A senha dele é o nome do gato. É o meu nome."
 
 [node name="Maquina" parent="Objetivos" unique_id=838498670 instance=ExtResource("1_objetivo")]
 position = Vector2(283, 704)
 id = "maquina"
-rotulo = "Montar a máquina"
-pensamento = "Será que seria tão ruim ter mais um animal em casa?"
 textura = ExtResource("2_ferram")
 escala_arte = 0.6
 
@@ -546,72 +536,39 @@ y_sort_enabled = true
 
 [node name="Copo" parent="Acoes" unique_id=908688410 instance=ExtResource("1_acao")]
 position = Vector2(554, 407)
-atrai_alfredo = true
-recarga = 15.0
-usos = 2
 id = "copo"
-rotulo = "Derrubar o copo"
-duracao = 1.5
-pensamento = "Um copo na beirada da mesa. É quase um convite."
 textura = ExtResource("2_copo")
 escala_arte = 0.6
 
 [node name="Comer" parent="Acoes" unique_id=1854817436 instance=ExtResource("1_acao")]
 position = Vector2(614, 625)
-reduz_suspeita = 15.0
 id = "comer"
-rotulo = "Comer na tigela"
-duracao = 1.5
-pensamento = "Comida. Comer é a coisa mais normal que um gato faz."
 textura = ExtResource("2_tigela")
 escala_arte = 0.6
 
 [node name="ArranharSofa" parent="Acoes" unique_id=1993352809 instance=ExtResource("1_acao")]
 position = Vector2(650, 412)
-reduz_suspeita = 18.0
-atrai_alfredo = true
-recarga = 15.0
-usos = 3
 id = "arranhar_sofa"
-rotulo = "Arranhar o sofá"
-duracao = 1.5
-pensamento = "Se eu arranhar o sofá, o Alfredo vem brigar aqui — e me esquece no resto da casa."
 textura = ExtResource("2_arranhar")
 deslocamento_arte = Vector2(6, -30)
 escala_arte = 0.7
 
 [node name="Dormir" parent="Acoes" unique_id=1188311234 instance=ExtResource("1_acao")]
 position = Vector2(650, 285)
-reduz_suspeita = 25.0
-recarga = 20.0
 id = "dormir"
-rotulo = "Dormir na cama"
-duracao = 1.5
-pensamento = "A cama dele. Dormir aqui é praticamente meu trabalho."
 textura = ExtResource("2_zzz")
 deslocamento_arte = Vector2(36, -58)
 escala_arte = 0.5
 
 [node name="CavarTerra" parent="Acoes" unique_id=2058337135 instance=ExtResource("1_acao")]
 position = Vector2(1105, 525)
-reduz_suspeita = 10.0
-atrai_alfredo = true
-recarga = 15.0
-usos = 2
 id = "cavar_terra"
-rotulo = "Cavar a terra"
-duracao = 1.5
-pensamento = "Terra fofa. Dá vontade de cavar só de olhar."
 textura = ExtResource("2_terra")
 escala_arte = 0.5
 
 [node name="Brincar" parent="Acoes" unique_id=1092835511 instance=ExtResource("1_acao")]
 position = Vector2(441, 466)
-recarga = 10.0
 id = "brincar"
-rotulo = "Brincar no tapete"
-duracao = 1.5
-pensamento = "O tapete. Bom para fingir que sou um gato bobo."
 textura = ExtResource("2_brinq")
 escala_arte = 0.4
 

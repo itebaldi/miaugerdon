@@ -37,85 +37,10 @@ const FATOR_OBSERVADO := 2.5
 enum Faixa { BAIXA, MEDIA, ALTA }
 enum Motivo { SUSPEITA, TEMPO, ATIVOU, DESISTIU }
 
-# indexado pelo enum Motivo, na mesma ordem
-const FINAIS := [
-	{
-		"vitoria": false,
-		"titulo": "Alfredo descobriu o plano",
-		"texto": "Ele juntou as peças: o papel sumido, o computador ligado, o gato onde não devia.\nCaju passou a tarde trancado no quintal — e o cachorro chegou sem ele poder fazer nada.",
-	},
-	{
-		"vitoria": false,
-		"titulo": "O cachorro chegou",
-		"texto": "A campainha tocou antes de Caju decidir o que sentia.\nO cachorro entrou correndo e o abraçou. Caju ficou ali, duro, ainda com o plano no bolso.",
-	},
-	{
-		"vitoria": true,
-		"titulo": "O mundo agora pertence aos gatos",
-		"texto": "A máquina zumbiu. Alfredo parou no meio da sala e piscou devagar.\nLá fora, o carteiro parou. O cachorro, na van, parou.\nCaju subiu no sofá e olhou a rua como quem olha um império.",
-	},
-	{
-		"vitoria": true,
-		"titulo": "Caju mudou de ideia",
-		"texto": "Caju olhou a máquina por um tempo longo. Depois puxou o fio com a pata.\nFoi até a porta e sentou, com o rabo enrolado nas patas, esperando.\nQuando o cachorro entrou, ele não correu. Cheirou, bufou uma vez — e deitou do lado.",
-	},
-]
-
-
-const OBJETIVOS := [
-	{
-		"id": "mr_t",
-		"titulo": "Fale com o Mr. T no quintal",
-		"duracao": 2.0,
-		"suspeita": 3.0,
-		"itens": [],
-		"falante": "Mr. T",
-		"falas": [
-			"Ora, ora. Outro gato pequeno com problemas pequenos.",
-			"Eu tenho o melhor quintal. O maior quintal. Todos os gatos comentam.",
-			"Um cachorro? Na SUA casa? Isso é uma invasão. Uma invasão total.",
-			"Você precisa de uma máquina. Uma máquina de controle mental. As melhores máquinas são de controle mental.",
-			"Humanos, cachorros, o carteiro — todos vão obedecer. Vai ser tremendo.",
-			"Faça, Caju. Ninguém nunca fez isso melhor do que você vai fazer.",
-		],
-		"pensamento": "Ele fala bonito... mas por que eu saí de lá me sentindo pior?",
-	},
-	{
-		"id": "papel_caneta",
-		"titulo": "Pegue papel e caneta na estante",
-		"duracao": 4.0,
-		"suspeita": 5.0,
-		"itens": ["Papel", "Caneta"],
-		"pensamento": "O Alfredo comprou essa caneta pra fazer a lista de compras. Ele anota ração de gato primeiro.",
-	},
-	{
-		"id": "escrever_plano",
-		"titulo": "Escreva o plano na mesa de centro",
-		"duracao": 7.0,
-		"suspeita": 5.0,
-		"itens": ["Plano de dominação mundial (rascunho)"],
-		"pensamento": "Escrito assim no papel, parece meio... exagerado?",
-	},
-	{
-		"id": "computador",
-		"titulo": "Acesse o PurrrgleMiaut no computador",
-		"duracao": 7.0,
-		"suspeita": 5.0,
-		"itens": ["Pedido no Miauzon: peça #TR-4"],
-		"pensamento": "O Mr. T tem o maior quintal do bairro. E não tem mais ninguém nele.",
-	},
-	{
-		"id": "maquina",
-		"titulo": "Monte a máquina na garagem",
-		"duracao": 10.0,
-		"suspeita": 5.0,
-		"itens": ["Máquina de controle mental"],
-		# sem o plano escrito e sem a peça encomendada não há nada na garagem
-		# para montar: a máquina só aparece quando chega a vez dela
-		"oculto": true,
-		"pensamento": "",
-	},
-]
+# o texto todo mora no config.gd; aqui ficam só as regras da partida. O alias mantém
+# Jogo.OBJETIVOS e Jogo.FINAIS funcionando em quem já lia daqui.
+const OBJETIVOS := Config.OBJETIVOS
+const FINAIS := Config.FINAIS
 
 var em_partida := false
 var observado := false
@@ -217,7 +142,7 @@ func concluir_objetivo(id: String) -> void:
 		itens.append(item)
 	inventario_alterado.emit()
 
-	var frase: String = atual["pensamento"]
+	var frase: String = atual["pensamento_depois"]
 	indice += 1
 	progresso_alterado.emit(0.0)
 

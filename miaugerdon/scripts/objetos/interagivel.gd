@@ -4,13 +4,16 @@ extends Area2D
 const DECAIMENTO_PROGRESSO := 0.25
 
 @export var id: String = ""
-@export var rotulo: String = ""
-@export var duracao: float = 3.0
-@export_multiline var pensamento: String = ""
 @export var textura: Texture2D
 # a area fica onde o gato consegue pisar; a arte pode subir para cima do movel
 @export var deslocamento_arte := Vector2.ZERO
 @export var escala_arte := 1.0
+
+# vêm do config.gd pelo id: texto que a autora escreve não fica em .tscn, porque o
+# editor reescreve a cena ao salvar
+var rotulo := ""
+var duracao := 3.0
+var pensamento := ""
 
 @onready var _sprite: Sprite2D = $Sprite2D
 @onready var _label: Label = $Label
@@ -20,6 +23,11 @@ var _progresso := 0.0
 
 
 func _ready() -> void:
+	var dados := Config.dados(id)
+	rotulo = dados.get("rotulo", rotulo)
+	pensamento = dados.get("pensamento_perto", pensamento)
+	duracao = dados.get("duracao", duracao)
+
 	add_to_group("interagivel")
 	_sprite.texture = textura
 	_sprite.offset = deslocamento_arte

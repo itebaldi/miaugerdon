@@ -2,16 +2,24 @@ extends Interagivel
 
 # Comportamento de gato: é o que faz a suspeita descer.
 
-@export var reduz_suspeita := 12.0
-@export var atrai_alfredo := false
-@export var recarga := 12.0
-@export var usos := -1
+# tudo vem do config.gd pelo id, inclusive o atrai_alfredo, que é o que separa a ação
+# segura da barulhenta
+var reduz_suspeita := 12.0
+var atrai_alfredo := false
+var recarga := 12.0
+var usos := -1
 
 var _usos_restantes := -1
 var _recarga_restante := 0.0
 
 
 func _ready() -> void:
+	var dados: Dictionary = Config.ACOES.get(id, {})
+	reduz_suspeita = dados.get("reduz_suspeita", reduz_suspeita)
+	atrai_alfredo = dados.get("atrai_alfredo", atrai_alfredo)
+	recarga = dados.get("recarga", recarga)
+	usos = dados.get("usos", usos)
+
 	super()
 	_usos_restantes = usos
 
