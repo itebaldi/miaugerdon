@@ -231,9 +231,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -330.0
-offset_top = -190.0
+offset_top = -228.0
 offset_right = 330.0
-offset_bottom = 190.0
+offset_bottom = 228.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_painel")
 
 [node name="Coluna" type="VBoxContainer" parent="Raiz/PainelTutorial" unique_id=1628435013]
@@ -259,7 +259,6 @@ F       limpar-se (parado) — baixa a suspeita devagar
 Q       miar — chama o Alfredo para onde você está
 Tab     ver o plano e o que você já conseguiu
 "
-autowrap_mode = 2
 
 [node name="Texto" type="Label" parent="Raiz/PainelTutorial/Coluna" unique_id=734503819]
 layout_mode = 2
@@ -271,7 +270,6 @@ text = "DUAS FORMAS DE PERDER:
 
 Agir como um gato normal pela casa é o que baixa a suspeita.
 Trabalhar no plano com o Alfredo TE VENDO custa muito mais."
-autowrap_mode = 2
 
 [node name="Dica" type="Label" parent="Raiz/PainelTutorial/Coluna" unique_id=1295094658]
 layout_mode = 2
