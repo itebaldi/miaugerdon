@@ -23,6 +23,9 @@ const DURACAO_AVISO := 3.0
 @onready var _caixa_dialogo: PanelContainer = %CaixaDialogo
 @onready var _falante: Label = %Falante
 @onready var _fala: Label = %Fala
+@onready var _painel_intro: PanelContainer = %PainelIntro
+@onready var _texto_intro: Label = %TextoIntro
+@onready var _pagina_intro: Label = %PaginaIntro
 @onready var _painel_tutorial: PanelContainer = %PainelTutorial
 @onready var _painel_escolha: PanelContainer = %PainelEscolha
 @onready var _painel_fim: PanelContainer = %PainelFim
@@ -36,6 +39,7 @@ const DURACAO_AVISO := 3.0
 var _aviso_restante := 0.0
 var _falas: PackedStringArray = []
 var _fala_atual := 0
+var _pagina_da_intro := 0
 
 
 func _ready() -> void:
@@ -56,7 +60,10 @@ func _ready() -> void:
 
 	# o _ready() do nível roda depois deste e chama iniciar_partida(), que
 	# despausa; pausar aqui direto seria desfeito em seguida
-	_mostrar_tutorial.call_deferred()
+	if Jogo.intro_vista:
+		_mostrar_tutorial.call_deferred()
+	else:
+		_mostrar_intro.call_deferred()
 
 
 func _process(delta: float) -> void:
@@ -81,9 +88,41 @@ func _ao_avisar(texto: String) -> void:
 	_aviso_restante = DURACAO_AVISO
 
 
+func _mostrar_intro() -> void:
+	Jogo.intro_vista = true
+	_pagina_da_intro = 0
+	_pintar_intro()
+	_painel_intro.visible = true
+	_pausar_para_ler()
+
+
+# o Alfredo alcança rodar um quadro de física antes de a pausa valer, e se ele nascer de
+# olho no Caju o aviso fica preso na tela durante a leitura inteira
+func _pausar_para_ler() -> void:
+	get_tree().paused = true
+	Jogo.definir_observado(false)
+
+
+func _pintar_intro() -> void:
+	_texto_intro.text = Config.INTRO[_pagina_da_intro]
+	_pagina_intro.text = "%d / %d" % [_pagina_da_intro + 1, Config.INTRO.size()]
+	# a última página é o primeiro objetivo, não mais história
+	var chamada := _pagina_da_intro == Config.INTRO.size() - 1
+	_texto_intro.modulate = Color(1, 0.85, 0.45) if chamada else Color.WHITE
+
+
+func _avancar_intro() -> void:
+	_pagina_da_intro += 1
+	if _pagina_da_intro < Config.INTRO.size():
+		_pintar_intro()
+		return
+	_painel_intro.visible = false
+	_mostrar_tutorial()
+
+
 func _mostrar_tutorial() -> void:
 	_painel_tutorial.visible = true
-	get_tree().paused = true
+	_pausar_para_ler()
 
 
 func _ao_pedir_escolha() -> void:
@@ -103,6 +142,11 @@ func _voltar_ao_menu() -> void:
 
 
 func _unhandled_input(evento: InputEvent) -> void:
+	if _painel_intro.visible:
+		if evento.is_action_pressed("ui_accept") or evento.is_action_pressed("interagir"):
+			_avancar_intro()
+		return
+
 	if _painel_tutorial.visible:
 		if evento.is_action_pressed("ui_accept") or evento.is_action_pressed("interagir"):
 			_painel_tutorial.visible = false

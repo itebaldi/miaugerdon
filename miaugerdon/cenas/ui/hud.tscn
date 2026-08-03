@@ -180,6 +180,48 @@ theme_override_styles/background = SubResource("StyleBoxFlat_barra_fundo")
 theme_override_styles/fill = SubResource("StyleBoxFlat_progresso")
 show_percentage = false
 
+[node name="PainelIntro" type="PanelContainer" parent="Raiz"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -350.0
+offset_top = -165.0
+offset_right = 350.0
+offset_bottom = 165.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_painel")
+
+[node name="Coluna" type="VBoxContainer" parent="Raiz/PainelIntro"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="TextoIntro" type="Label" parent="Raiz/PainelIntro/Coluna"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.93, 0.9, 0.84, 1)
+theme_override_font_sizes/font_size = 17
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="PaginaIntro" type="Label" parent="Raiz/PainelIntro/Coluna"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.55, 0.53, 0.5, 1)
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+
+[node name="DicaIntro" type="Label" parent="Raiz/PainelIntro/Coluna"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.85, 0.95, 1)
+theme_override_font_sizes/font_size = 14
+text = "[Enter] continuar"
+horizontal_alignment = 1
+
 [node name="PainelTutorial" type="PanelContainer" parent="Raiz" unique_id=1766682442]
 unique_name_in_owner = true
 visible = false

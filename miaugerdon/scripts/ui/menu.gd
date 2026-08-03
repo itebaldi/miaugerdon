@@ -10,4 +10,6 @@ func _ready() -> void:
 
 
 func _jogar() -> void:
+	# "Tentar novamente" recarrega a cena e não deve repetir a história; vir do menu sim
+	Jogo.intro_vista = false
 	get_tree().change_scene_to_file(CENA_JOGO)

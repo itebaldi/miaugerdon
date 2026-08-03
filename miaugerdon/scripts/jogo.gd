@@ -42,6 +42,10 @@ enum Motivo { SUSPEITA, TEMPO, ATIVOU, DESISTIU }
 const OBJETIVOS := Config.OBJETIVOS
 const FINAIS := Config.FINAIS
 
+# a história de abertura é lida uma vez por partida nova, não a cada morte: o autoload
+# sobrevive ao reload_current_scene() do "Tentar novamente", e o menu zera isto de novo
+var intro_vista := false
+
 var em_partida := false
 var observado := false
 var suspeita := 0.0
