@@ -29,6 +29,7 @@ const DURACAO_AVISO := 3.0
 @onready var _painel_tutorial: PanelContainer = %PainelTutorial
 @onready var _painel_escolha: PanelContainer = %PainelEscolha
 @onready var _painel_fim: PanelContainer = %PainelFim
+@onready var _fim_imagem: TextureRect = %FimImagem
 @onready var _fim_titulo: Label = %FimTitulo
 @onready var _fim_texto: Label = %FimTexto
 @onready var _botao_tentar: Button = %BotaoTentar
@@ -282,4 +283,17 @@ func _ao_terminar(motivo: Jogo.Motivo) -> void:
 	_fim_titulo.text = final["titulo"]
 	_fim_texto.text = final["texto"]
 	_fim_titulo.modulate = Color(0.72, 0.94, 0.7) if final["vitoria"] else Color(0.96, 0.6, 0.52)
+
+	# só os dois finais bons têm ilustração, e ela carrega aqui: guardar um preload no
+	# config faria as duas imagens ocuparem memória desde o menu
+	var arte: String = final.get("imagem", "")
+	_fim_imagem.visible = arte != ""
+	if arte != "":
+		_fim_imagem.texture = load(arte)
+
+	# o painel só cresce quando tem ilustração; nas derrotas isso viraria um vazio
+	var meia_altura := 240.0 if arte != "" else 150.0
+	_painel_fim.offset_top = -meia_altura
+	_painel_fim.offset_bottom = meia_altura
+
 	_painel_fim.visible = true

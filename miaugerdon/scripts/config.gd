@@ -104,11 +104,13 @@ const FINAIS := [
 	{
 		"vitoria": true,
 		"titulo": "O mundo agora pertence aos gatos",
+		"imagem": "res://sprites/finais/FINAL_estatua liberdade.png",
 		"texto": "A máquina zumbiu. Alfredo parou no meio da sala e piscou devagar.\nLá fora, o carteiro parou. O cachorro, na van, parou.\nCaju subiu no sofá e olhou a rua como quem olha um império.",
 	},
 	{
 		"vitoria": true,
 		"titulo": "Caju mudou de ideia",
+		"imagem": "res://sprites/finais/FINAL_com cachorro.png",
 		"texto": "Caju olhou a máquina por um tempo longo. Depois puxou o fio com a pata.\nFoi até a porta e sentou, com o rabo enrolado nas patas, esperando.\nQuando o cachorro entrou, ele não correu. Cheirou, bufou uma vez — e deitou do lado.",
 	},
 ]
