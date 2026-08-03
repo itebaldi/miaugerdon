@@ -1,12 +1,11 @@
 [gd_scene format=3 uid="uid://buvqj8a6m7xy7"]
 
-[ext_resource type="Script" path="res://scripts/mapa2.gd" id="1_mapa2"]
-[ext_resource type="NavigationPolygon" path="res://cenas/navmesh_casa.tres" id="1_navmesh"]
-[ext_resource type="PackedScene" path="res://cenas/objetos/objetivo.tscn" id="1_objetivo"]
 [ext_resource type="PackedScene" path="res://cenas/objetos/acao_gato.tscn" id="1_acao"]
 [ext_resource type="PackedScene" path="res://cenas/ui/hud.tscn" id="1_hud"]
-[ext_resource type="Texture2D" uid="uid://b0bsrma64ocq1" path="res://sprites/personagens/gato.png" id="1_gato"]
 [ext_resource type="Texture2D" uid="uid://ck7avcfa5srao" path="res://sprites/objetos/FINAL_Base.png" id="1_lbi2w"]
+[ext_resource type="Script" uid="uid://cl0w7b10mg6sk" path="res://scripts/mapa2.gd" id="1_mapa2"]
+[ext_resource type="NavigationPolygon" path="res://cenas/navmesh_casa.tres" id="1_navmesh"]
+[ext_resource type="PackedScene" path="res://cenas/objetos/objetivo.tscn" id="1_objetivo"]
 [ext_resource type="PackedScene" uid="uid://rqve7obh0jbx" path="res://cenas/personagens/caju.tscn" id="2_rn1ff"]
 [ext_resource type="Texture2D" uid="uid://rt35h0yej0v" path="res://sprites/objetos/FINAL_parede5.png" id="3_br4ow"]
 [ext_resource type="PackedScene" uid="uid://cernmukarhqdv" path="res://cenas/personagens/alfredo.tscn" id="3_rn1ff"]
@@ -38,6 +37,7 @@
 [ext_resource type="Texture2D" uid="uid://c0xklsy16w23s" path="res://sprites/objetos/FINAL_parede6.png" id="29_wchsd"]
 [ext_resource type="Texture2D" uid="uid://camy06ykgct1k" path="res://sprites/objetos/FINAL_Mesa jardim.png" id="30_0l6vf"]
 [ext_resource type="Texture2D" uid="uid://b31hyhyovh6y" path="res://sprites/objetos/FINAL_parede8.png" id="31_evc1v"]
+[ext_resource type="Texture2D" uid="uid://dwdn13fq2mjb5" path="res://sprites/personagens/MrT.png" id="35_h1n1t"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m4srr"]
 radius = 7.0
@@ -50,7 +50,7 @@ radius = 3.0
 y_sort_enabled = true
 script = ExtResource("1_mapa2")
 
-[node name="Piso" type="Node2D" parent="."]
+[node name="Piso" type="Node2D" parent="." unique_id=2038880502]
 z_index = -1
 
 [node name="FinalBase" type="Sprite2D" parent="Piso" unique_id=1162229225]
@@ -442,159 +442,145 @@ position = Vector2(-95, 522)
 polygon = PackedVector2Array(752, 441, 1514, 1, 1512, 0, 749, 439)
 
 [node name="Caju" parent="." unique_id=567579954 instance=ExtResource("2_rn1ff")]
-position = Vector2(702.166687, 458.333344)
+position = Vector2(702.1667, 458.33334)
 
 [node name="Alfredo" parent="." unique_id=1445397297 node_paths=PackedStringArray("alvo") instance=ExtResource("3_rn1ff")]
 position = Vector2(693, 283.5)
 alvo = NodePath("../Caju")
 
-[node name="Navegacao" type="NavigationRegion2D" parent="."]
+[node name="Navegacao" type="NavigationRegion2D" parent="." unique_id=912117775]
 navigation_polygon = ExtResource("1_navmesh")
 
-[node name="PontoInicial" type="Marker2D" parent="." groups=["ponto_inicial"]]
-position = Vector2(702.166687, 458.333344)
+[node name="PontoInicial" type="Marker2D" parent="." unique_id=185352833 groups=["ponto_inicial"]]
+position = Vector2(702.1667, 458.33334)
 
-[node name="Rotas" type="Node2D" parent="." groups=["rotas"]]
+[node name="Rotas" type="Node2D" parent="." unique_id=233324887 groups=["rotas"]]
 
-[node name="SalaEstar" type="Marker2D" parent="Rotas"]
+[node name="SalaEstar" type="Marker2D" parent="Rotas" unique_id=1756446963]
 position = Vector2(455, 470)
 
-[node name="SalaJantar" type="Marker2D" parent="Rotas"]
+[node name="SalaJantar" type="Marker2D" parent="Rotas" unique_id=812638136]
 position = Vector2(600, 470)
 
-[node name="Cozinha" type="Marker2D" parent="Rotas"]
+[node name="Cozinha" type="Marker2D" parent="Rotas" unique_id=1562163609]
 position = Vector2(700, 665)
 
-[node name="Quarto" type="Marker2D" parent="Rotas"]
+[node name="Quarto" type="Marker2D" parent="Rotas" unique_id=1654836627]
 position = Vector2(640, 300)
 
-[node name="Banheiro" type="Marker2D" parent="Rotas"]
+[node name="Banheiro" type="Marker2D" parent="Rotas" unique_id=1426452825]
 position = Vector2(800, 300)
 
-[node name="Escritorio" type="Marker2D" parent="Rotas"]
+[node name="Escritorio" type="Marker2D" parent="Rotas" unique_id=208866708]
 position = Vector2(960, 400)
 
-[node name="Garagem" type="Marker2D" parent="Rotas"]
+[node name="Garagem" type="Marker2D" parent="Rotas" unique_id=1185386268]
 position = Vector2(280, 470)
 
-[node name="Quintal" type="Marker2D" parent="Rotas"]
+[node name="Quintal" type="Marker2D" parent="Rotas" unique_id=979082849]
 position = Vector2(1150, 470)
 
-[node name="AreaServico" type="Marker2D" parent="Rotas"]
+[node name="AreaServico" type="Marker2D" parent="Rotas" unique_id=1353974293]
 position = Vector2(500, 790)
 
-[node name="MrT" type="Sprite2D" parent="."]
-position = Vector2(1215, 482)
-scale = Vector2(0.6, 0.6)
+[node name="MrT" type="Sprite2D" parent="." unique_id=234331237]
+position = Vector2(1212.9459, 486.17905)
+scale = Vector2(0.12045195, 0.12045191)
+texture = ExtResource("35_h1n1t")
 offset = Vector2(-43.5, -48.5)
-texture = ExtResource("1_gato")
 
-[node name="Topete" type="Polygon2D" parent="MrT"]
-color = Color(0.94, 0.81, 0.42, 1)
-polygon = PackedVector2Array(-17, -40, -8, -53, 1, -45, 11, -55, 17, -38)
+[node name="Objetivos" type="Node2D" parent="." unique_id=1898456403]
 
-[node name="Objetivos" type="Node2D" parent="."]
-
-[node name="MrT" parent="Objetivos" instance=ExtResource("1_objetivo")]
+[node name="MrT" parent="Objetivos" unique_id=1576468852 instance=ExtResource("1_objetivo")]
 position = Vector2(1215, 505)
+nome_falante = "Mr. T"
 id = "mr_t"
 rotulo = "Falar com o Mr. T"
 pensamento = "Aquele é o Mr. T. Dizem que ele resolve as coisas."
-falas = PackedStringArray("Ora, ora. Outro gato pequeno com problemas pequenos.", "Eu tenho o melhor quintal. O maior quintal. Todos os gatos comentam.", "Um cachorro? Na SUA casa? Isso é uma invasão. Uma invasão total.", "Você precisa de uma máquina. Uma máquina de controle mental. As melhores máquinas são de controle mental.", "Humanos, cachorros, o carteiro — todos vão obedecer. Vai ser tremendo.", "Faça, Caju. Ninguém nunca fez isso melhor do que você vai fazer.")
-nome_falante = "Mr. T"
 
-[node name="PapelCaneta" parent="Objetivos" instance=ExtResource("1_objetivo")]
+[node name="PapelCaneta" parent="Objetivos" unique_id=1384319687 instance=ExtResource("1_objetivo")]
 position = Vector2(1045, 400)
 id = "papel_caneta"
 rotulo = "Pegar papel e caneta"
 pensamento = "Papel e caneta na estante. Todo plano começa escrito."
 
-[node name="EscreverPlano" parent="Objetivos" instance=ExtResource("1_objetivo")]
+[node name="EscreverPlano" parent="Objetivos" unique_id=286423703 instance=ExtResource("1_objetivo")]
 position = Vector2(505, 455)
 id = "escrever_plano"
 rotulo = "Escrever o plano"
 pensamento = "A mesa de centro serve. O Alfredo nunca olha aqui."
 
-[node name="Computador" parent="Objetivos" instance=ExtResource("1_objetivo")]
+[node name="Computador" parent="Objetivos" unique_id=662289935 instance=ExtResource("1_objetivo")]
 position = Vector2(900, 425)
 id = "computador"
 rotulo = "Usar o computador"
 pensamento = "O computador do Alfredo. A senha dele é o nome do gato. É o meu nome."
 
-[node name="Maquina" parent="Objetivos" instance=ExtResource("1_objetivo")]
+[node name="Maquina" parent="Objetivos" unique_id=1613810250 instance=ExtResource("1_objetivo")]
 position = Vector2(340, 480)
 id = "maquina"
 rotulo = "Montar a máquina"
 pensamento = "Será que seria tão ruim ter mais um animal em casa?"
 
-[node name="Acoes" type="Node2D" parent="."]
+[node name="Acoes" type="Node2D" parent="." unique_id=489575532]
 
-[node name="Copo" parent="Acoes" instance=ExtResource("1_acao")]
+[node name="Copo" parent="Acoes" unique_id=1438937350 instance=ExtResource("1_acao")]
 position = Vector2(655, 550)
+atrai_alfredo = true
+recarga = 15.0
+usos = 2
 id = "copo"
 rotulo = "Derrubar o copo"
 duracao = 1.5
 pensamento = "Um copo na beirada da mesa. É quase um convite."
-reduz_suspeita = 12.0
-atrai_alfredo = true
-recarga = 15.0
-usos = 2
 cor_placeholder = Color(0.72, 0.82, 0.9, 0.95)
 
-[node name="Comer" parent="Acoes" instance=ExtResource("1_acao")]
+[node name="Comer" parent="Acoes" unique_id=43952204 instance=ExtResource("1_acao")]
 position = Vector2(700, 665)
+reduz_suspeita = 15.0
 id = "comer"
 rotulo = "Comer na tigela"
 duracao = 1.5
 pensamento = "Comida. Comer é a coisa mais normal que um gato faz."
-reduz_suspeita = 15.0
-atrai_alfredo = false
-recarga = 12.0
-usos = -1
 cor_placeholder = Color(0.72, 0.82, 0.9, 0.95)
 
-[node name="ArranharSofa" parent="Acoes" instance=ExtResource("1_acao")]
+[node name="ArranharSofa" parent="Acoes" unique_id=484146053 instance=ExtResource("1_acao")]
 position = Vector2(592, 418)
-id = "arranhar_sofa"
-rotulo = "Arranhar o sofá"
-duracao = 1.5
-pensamento = "Se eu arranhar o sofá, o Alfredo vem brigar aqui — e me esquece no resto da casa."
 reduz_suspeita = 18.0
 atrai_alfredo = true
 recarga = 15.0
 usos = 3
+id = "arranhar_sofa"
+rotulo = "Arranhar o sofá"
+duracao = 1.5
+pensamento = "Se eu arranhar o sofá, o Alfredo vem brigar aqui — e me esquece no resto da casa."
 
-[node name="Dormir" parent="Acoes" instance=ExtResource("1_acao")]
+[node name="Dormir" parent="Acoes" unique_id=171443027 instance=ExtResource("1_acao")]
 position = Vector2(650, 285)
+reduz_suspeita = 25.0
+recarga = 20.0
 id = "dormir"
 rotulo = "Dormir na cama"
 duracao = 1.5
 pensamento = "A cama dele. Dormir aqui é praticamente meu trabalho."
-reduz_suspeita = 25.0
-atrai_alfredo = false
-recarga = 20.0
-usos = -1
 
-[node name="CavarTerra" parent="Acoes" instance=ExtResource("1_acao")]
+[node name="CavarTerra" parent="Acoes" unique_id=145472515 instance=ExtResource("1_acao")]
 position = Vector2(1105, 525)
-id = "cavar_terra"
-rotulo = "Cavar a terra"
-duracao = 1.5
-pensamento = "Terra fofa. Dá vontade de cavar só de olhar."
 reduz_suspeita = 10.0
 atrai_alfredo = true
 recarga = 15.0
 usos = 2
+id = "cavar_terra"
+rotulo = "Cavar a terra"
+duracao = 1.5
+pensamento = "Terra fofa. Dá vontade de cavar só de olhar."
 
-[node name="Brincar" parent="Acoes" instance=ExtResource("1_acao")]
+[node name="Brincar" parent="Acoes" unique_id=1306085168 instance=ExtResource("1_acao")]
 position = Vector2(420, 460)
+recarga = 10.0
 id = "brincar"
 rotulo = "Brincar no tapete"
 duracao = 1.5
 pensamento = "O tapete. Bom para fingir que sou um gato bobo."
-reduz_suspeita = 12.0
-atrai_alfredo = false
-recarga = 10.0
-usos = -1
 
-[node name="HUD" parent="." instance=ExtResource("1_hud")]
+[node name="HUD" parent="." unique_id=1044984347 instance=ExtResource("1_hud")]
