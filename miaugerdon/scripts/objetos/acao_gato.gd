@@ -1,3 +1,4 @@
+@tool
 extends Interagivel
 
 var reduz_suspeita := 12.0

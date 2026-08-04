@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://dlrqeamwx5syv" path="res://sprites/interativo/FINAL_arranhar sofá.png" id="2_arranhar"]
 [ext_resource type="Texture2D" uid="uid://b0ry3n0na0jek" path="res://sprites/interativo/FINAL_Brinquedo.png" id="2_brinq"]
 [ext_resource type="Texture2D" uid="uid://cvfx4pdoqauxu" path="res://sprites/interativo/FINAL_copo.png" id="2_copo"]
-[ext_resource type="Texture2D" uid="uid://22xop0w3rk1v" path="res://sprites/interativo/FINAL_ferramenta.png" id="2_ferram"]
 [ext_resource type="Texture2D" uid="uid://btd45ox51vhgu" path="res://sprites/interativo/FINAL_escrever o plano.png" id="2_plano"]
 [ext_resource type="PackedScene" uid="uid://rqve7obh0jbx" path="res://cenas/personagens/caju.tscn" id="2_rn1ff"]
 [ext_resource type="Texture2D" uid="uid://46tdmjt2dpxm" path="res://sprites/interativo/FINAL_cavar terra.png" id="2_terra"]
@@ -47,6 +46,7 @@
 [ext_resource type="Texture2D" uid="uid://camy06ykgct1k" path="res://sprites/objetos/FINAL_Mesa jardim.png" id="30_0l6vf"]
 [ext_resource type="Texture2D" uid="uid://b31hyhyovh6y" path="res://sprites/objetos/FINAL_parede8.png" id="31_evc1v"]
 [ext_resource type="Texture2D" uid="uid://c75b2bvxbw6tv" path="res://sprites/interativo/FINAL_papel e caneta.png" id="37_647cg"]
+[ext_resource type="Texture2D" uid="uid://blr1rystg1rbh" path="res://sprites/objetos/caixa.png" id="39_647cg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m4srr"]
 radius = 7.0
@@ -526,10 +526,10 @@ position = Vector2(900, 425)
 id = "computador"
 
 [node name="Maquina" parent="Objetivos" unique_id=838498670 instance=ExtResource("1_objetivo")]
-position = Vector2(283, 704)
+position = Vector2(358, 729)
 id = "maquina"
-textura = ExtResource("2_ferram")
-escala_arte = 0.6
+textura = ExtResource("39_647cg")
+escala_arte = 0.07
 
 [node name="Acoes" type="Node2D" parent="." unique_id=683011875]
 y_sort_enabled = true

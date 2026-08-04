@@ -1,3 +1,4 @@
+@tool
 extends Interagivel
 
 var falas: PackedStringArray = []
@@ -11,6 +12,9 @@ var _oculto_ate_liberar := false
 
 func _ready() -> void:
 	super()
+	if Engine.is_editor_hint():
+		return
+
 	for i in Config.OBJETIVOS.size():
 		var etapa: Dictionary = Config.OBJETIVOS[i]
 		if etapa["id"] != id:
