@@ -23,6 +23,7 @@ const DECAIMENTO_PROGRESSO := 0.25
 var rotulo := ""
 var duracao := 3.0
 var pensamento := ""
+var tela := ""
 
 @onready var _sprite: Sprite2D = $Sprite2D
 @onready var _label: Label = $Label
@@ -44,6 +45,7 @@ func _ready() -> void:
 	rotulo = dados.get("rotulo", rotulo)
 	pensamento = dados.get("pensamento_perto", pensamento)
 	duracao = dados.get("duracao", duracao)
+	tela = dados.get("tela", tela)
 
 	add_to_group("interagivel")
 	_label.position.y += minf(deslocamento_arte.y, 0.0)
@@ -76,7 +78,7 @@ func _process(delta: float) -> void:
 	if perto and _esta_ativo() and Input.is_action_pressed("interagir"):
 		_progresso = minf(1.0, _progresso + delta / maxf(duracao, 0.01))
 		_ao_progredir(delta)
-		Jogo.definir_progresso(_progresso)
+		Jogo.definir_progresso(_progresso, tela)
 		if _progresso >= 1.0:
 			_progresso = 0.0
 			Jogo.definir_progresso(0.0)
@@ -85,7 +87,7 @@ func _process(delta: float) -> void:
 
 		_progresso = maxf(0.0, _progresso - delta * DECAIMENTO_PROGRESSO / maxf(duracao, 0.01))
 		if perto:
-			Jogo.definir_progresso(_progresso)
+			Jogo.definir_progresso(_progresso, tela)
 
 
 func _ao_entrar(corpo: Node2D) -> void:

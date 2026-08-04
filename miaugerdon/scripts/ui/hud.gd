@@ -20,6 +20,10 @@ const DURACAO_AVISO := 3.0
 @onready var _retrato: TextureRect = %Retrato
 @onready var _falante: Label = %Falante
 @onready var _fala: Label = %Fala
+@onready var _tela_computador: TextureRect = %TelaComputador
+@onready var _painel_recado: PanelContainer = %PainelRecado
+@onready var _recado_imagem: TextureRect = %RecadoImagem
+@onready var _recado_texto: Label = %RecadoTexto
 @onready var _painel_intro: PanelContainer = %PainelIntro
 @onready var _texto_intro: Label = %TextoIntro
 @onready var _pagina_intro: Label = %PaginaIntro
@@ -38,6 +42,7 @@ var _aviso_restante := 0.0
 var _falas: PackedStringArray = []
 var _fala_atual := 0
 var _pagina_da_intro := 0
+var _tela_atual := ""
 
 
 func _ready() -> void:
@@ -50,6 +55,7 @@ func _ready() -> void:
 	Jogo.dialogo.connect(_ao_abrir_dialogo)
 	Jogo.observado_alterado.connect(_ao_mudar_observado)
 	Jogo.aviso.connect(_ao_avisar)
+	Jogo.recado.connect(_ao_receber_recado)
 	Jogo.escolha_final.connect(_ao_pedir_escolha)
 	Jogo.partida_terminada.connect(_ao_terminar)
 
@@ -134,6 +140,12 @@ func _voltar_ao_menu() -> void:
 
 
 func _unhandled_input(evento: InputEvent) -> void:
+	if _painel_recado.visible:
+		if evento.is_action_pressed("ui_accept") or evento.is_action_pressed("interagir"):
+			_painel_recado.visible = false
+			get_tree().paused = false
+		return
+
 	if _painel_intro.visible:
 		if evento.is_action_pressed("ui_accept") or evento.is_action_pressed("interagir"):
 			_avancar_intro()
@@ -258,9 +270,27 @@ func _ao_mudar_objetivo(_indice: int, titulo: String) -> void:
 	_objetivo.text = "Objetivo: " + titulo
 
 
-func _ao_mudar_progresso(fracao: float) -> void:
+func _ao_receber_recado(imagem: String, texto: String) -> void:
+	_recado_imagem.texture = load(imagem)
+	_recado_texto.text = texto
+	_painel_recado.visible = true
+	get_tree().paused = true
+
+
+# quem manda a imagem e o objeto em uso: olhar o objetivo da vez acendia a tela
+# do computador enquanto o gato derrubava o copo
+func _mostrar_tela(caminho: String) -> void:
+	if caminho == _tela_atual:
+		return
+	_tela_atual = caminho
+	_tela_computador.texture = load(caminho) if caminho != "" else null
+	_tela_computador.visible = _tela_computador.texture != null
+
+
+func _ao_mudar_progresso(fracao: float, tela: String) -> void:
 	_caixa_progresso.visible = fracao > 0.001
 	_barra_progresso.value = fracao * 100.0
+	_mostrar_tela(tela)
 
 
 func _ao_terminar(motivo: Jogo.Motivo) -> void:
@@ -270,6 +300,8 @@ func _ao_terminar(motivo: Jogo.Motivo) -> void:
 	_caixa_dialogo.visible = false
 	_painel_inventario.visible = false
 	_painel_escolha.visible = false
+	_painel_recado.visible = false
+	_mostrar_tela("")
 
 	var final: Dictionary = Jogo.FINAIS[motivo]
 	_fim_titulo.text = final["titulo"]

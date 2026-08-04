@@ -55,7 +55,15 @@ const OBJETIVOS := [
 		"id": "computador",
 		"rotulo": "Usar o computador",
 		"pensamento_perto": "O computador do Alfredo. A senha dele é o nome do gato. É o meu nome.",
-		"titulo": "Acesse o PurrrgleMiaut no computador",
+		"titulo": "Acesse o PurrgleMiaut no computador",
+		# fica no canto da tela enquanto ele trabalha, como se fosse o monitor
+		"tela": "res://sprites/empresas/PurrgleMiaut.png",
+		"recado": {
+			"imagem": "res://sprites/empresas/encomenda miauzon.png",
+			"texto": "Após se reunir no Purrgle Miaut, Caju encomendou na Miauzon as peças 
+			necessárias para a construção da máquina de controle mental. Graças ao plano 
+			Primiau, a encomenda já chegou na garagem.",
+		},
 		"duracao": 7.0,
 		"suspeita": 5.0,
 		"itens": ["Pedido no Miauzon: peça #TR-4"],

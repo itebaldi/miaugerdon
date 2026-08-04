@@ -4,7 +4,7 @@ signal suspeita_alterada(valor: float)
 signal faixa_alterada(nova: Faixa)
 signal tempo_alterado(segundos: float)
 signal objetivo_alterado(indice: int, titulo: String)
-signal progresso_alterado(fracao: float)
+signal progresso_alterado(fracao: float, tela: String)
 signal ruido(posicao: Vector2)
 signal observado_alterado(observado: bool)
 signal inventario_alterado()
@@ -12,6 +12,7 @@ signal pensamento(texto: String)
 signal dialogo(nome: String, falas: PackedStringArray, retrato: String)
 signal dialogo_terminado()
 signal aviso(texto: String)
+signal recado(imagem: String, texto: String)
 signal escolha_final()
 signal partida_terminada(motivo: Motivo)
 
@@ -64,7 +65,7 @@ func iniciar_partida() -> void:
 	faixa_alterada.emit(_faixa)
 	observado_alterado.emit(false)
 	tempo_alterado.emit(tempo_restante)
-	progresso_alterado.emit(0.0)
+	progresso_alterado.emit(0.0, "")
 	inventario_alterado.emit()
 	objetivo_alterado.emit(indice, OBJETIVOS[indice]["titulo"])
 
@@ -133,8 +134,11 @@ func concluir_objetivo(id: String) -> void:
 	inventario_alterado.emit()
 
 	var frase: String = atual["pensamento_depois"]
+	var bilhete: Dictionary = atual.get("recado", {})
 	indice += 1
-	progresso_alterado.emit(0.0)
+	progresso_alterado.emit(0.0, "")
+	if not bilhete.is_empty():
+		recado.emit(bilhete["imagem"], bilhete["texto"])
 
 	if indice >= OBJETIVOS.size():
 
@@ -185,8 +189,8 @@ func avisar(texto: String) -> void:
 	aviso.emit(texto)
 
 
-func definir_progresso(fracao: float) -> void:
-	progresso_alterado.emit(clampf(fracao, 0.0, 1.0))
+func definir_progresso(fracao: float, tela := "") -> void:
+	progresso_alterado.emit(clampf(fracao, 0.0, 1.0), tela)
 
 
 func decidir(ativou: bool) -> void:

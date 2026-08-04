@@ -9,6 +9,8 @@ const RECARGA_MIADO := 8.0
 const DURACAO_BLOQUEIO := 1.5
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var _som_miado: AudioStreamPlayer = %SomMiado
+@onready var _som_lambida: AudioStreamPlayer = %SomLambida
 
 var ultima_direcao := "baixo"
 var recarga_miado := 0.0
@@ -35,6 +37,7 @@ func _physics_process(delta: float) -> void:
 
 	if Input.is_action_just_pressed("miar") and recarga_miado <= 0.0:
 		recarga_miado = RECARGA_MIADO
+		_som_miado.play()
 		Jogo.aumentar_suspeita(Jogo.SUSPEITA_MIADO)
 		Jogo.emitir_ruido(global_position)
 
@@ -51,8 +54,14 @@ func _physics_process(delta: float) -> void:
 		animated_sprite_2d.play("andando_" + ultima_direcao)
 	else:
 		animated_sprite_2d.play("parado_" + ultima_direcao)
-		if Input.is_action_pressed("disfarce"):
-			Jogo.reduzir_suspeita(Jogo.LIMPAR_SE * delta)
+
+	var lambendo := direcao == Vector2.ZERO and Input.is_action_pressed("disfarce")
+	if lambendo:
+		Jogo.reduzir_suspeita(Jogo.LIMPAR_SE * delta)
+		if not _som_lambida.playing:
+			_som_lambida.play()
+	elif _som_lambida.playing:
+		_som_lambida.stop()
 
 	move_and_slide()
 
