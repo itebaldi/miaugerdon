@@ -75,6 +75,9 @@ func _process(delta: float) -> void:
 		_label.text = _texto_prompt()
 		_label.modulate = _cor_prompt()
 
+	if perto and not _esta_ativo() and Input.is_action_just_pressed("interagir"):
+		Jogo.avisar(_motivo_indisponivel())
+
 	if perto and _esta_ativo() and Input.is_action_pressed("interagir"):
 		_progresso = minf(1.0, _progresso + delta / maxf(duracao, 0.01))
 		_ao_progredir(delta)
@@ -121,6 +124,10 @@ func _ao_progredir(_delta: float) -> void:
 
 func _concluir() -> void:
 	pass
+
+
+func _motivo_indisponivel() -> String:
+	return "%s: agora não dá" % rotulo
 
 
 func _texto_prompt() -> String:

@@ -40,6 +40,12 @@ func _concluir() -> void:
 	_recarga_restante = recarga
 
 
+func _motivo_indisponivel() -> String:
+	if _usos_restantes == 0:
+		return "%s: não dá mais" % rotulo
+	return "%s de novo só daqui a %ds" % [rotulo, ceili(_recarga_restante)]
+
+
 func _texto_prompt() -> String:
 	if _usos_restantes == 0:
 		return "%s — acabou" % rotulo

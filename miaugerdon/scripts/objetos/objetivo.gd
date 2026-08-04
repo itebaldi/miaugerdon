@@ -74,6 +74,15 @@ func _no_fim_do_dialogo() -> void:
 	Jogo.concluir_objetivo(id)
 
 
+func _motivo_indisponivel() -> String:
+	if Jogo.esta_concluido(_indice):
+		return "%s: já está pronto" % rotulo
+	var atual := Jogo.objetivo_atual()
+	if atual.is_empty():
+		return "%s: ainda não" % rotulo
+	return "Antes disso: %s" % atual["titulo"]
+
+
 func _texto_prompt() -> String:
 	if Jogo.esta_concluido(_indice):
 		return "%s — pronto" % rotulo

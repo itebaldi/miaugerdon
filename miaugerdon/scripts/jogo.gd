@@ -21,7 +21,7 @@ const SUSPEITA_MAX := 100.0
 const LIMITE_MEDIA := 35.0
 const LIMITE_ALTA := 70.0
 
-const LIMPAR_SE := 4.0
+const LIMPAR_SE := 8.0
 const SUSPEITA_MIADO := 3.0
 const FLAGRANTE := 15.0
 
