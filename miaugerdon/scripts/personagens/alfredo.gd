@@ -42,6 +42,7 @@ var _travamentos_seguidos := 0
 
 func _ready() -> void:
 	Jogo.ruido.connect(_ao_ouvir_ruido)
+	Jogo.faixa_alterada.connect(_ao_mudar_faixa)
 
 	var passos := 0
 	while passos < 30:
@@ -156,6 +157,17 @@ func _passo_bravo(delta: float) -> void:
 		_ir_para_rota()
 
 
+# barra amarela: ele larga a ronda e vai ver o que esta acontecendo naquele comodo
+func _ao_mudar_faixa(nova: Jogo.Faixa) -> void:
+	if nova != Jogo.Faixa.MEDIA or alvo == null:
+		return
+	if _estado == Estado.BRAVO or _estado == Estado.PERSEGUINDO:
+		return
+	_estado = Estado.INVESTIGANDO
+	_espera = 0.0
+	nav_agent.target_position = _no_piso(alvo.global_position)
+
+
 func _ao_ouvir_ruido(posicao: Vector2) -> void:
 	if _estado == Estado.BRAVO or _estado == Estado.PERSEGUINDO:
 		return
@@ -192,7 +204,7 @@ func _verificar_flagrante() -> void:
 	_estado = Estado.BRAVO
 	_espera = ESPERA_BRAVO
 	get_tree().call_group("interagivel", "cancelar")
-	Jogo.avisar("Alfredo te pegou! De volta pra sala.")
+	Jogo.avisar("Alfredo te pegou!")
 	Jogo.aumentar_suspeita(Jogo.FLAGRANTE)
 	if alvo.has_method("levar_para"):
 		alvo.levar_para(_ponto_inicial)

@@ -2,17 +2,25 @@ extends Interagivel
 
 var falas: PackedStringArray = []
 var nome_falante := ""
+var retrato := ""
 
+var _indice := -1
 var _aguardando_dialogo := false
 var _oculto_ate_liberar := false
 
 
 func _ready() -> void:
 	super()
-	var etapa := Config.dados(id)
-	falas = PackedStringArray(etapa.get("falas", []))
-	nome_falante = etapa.get("falante", "")
-	_oculto_ate_liberar = etapa.get("oculto", false)
+	for i in Config.OBJETIVOS.size():
+		var etapa: Dictionary = Config.OBJETIVOS[i]
+		if etapa["id"] != id:
+			continue
+		_indice = i
+		falas = PackedStringArray(etapa.get("falas", []))
+		nome_falante = etapa.get("falante", "")
+		retrato = etapa.get("retrato", "")
+		_oculto_ate_liberar = etapa.get("oculto", false)
+		break
 
 	if _oculto_ate_liberar:
 		visible = false
@@ -54,7 +62,7 @@ func _concluir() -> void:
 
 	_aguardando_dialogo = true
 	Jogo.dialogo_terminado.connect(_no_fim_do_dialogo, CONNECT_ONE_SHOT)
-	Jogo.conversar(nome_falante, falas)
+	Jogo.conversar(nome_falante, falas, retrato)
 
 
 func _no_fim_do_dialogo() -> void:
@@ -63,6 +71,13 @@ func _no_fim_do_dialogo() -> void:
 
 
 func _texto_prompt() -> String:
+	if Jogo.esta_concluido(_indice):
+		return "%s — pronto" % rotulo
 	if not _esta_ativo():
 		return "%s — ainda não" % rotulo
 	return "%s  [segure E]" % rotulo
+
+
+func _cor_prompt() -> Color:
+	# mesmo verde das etapas marcadas no inventario
+	return Color(0.6, 0.86, 0.6) if Jogo.esta_concluido(_indice) else Color.WHITE

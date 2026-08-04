@@ -17,6 +17,7 @@ const DURACAO_AVISO := 3.0
 @onready var _lista_etapas: VBoxContainer = %ListaEtapas
 @onready var _lista_itens: VBoxContainer = %ListaItens
 @onready var _caixa_dialogo: PanelContainer = %CaixaDialogo
+@onready var _retrato: TextureRect = %Retrato
 @onready var _falante: Label = %Falante
 @onready var _fala: Label = %Fala
 @onready var _painel_intro: PanelContainer = %PainelIntro
@@ -208,7 +209,11 @@ func _ao_mudar_inventario() -> void:
 		_lista_itens.add_child(linha)
 
 
-func _ao_abrir_dialogo(nome: String, falas: PackedStringArray) -> void:
+func _ao_abrir_dialogo(nome: String, falas: PackedStringArray, retrato: String) -> void:
+	_retrato.visible = retrato != ""
+	if retrato != "":
+		_retrato.texture = load(retrato)
+
 	_falas = falas
 	_fala_atual = 0
 	_falante.text = nome
@@ -272,11 +277,11 @@ func _ao_terminar(motivo: Jogo.Motivo) -> void:
 	_fim_titulo.modulate = Color(0.72, 0.94, 0.7) if final["vitoria"] else Color(0.96, 0.6, 0.52)
 
 	var arte: String = final.get("imagem", "")
-	_fim_imagem.visible = arte != ""
-	if arte != "":
-		_fim_imagem.texture = load(arte)
+	var ilustracao: Texture2D = load(arte) if arte != "" else null
+	_fim_imagem.texture = ilustracao
+	_fim_imagem.visible = ilustracao != null
 
-	var meia_altura := 240.0 if arte != "" else 150.0
+	var meia_altura := 240.0 if ilustracao != null else 150.0
 	_painel_fim.offset_top = -meia_altura
 	_painel_fim.offset_bottom = meia_altura
 

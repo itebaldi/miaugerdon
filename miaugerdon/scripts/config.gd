@@ -20,6 +20,7 @@ const OBJETIVOS := [
 		"suspeita": 3.0,
 		"itens": [],
 		"falante": "Mr. T",
+		"retrato": "res://sprites/personagens/MrT.png",
 		"falas": [
 			"Ora, ora. Outro gato pequeno com problemas pequenos.",
 			"Eu tenho o melhor quintal. O maior quintal. Todos os gatos comentam.",
@@ -43,8 +44,8 @@ const OBJETIVOS := [
 	{
 		"id": "escrever_plano",
 		"rotulo": "Escrever o plano",
-		"pensamento_perto": "A mesa de centro serve. O Alfredo nunca olha aqui.",
-		"titulo": "Escreva o plano na mesa de centro",
+		"pensamento_perto": "O chão atrás da cama serve. Ele nunca me procura aqui.",
+		"titulo": "Escreva o plano atrás da cama",
 		"duracao": 7.0,
 		"suspeita": 5.0,
 		"itens": ["Plano de dominação mundial (rascunho)"],
@@ -80,12 +81,14 @@ const FINAIS := [
 	{
 		"vitoria": false,
 		"titulo": "Alfredo descobriu o plano",
+		"imagem": "res://sprites/finais/FINAL_alfredo pegou.png",
 		"texto": "Ele juntou as peças: o papel sumido, o computador ligado, o gato onde não devia.\nCaju passou a tarde trancado no quintal e o cachorro chegou sem ele poder fazer nada.",
 	},
 	{
 		"vitoria": false,
 		"titulo": "O cachorro chegou",
-		"texto": "A campainha tocou antes de Caju decidir o que sentia.\nO cachorro entrou correndo e o abraçou. Caju ficou ali, duro, ainda com o plano no bolso.",
+		"imagem": "res://sprites/finais/FINAL_gameover tempo.png",
+		"texto": "A campainha tocou antes de Caju decidir o que sentia.\nO cachorro entrou correndo e o abraçou. Caju ficou ali, paralisado, ainda com o plano no bolso.",
 	},
 	{
 		"vitoria": true,

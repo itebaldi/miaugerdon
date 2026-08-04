@@ -43,6 +43,7 @@ func _process(delta: float) -> void:
 	_label.visible = perto
 	if perto:
 		_label.text = _texto_prompt()
+		_label.modulate = _cor_prompt()
 
 	if perto and _esta_ativo() and Input.is_action_pressed("interagir"):
 		_progresso = minf(1.0, _progresso + delta / maxf(duracao, 0.01))
@@ -94,3 +95,7 @@ func _concluir() -> void:
 
 func _texto_prompt() -> String:
 	return "%s  [E]" % rotulo
+
+
+func _cor_prompt() -> Color:
+	return Color.WHITE

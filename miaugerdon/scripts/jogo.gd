@@ -9,7 +9,7 @@ signal ruido(posicao: Vector2)
 signal observado_alterado(observado: bool)
 signal inventario_alterado()
 signal pensamento(texto: String)
-signal dialogo(nome: String, falas: PackedStringArray)
+signal dialogo(nome: String, falas: PackedStringArray, retrato: String)
 signal dialogo_terminado()
 signal aviso(texto: String)
 signal escolha_final()
@@ -19,8 +19,6 @@ const TEMPO_TOTAL := 300.0
 const SUSPEITA_MAX := 100.0
 const LIMITE_MEDIA := 35.0
 const LIMITE_ALTA := 70.0
-
-const DECAIMENTO_BAIXA := 1.0
 
 const LIMPAR_SE := 4.0
 const SUSPEITA_MIADO := 3.0
@@ -82,8 +80,6 @@ func _process(delta: float) -> void:
 		_terminar(Motivo.TEMPO)
 		return
 
-	if faixa() == Faixa.BAIXA and suspeita > 0.0:
-		reduzir_suspeita(DECAIMENTO_BAIXA * delta)
 
 
 func faixa() -> Faixa:
@@ -176,9 +172,9 @@ func pensar_uma_vez(chave: String, texto: String) -> void:
 	pensamento.emit(texto)
 
 
-func conversar(nome: String, falas: PackedStringArray) -> void:
+func conversar(nome: String, falas: PackedStringArray, retrato := "") -> void:
 	if not falas.is_empty():
-		dialogo.emit(nome, falas)
+		dialogo.emit(nome, falas, retrato)
 
 
 func encerrar_dialogo() -> void:
