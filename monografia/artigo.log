@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025/Debian) (preloaded format=pdflatex 2026.8.26)  5 SEP 2026 13:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025/Debian) (preloaded format=pdflatex 2026.8.26)  5 SEP 2026 13:50
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -504,7 +504,7 @@ File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count340
 ) (./artigo.aux
 Package babel Info: 'brazilian' activates 'portuges' shorthands.
-(babel)             Reported on input line 12.
+(babel)             Reported on input line 13.
 )
 \openout1 = `artigo.aux'.
 
@@ -602,21 +602,21 @@ LaTeX Font Info:    Trying to load font information for T1+pcr on input line 63.
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 ) [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}
 
-] (./tables/elementos_jogo.tex
+] [2] [3] (./tables/elementos_jogo.tex
 LaTeX Font Info:    Trying to load font information for T1+phv on input line 3.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd
 File: t1phv.fd 2020/03/25 scalable font definitions for T1/phv.
-)) [2]
+))
 LaTeX Info: Symbol \textrightarrow not provided by
             font family ptm in TS1 encoding.
-            Default family used instead on input line 178.
+            Default family used instead on input line 179.
 LaTeX Info: Symbol \textrightarrow not provided by
             font family ptm in TS1 encoding.
-            Default family used instead on input line 178.
+            Default family used instead on input line 179.
 LaTeX Info: Symbol \textrightarrow not provided by
             font family ptm in TS1 encoding.
-            Default family used instead on input line 178.
- [3] (./artigo.bbl) [4] (./artigo.aux)
+            Default family used instead on input line 179.
+ [4] (./artigo.bbl) [5] (./artigo.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
@@ -625,18 +625,18 @@ Package rerunfilecheck Info: File `artigo.out' has not changed.
 (rerunfilecheck)             Checksum: 9DE62B299692D9E54BCA8734B11072D2;3027.
  ) 
 Here is how much of TeX's memory you used:
- 15723 strings out of 469421
- 248436 string characters out of 5467709
- 688680 words of memory out of 5000000
- 44100 multiletter control sequences out of 15000+600000
+ 15726 strings out of 469421
+ 248475 string characters out of 5467709
+ 689736 words of memory out of 5000000
+ 44101 multiletter control sequences out of 15000+600000
  670113 words of font info for 90 fonts, out of 8000000 for 9000
  61 hyphenation exceptions out of 8191
- 75i,19n,84p,458b,480s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,18n,84p,1338b,478s stack positions out of 10000i,1000n,20000p,200000b,200000s
  </home/isado/.texlive2025/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on artigo.pdf (4 pages, 98986 bytes).
+Output written on artigo.pdf (5 pages, 104130 bytes).
 PDF statistics:
- 143 PDF objects out of 1000 (max. 8388607)
- 120 compressed objects within 2 object streams
- 25 named destinations out of 1000 (max. 500000)
+ 154 PDF objects out of 1000 (max. 8388607)
+ 130 compressed objects within 2 object streams
+ 27 named destinations out of 1000 (max. 500000)
  121 words of extra memory for PDF output out of 10000 (max. 10000000)
 

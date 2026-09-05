@@ -1,16 +1,16 @@
 # Fdb version 4
-["bibtex artigo"] 1788624932.09013 "artigo.aux" "artigo.bbl" "artigo" 1788624932.44086 0
-  "./refs.bib" 1788624911.09405 2692 214172c9b6adbc1695f886384c693d0b ""
+["bibtex artigo"] 1788627006.63233 "artigo.aux" "artigo.bbl" "artigo" 1788627006.99058 0
+  "./refs.bib" 1788625765.47801 3069 eced8cb8ad4a6962445b84ce403490cc ""
   "./sbc.bst" 1788632046 21859 0b4803ea0dcdaff31a727a113a55a998 ""
-  "artigo.aux" 1788624932.38605 2923 4932c5787ecafb285b056a0888cc5192 "pdflatex"
+  "artigo.aux" 1788627006.93394 3105 864ed5a6bb926582fda081dc053b4dd1 "pdflatex"
   (generated)
   "artigo.bbl"
   "artigo.blg"
   (rewritten before read)
-["pdflatex"] 1788624932.10223 "/home/isado/isa-flat/miaugerdon/monografia/artigo.tex" "artigo.pdf" "artigo" 1788624932.44099 0
+["pdflatex"] 1788627006.64617 "/home/isado/isa-flat/miaugerdon/monografia/artigo.tex" "artigo.pdf" "artigo" 1788627006.99069 0
   "/etc/texmf/web2c/texmf.cnf" 1787750125.1634 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/isado/.texlive2025/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk" 1788623673.44611 14040 714f9f84438560daf7155c7f4a6a7a1c ""
-  "/home/isado/isa-flat/miaugerdon/monografia/artigo.tex" 1788624931.23005 8217 871b37501c25af1ab4c01063a82427d9 ""
+  "/home/isado/isa-flat/miaugerdon/monografia/artigo.tex" 1788627006.08994 13144 059c8e7c1b87c834af713a32d93e8f82 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/courier/pcrr8r.tfm" 1136768653 1292 bd42be2f344128bff6d35d98474adfe3 ""
@@ -150,10 +150,10 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1769369718 41603 27f93b3067076450172040dcd57ca8b3 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1787750130 165211 6b08d096f3d0fe5ff6b266061a2b45e0 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1787750141 2266722 08b5bba5125a433c70323160f3d7654d ""
-  "artigo.aux" 1788624932.38605 2923 4932c5787ecafb285b056a0888cc5192 "pdflatex"
-  "artigo.bbl" 1788624932.09805 909 6fdd478011313945027a81ba6bec19c3 "bibtex artigo"
-  "artigo.out" 1788624932.38605 3027 9de62b299692d9e54bca8734b11072d2 "pdflatex"
-  "artigo.tex" 1788624931.23005 8217 871b37501c25af1ab4c01063a82427d9 ""
+  "artigo.aux" 1788627006.93394 3105 864ed5a6bb926582fda081dc053b4dd1 "pdflatex"
+  "artigo.bbl" 1788627006.64194 1137 f1841cb9fcacec91aba787f80bae7e02 "bibtex artigo"
+  "artigo.out" 1788627006.93394 3027 9de62b299692d9e54bca8734b11072d2 "pdflatex"
+  "artigo.tex" 1788627006.08994 13144 059c8e7c1b87c834af713a32d93e8f82 ""
   "sbc-template.sty" 1788632046 6960 62174fef560eb8ce693dd33483b46377 ""
   "sbgames.sty" 1788632046 1243 957d5c8ee6f7a13c731ea4c8621b1eb7 ""
   "sbgames_info.tex" 1788632046 259 e43bb5d0b928676bbf87a786d086b987 ""

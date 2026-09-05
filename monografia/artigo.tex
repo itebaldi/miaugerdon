@@ -83,31 +83,32 @@
 
 \section{Introdução}
 
-- desinformação como mecanismo capaz de reforçar preconceitos;
-- o problema de julgar o “diferente” a partir do discurso de terceiros;
-- jogos como meio de reflexão;
-- proposta do Miaugerdon;
-- objetivo do artigo.
+A percepção sobre pessoas ou grupos pouco conhecidos pode ser moldada pelas informações recebidas sobre eles. Generalizações, estereótipos e discursos de ameaça podem produzir julgamentos antes mesmo do contato direto. Nesse processo, a desinformação pode envolver não apenas conteúdos falsos, mas também distorção, repetição, generalização e deslegitimação de fontes \cite{bad_news}.
 
-Este trabalho apresenta a concepção e o desenvolvimento de Miaugerdon, um serious game que utiliza narrativa e mecânicas interativas para representar como a desinformação pode influenciar a percepção e estimular preconceitos contra indivíduos percebidos como diferentes.
+Jogos digitais permitem explorar essas dinâmicas de forma interativa, colocando o jogador diante de informações, relações e consequências. Serious games têm sido utilizados para promover reflexão social \cite{dallaqua}, empatia e tomada de perspectiva \cite{Belman2009}, além de abordar preconceitos contra grupos percebidos como diferentes \cite{a_path_out}. Estudos sobre contato intergrupal também indicam que a interação entre grupos pode contribuir para reduzir atitudes preconceituosas \cite{Pettigrew2006}.
 
+Partindo dessa perspectiva, este trabalho apresenta Miaugerdon, um jogo digital em que Caju, um gato que confia em Mr. T. como principal fonte de informação, passa a formar uma percepção negativa sobre um novo gato a partir de comentários e generalizações feitas por ele. Ao longo da experiência, informações e acontecimentos contraditórios levam Caju e o jogador a confrontar diferentes versões sobre o recém-chegado.
+
+A proposta é representar mecanismos de influência, controle informacional e construção de preconceitos contra o diferente por meio da narrativa e das ações do jogador. Assim, o trabalho discute a concepção de Miaugerdon como um serious game que articula desinformação e preconceito, com foco em seu desenvolvimento e em suas escolhas de design.
+
+O artigo está organizado da seguinte forma: a Seção 2 apresenta a fundamentação teórica e os trabalhos relacionados; a Seção 3 descreve a concepção de Miaugerdon; a Seção 4 apresenta seu desenvolvimento; a Seção 5 discute as escolhas narrativas e mecânicas do jogo; e a Seção 6 reúne conclusões, limitações e trabalhos futuros.
 
 \section{Fundamentação Teórica e Trabalhos Relacionados}
 
+Esta seção apresenta os principais conceitos que fundamentam a proposta de Miaugerdon e discute trabalhos relacionados ao uso de jogos para reflexão social. São abordados estudos sobre serious games, empatia, preconceito e desinformação, buscando situar o jogo em relação às abordagens já exploradas na literatura.
+
 \subsection{Serious games e reflexão social}
-Dallaqua; Belman \& Flanagan.
-\cite{dallaqua}
-\cite{Belman2009}
+Os serious games são jogos desenvolvidos com objetivos que ultrapassam o entretenimento, podendo ser utilizados em contextos de aprendizagem, conscientização e transformação social. A revisão realizada por Dallaqua et al. mostra que esse campo reúne trabalhos voltados ao uso de jogos para abordar problemas sociais, explorar valores e estimular reflexão por meio de experiências interativas \cite{dallaqua}. Nesses jogos, a compreensão do tema pode surgir não apenas da apresentação de informações, mas também das situações, escolhas e consequências vivenciadas pelo jogador.
+
+Belman e Flanagan discutem especificamente o uso de jogos para promover empatia e tomada de perspectiva, analisando exemplos como PeaceMaker, Hush e Layoff \cite{Belman2009}. Os autores destacam que a capacidade de um jogo de provocar reflexão depende de como narrativa, personagens e ações do jogador são articulados à experiência proposta. Dessa forma, o jogador pode ser colocado diante de perspectivas e conflitos distintos dos seus, participando ativamente das situações representadas.
 
 \subsection{Preconceito, alteridade e contato com o diferente}
-Cross et al.; Pettigrew \& Tropp etc.
-\cite{a_path_out}
+O preconceito pode se formar a partir de estereótipos, generalizações e percepções negativas atribuídas a indivíduos identificados como pertencentes a grupos externos ou diferentes. Quando há pouco contato direto entre as partes, essas percepções podem ser construídas principalmente a partir de informações recebidas de terceiros, reforçando interpretações prévias sobre o “outro”. Nesse sentido, Pettigrew e Tropp demonstram, por meio de uma ampla meta-análise, que o contato intergrupal está associado à redução de atitudes preconceituosas, especialmente por permitir que expectativas e imagens previamente estabelecidas sejam confrontadas pela experiência direta \cite{Pettigrew2006}. Essa relação também tem sido explorada em jogos digitais. Cross et al. investigaram uma experiência em que jogadores assumiam a perspectiva de um refugiado sírio e observaram redução de atitudes preconceituosas e aumento de empatia após a interação \cite{a_path_out}. Esses trabalhos reforçam a importância do contato e da tomada de perspectiva na revisão de julgamentos sobre grupos percebidos como diferentes, além de apontarem o potencial dos jogos como espaços para representar e explorar essas relações de forma interativa.
 
 \subsection{Jogos e desinformação}
-Bad News; Roozenbeek \& van der Linden.
-\cite{bad_news}
+Jogos digitais também têm sido explorados como ferramentas para desenvolver resistência à desinformação. Roozenbeek e van der Linden apresentam o Bad News, jogo no qual o jogador assume o papel de um produtor de notícias falsas e utiliza estratégias como polarização, apelo emocional, teorias conspiratórias e descrédito de fontes \cite{bad_news}. Ao colocar o jogador em contato direto com essas técnicas, o jogo busca tornar mais reconhecíveis os mecanismos usados para manipular informações. Os resultados do estudo indicaram melhora na capacidade dos participantes de identificar conteúdos e estratégias enganosas, reforçando o potencial de abordagens interativas para trabalhar pensamento crítico e alfabetização midiática.
 
-Enquanto alguns trabalhos utilizam jogos para abordar desinformação e outros investigam preconceito e empatia, Miaugerdon explora narrativamente a relação entre os dois fenômenos, representando a construção de uma percepção negativa sobre um novo indivíduo a partir de informações fornecidas por uma fonte manipuladora.
+Enquanto alguns trabalhos abordam desinformação e outros investigam preconceito e empatia, Miaugerdon articula esses temas ao representar como uma percepção negativa sobre o outro pode ser construída antes do contato direto, a partir de informações e generalizações de uma fonte manipuladora. A experiência explora, assim, a relação entre controle informacional, formação de estereótipos e revisão de julgamentos.
 
 \section{Concepção do Miaugerdon}
 
