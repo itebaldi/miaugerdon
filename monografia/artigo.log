@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025/Debian) (preloaded format=pdflatex 2026.8.26)  5 SEP 2026 14:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025/Debian) (preloaded format=pdflatex 2026.8.26)  5 SEP 2026 16:15
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -606,37 +606,27 @@ File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 LaTeX Font Info:    Trying to load font information for T1+phv on input line 3.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd
 File: t1phv.fd 2020/03/25 scalable font definitions for T1/phv.
-)) [4]
-LaTeX Info: Symbol \textrightarrow not provided by
-            font family ptm in TS1 encoding.
-            Default family used instead on input line 157.
-LaTeX Info: Symbol \textrightarrow not provided by
-            font family ptm in TS1 encoding.
-            Default family used instead on input line 157.
-LaTeX Info: Symbol \textrightarrow not provided by
-            font family ptm in TS1 encoding.
-            Default family used instead on input line 157.
- (./artigo.bbl [5]) [6] (./artigo.aux)
+)) [4] [5] [6] (./artigo.bbl) [7] (./artigo.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
 Package rerunfilecheck Info: File `artigo.out' has not changed.
-(rerunfilecheck)             Checksum: FA539FF531F506CA03894BEBF8CCF3E6;3048.
+(rerunfilecheck)             Checksum: FED4D74127FDDFD9A94D007B2D543527;3361.
  ) 
 Here is how much of TeX's memory you used:
- 15725 strings out of 469421
- 248427 string characters out of 5467709
- 689736 words of memory out of 5000000
- 44099 multiletter control sequences out of 15000+600000
- 670113 words of font info for 90 fonts, out of 8000000 for 9000
+ 15723 strings out of 469421
+ 248413 string characters out of 5467709
+ 690742 words of memory out of 5000000
+ 44097 multiletter control sequences out of 15000+600000
+ 669012 words of font info for 88 fonts, out of 8000000 for 9000
  61 hyphenation exceptions out of 8191
- 75i,19n,84p,1338b,570s stack positions out of 10000i,1000n,20000p,200000b,200000s
- </home/isado/.texlive2025/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on artigo.pdf (6 pages, 106301 bytes).
+ 75i,18n,84p,1338b,478s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on artigo.pdf (7 pages, 111183 bytes).
 PDF statistics:
- 158 PDF objects out of 1000 (max. 8388607)
- 133 compressed objects within 2 object streams
- 28 named destinations out of 1000 (max. 500000)
- 121 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 166 PDF objects out of 1000 (max. 8388607)
+ 141 compressed objects within 2 object streams
+ 30 named destinations out of 1000 (max. 500000)
+ 129 words of extra memory for PDF output out of 10000 (max. 10000000)
 

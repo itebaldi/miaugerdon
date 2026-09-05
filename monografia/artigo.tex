@@ -42,7 +42,7 @@
 
 \input{sbgames_info}
 
-\title{Miaugerdon: um serious game sobre desinformação e preconceito contra o diferente \\
+\title{Miaugerdon: desinformação, alteridade e construção do preconceito em um serious game \\
 \medskip
 \small{
     \textit{Title: Miaugerdon: a serious game on misinformation and prejudice against those who are different}
@@ -89,9 +89,9 @@ Jogos digitais permitem explorar essas dinâmicas de forma interativa, colocando
 
 Partindo dessa perspectiva, este trabalho apresenta Miaugerdon, um jogo digital em que Caju, um gato que confia em Mr. T. como principal fonte de informação, passa a formar uma percepção negativa sobre um novo gato a partir de comentários e generalizações feitas por ele. Ao longo da experiência, informações e acontecimentos contraditórios levam Caju e o jogador a confrontar diferentes versões sobre o recém-chegado.
 
-A proposta é representar mecanismos de influência, controle informacional e construção de preconceitos contra o diferente por meio da narrativa e das ações do jogador. Assim, o trabalho discute a concepção de Miaugerdon como um serious game que articula desinformação e preconceito, com foco em seu desenvolvimento e em suas escolhas de design.
+A proposta é representar mecanismos de influência, controle informacional e construção de preconceitos contra o diferente por meio da narrativa e das ações do jogador. Assim, o trabalho discute a concepção de \textit{Miaugerdon} como um \textit{serious game} que articula desinformação e preconceito, com foco em seu desenvolvimento e em suas escolhas de design. A partir disso, busca-se responder à seguinte pergunta de pesquisa: \textit{como narrativa e mecânicas de um serious game podem ser articuladas para representar a formação de preconceitos mediada pela desinformação?}
 
-O artigo está organizado da seguinte forma: a Seção 2 apresenta a fundamentação teórica e os trabalhos relacionados; a Seção 3 descreve a concepção de Miaugerdon; a Seção 4 apresenta seu desenvolvimento; a Seção 5 discute as escolhas narrativas e mecânicas do jogo; e a Seção 6 reúne conclusões, limitações e trabalhos futuros.
+O artigo está organizado da seguinte forma: a Seção 2 apresenta a fundamentação teórica e os trabalhos relacionados; a Seção 3 descreve a concepção e reformulação de \textit{Miaugerdon}; a Seção 4 discute suas escolhas narrativas e mecânicas e apresenta as limitações do trabalho; e a Seção 5 reúne as conclusões e os trabalhos futuros.
 
 \section{Fundamentação Teórica e Trabalhos Relacionados}
 
@@ -122,9 +122,9 @@ Sob a influência de Mr. T., Caju inicia um plano para construir uma máquina de
 
 \subsection{Estrutura narrativa}
 
-A narrativa se inicia quando Caju conta a Mr. T. que Alfredo pretende adotar um novo gato. A partir dessa informação, Mr. T. começa a apresentar comentários, generalizações e notícias falsas sobre o recém-chegado, construindo uma percepção negativa antes que Caju tenha qualquer contato direto com ele. Sob essa influência, Caju passa a enxergar a chegada de Soneca como uma ameaça e decide construir uma máquina de dominação mundial.
+A narrativa se inicia quando Caju conta a Mr. T. que Alfredo pretende adotar um novo gato. A partir dessa informação, Mr. T. começa a apresentar comentários, generalizações e notícias falsas sobre o recém-chegado, construindo uma percepção negativa antes que Caju tenha qualquer contato direto com ele. Falas como ``esses gatos são primitivos'' e ``eles vão roubar sua cama'' reforçam a ideia de ameaça e contribuem para que Caju passe a enxergar a chegada de Soneca de forma negativa. Sob essa influência, o protagonista decide construir uma máquina de dominação mundial.
 
-A progressão ocorre por meio de pequenas tarefas necessárias para a construção da máquina. Ao longo dessas etapas, Caju retorna periodicamente a Mr. T. para relatar seu progresso e receber novas orientações, reforçando a relação de confiança e dependência entre os personagens. Paralelamente, o protagonista passa a encontrar informações, falas e acontecimentos que contradizem o discurso de Mr. T. e colocam em dúvida as percepções construídas anteriormente.
+A progressão ocorre por meio de pequenas tarefas necessárias para a construção da máquina. Ao longo dessas etapas, Caju retorna periodicamente a Mr. T. para relatar seu progresso e receber novas orientações, reforçando a relação de confiança e dependência entre os personagens. Paralelamente, o protagonista passa a encontrar informações, falas e acontecimentos que contradizem o discurso de Mr. T. Diante dessas contradições, o personagem também busca deslegitimar fontes alternativas, por meio de afirmações como ``essa mídia é comprada'' e ``você não deveria se informar por ela'', ampliando a manipulação para além da circulação de informações falsas.
 
 À medida que essas contradições se acumulam, Caju começa a reconsiderar as informações recebidas e a influência exercida por Mr. T. No final da experiência, diante da possibilidade de concluir e ativar a máquina, o protagonista revisita os acontecimentos vivenciados e reflete sobre a decisão de seguir ou não com o plano.
 
@@ -135,50 +135,47 @@ As mecânicas e situações narrativas foram organizadas de modo a relacionar as
 
 Em contraponto, as interações com Alfredo introduzem perspectivas alternativas, enquanto as lembranças retomadas durante a montagem da máquina permitem que Caju confronte informações recebidas anteriormente. A Tabela~\ref{tab:elementos_jogo} sintetiza a relação entre esses elementos e suas funções na experiência.
 
-\section{Processo de concepção e desenvolvimento}
-% Como nós projetamos isso e quais decisões tomamos no caminho?
-o processo de criação do projeto. É explicar como vocês tomaram as decisões de design.
+\subsection{Reformulação e implementação do protótipo}
 
-A ideia original era representar uma personagem sendo progressivamente influenciada por uma figura que concentra as informações que ela recebe.
+O protótipo original foi desenvolvido na engine Godot e apresentava Caju reagindo à decisão de Alfredo de adotar um cachorro. Nessa versão, o protagonista realizava diferentes tarefas pela casa com o objetivo de construir uma máquina de dominação mundial, enquanto evitava despertar a suspeita de Alfredo. A experiência já incluía exploração do ambiente, objetivos encadeados, interações com objetos e personagens e um sistema de suspeita.
 
-Inicialmente, o personagem externo seria um cachorro. Durante o refinamento da narrativa, optou-se por transformá-lo em outro gato, evitando que a diferença entre espécies funcionasse como justificativa natural para o estranhamento. A intenção passou a ser representar alguém pertencente ao mesmo universo de Caju, mas percebido como “de fora” por sua origem e história.
+Para este trabalho, a estrutura principal de gameplay foi mantida, enquanto a narrativa foi reformulada para abordar desinformação e preconceito contra o diferente. O cachorro foi substituído por Soneca, um novo gato, e Mr. T. passou a exercer o papel de uma fonte manipuladora que influencia a percepção de Caju sobre o recém-chegado. A máquina de dominação mundial foi preservada como objetivo central da partida, mas passou também a representar a influência exercida sobre o protagonista e sua posterior revisão dessas crenças.
 
 \section{Discussão}
 
+Esta seção discute como as escolhas narrativas e mecânicas do jogo representam os processos de desinformação, construção de preconceitos e revisão de percepções apresentados ao longo da experiência. A análise considera especialmente o papel de Mr. T. como fonte manipuladora, a construção de Soneca como figura do ``outro'' e a forma como as ações do jogador acompanham a transformação das crenças de Caju.
+
 \subsection{Desinformação como processo, não como notícia falsa}
-Um dos pontos mais interessantes da ideia é mostrar que desinformação não acontece apenas quando alguém recebe uma informação objetivamente falsa.
+No jogo, a desinformação não é representada apenas pela circulação de informações falsas, mas por um conjunto de estratégias que moldam a forma como Caju interpreta os acontecimentos. Mr. T. utiliza generalizações, repetição de discursos negativos e deslegitimação de fontes alternativas, aproximando-se de técnicas de manipulação discutidas em trabalhos como o \textit{Bad News} \cite{bad_news}. Dessa forma, o problema deixa de estar restrito à veracidade de uma informação isolada e passa a envolver também quais fontes são consideradas confiáveis e quais interpretações são reforçadas.
 
-Mr. T. utiliza: generalização, repetição, seleção de informações, deslegitimação de fontes, apelo ao medo, controle do acesso a discursos alternativos.
-
-Roozenbeek \& van der Linden.
+Essa escolha permite representar a desinformação como um processo gradual. A influência de Mr. T. é construída ao longo das interações e das sucessivas atualizações fornecidas por Caju, até que informações contraditórias começam a enfraquecer essa relação de confiança. A progressão narrativa busca, assim, mostrar como percepções podem ser formadas e mantidas por um ambiente informacional controlado antes de serem confrontadas por outras experiências.
 
 \subsection{Construção do “outro”}
-O novo gato não faz nada inicialmente. O jogador primeiro ouve falar dele. a percepção do outro é construída antes do contato direto
-não conheço → alguém me conta quem ele é → formo uma opinião → interpreto suas ações por essa opinião.
+Soneca é apresentado inicialmente a Caju não por meio do contato direto, mas pelo discurso de Mr. T. Esse afastamento permite que a percepção sobre o novo gato seja formada por generalizações e associações negativas antes que o protagonista tenha qualquer experiência própria com ele. A construção do ``outro'' ocorre, portanto, pela atribuição de características a um indivíduo a partir de uma visão previamente moldada sobre o grupo ao qual ele é associado.
+
+Essa escolha narrativa dialoga com estudos sobre contato intergrupal, que indicam que a interação direta pode contribuir para a revisão de percepções e atitudes preconceituosas \cite{Pettigrew2006}. De forma semelhante, experiências interativas que aproximam o jogador da perspectiva de grupos percebidos como externos podem favorecer empatia e reavaliação de julgamentos prévios \cite{a_path_out}. No jogo, esse processo é representado pelo contraste entre aquilo que Caju ouve sobre Soneca e as informações e experiências que passam a desafiar essa imagem inicial.
+
+\subsection{Agência do jogador e revisão de crenças}
+
+A proposta também busca envolver o jogador no próprio processo de influência vivido por Caju. Em vez de apenas observar a manipulação exercida por Mr. T., o jogador executa as tarefas sugeridas por ele, acompanha o avanço do plano e retorna periodicamente para relatar seu progresso. Dessa forma, a agência do jogador é incorporada à construção da confiança e à continuidade das ações de Caju.
+
+À medida que surgem informações e experiências contraditórias, essa mesma agência passa a acompanhar a revisão das crenças do protagonista. A montagem da máquina funciona como ponto de convergência desse processo, pois retoma decisões e acontecimentos anteriores e coloca em questão a continuidade do plano. Assim, a experiência busca fazer com que a reflexão não ocorra apenas no nível narrativo, mas também a partir das ações que o próprio jogador realizou ao longo da partida.
 
 \subsection{Limitações}
 
-O protótipo não foi submetido a uma avaliação sistemática com jogadores, portanto o presente trabalho não permite afirmar que a experiência modifica atitudes, reduz preconceitos ou aumenta resistência à desinformação.
-
-o jogo foi projetado para estimular reflexão.
+O protótipo não foi submetido a uma avaliação sistemática com jogadores, portanto o presente trabalho não permite afirmar que a experiência modifica atitudes, reduz preconceitos ou aumenta a resistência à desinformação. A proposta deve ser entendida como uma experiência projetada para estimular reflexão sobre esses temas, e não como evidência de mudança comportamental ou atitudinal.
 
 \section{Conclusão e Trabalhos Futuros}
-Como trabalho futuro, pretende-se conduzir uma avaliação com jogadores...
-entrevistar participantes após jogar;
-verificar se perceberam a manipulação;
-verificar como interpretaram o novo gato;
-analisar em que momento começaram a desconfiar de Mr. T.;
-comparar percepção antes/depois da revelação;
-observar se diferentes jogadores interpretam a alegoria de maneiras distintas.
+Este trabalho apresentou e analisou o design de um \textit{serious game} que articula desinformação e construção do preconceito contra o diferente por meio de narrativa e mecânicas interativas. A proposta utiliza a relação entre Caju e Mr. T., a construção da imagem de Soneca e a revisão gradual das crenças do protagonista para representar como percepções negativas podem ser formadas e posteriormente questionadas.
 
-Apresentamos e analisamos o design de um serious game que articula desinformação e construção do preconceito contra o diferente.
+Como trabalho futuro, pretende-se conduzir uma avaliação sistemática com jogadores, combinando observação e entrevistas após a experiência. Essa etapa poderá investigar se os participantes perceberam a manipulação exercida por Mr. T., como interpretaram Soneca, em que momento passaram a desconfiar das informações recebidas e de que forma compreenderam a alegoria proposta. Também será possível comparar percepções antes e depois dos principais acontecimentos narrativos e analisar diferenças de interpretação entre os jogadores.
 
 \section*{Declaração de Uso de Inteligência Artificial}
-% REVISAR
 Em conformidade com as práticas de transparência e integridade acadêmica, declara-se que modelos de linguagem de grande porte (LLMs) foram utilizados como ferramenta de apoio neste trabalho.
-Especificamente, tais ferramentas auxiliaram na redação e na revisão do texto, no desenvolvimento do protótipo descrito na Metodologia e na geração do conjunto de afirmações empregado na avaliação experimental.
 
-Todo o conteúdo produzido com auxílio de IA foi revisado, validado e, quando necessário, corrigido pelo autor, que assume integral responsabilidade pela concepção, pelo conteúdo e pelas conclusões aqui apresentadas.
+Especificamente, essas ferramentas auxiliaram na redação e revisão do texto, na organização da estrutura do artigo e no refinamento da concepção narrativa e das decisões de design relacionadas à reformulação do protótipo.
+
+Todo o conteúdo produzido com auxílio de IA foi revisado, validado e, quando necessário, corrigido pelos autores, que assumem integral responsabilidade pela concepção, pelo conteúdo e pelas conclusões apresentadas.
 
 \bibliographystyle{sbc}
 \bibliography{refs}
