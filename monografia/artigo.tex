@@ -7,6 +7,7 @@
 \usepackage[utf8]{inputenc} % Codificação UTF-8 (necessário apenas para pdflatex)
 \usepackage{multicol}
 \usepackage{multirow}
+\usepackage{tabularx}
 \usepackage{graphicx,url}
 \usepackage{float}
 \usepackage{amsmath,amssymb,amsfonts}
@@ -81,41 +82,120 @@
 \palavraschave{COMPLETAR}
 
 \section{Introdução}
-\cite{decs}
-...
 
-% REVISAR ISSO AQUI!!
-O restante deste artigo está organizado da seguinte forma:
-A Seção 2 discute os trabalhos relacionados.
-A Seção 3 apresenta o referencial teórico sobre CSCW e colaboração humano-IA, Grafos de Conhecimento, vocabulários controlados e vinculação de entidades, proveniência e validação do conhecimento, e Grafos de Conhecimento Temporais.
-A Seção 4 descreve a metodologia proposta para construção do sistema.
-A Seção 5 apresenta o desenho do experimento e as métricas de avaliação previstas.
-A Seção 6 discute os resultados esperados.
-A Seção 7 indica trabalhos futuros.
-A Seção 8 reúne as conclusões.
+- desinformação como mecanismo capaz de reforçar preconceitos;
+- o problema de julgar o “diferente” a partir do discurso de terceiros;
+- jogos como meio de reflexão;
+- proposta do Miaugerdon;
+- objetivo do artigo.
 
-\section{Trabalhos Relacionados}
-...
+Este trabalho apresenta a concepção e o desenvolvimento de Miaugerdon, um serious game que utiliza narrativa e mecânicas interativas para representar como a desinformação pode influenciar a percepção e estimular preconceitos contra indivíduos percebidos como diferentes.
 
-\section{Referencial Teórico}
 
-...
+\section{Fundamentação Teórica e Trabalhos Relacionados}
 
-\section{Metodologia}
-...
+\subsection{Serious games e reflexão social}
+Dallaqua; Belman \& Flanagan.
+\cite{dallaqua}
+\cite{Belman2009}
 
-\section{Experimento}
+\subsection{Preconceito, alteridade e contato com o diferente}
+Cross et al.; Pettigrew \& Tropp etc.
+\cite{a_path_out}
 
-...
+\subsection{Jogos e desinformação}
+Bad News; Roozenbeek \& van der Linden.
+\cite{bad_news}
+
+Enquanto alguns trabalhos utilizam jogos para abordar desinformação e outros investigam preconceito e empatia, Miaugerdon explora narrativamente a relação entre os dois fenômenos, representando a construção de uma percepção negativa sobre um novo indivíduo a partir de informações fornecidas por uma fonte manipuladora.
+
+\section{Concepção do Miaugerdon}
+
+\subsection{Premissa e personagens}
+
+Caju
+Protagonista. Inicialmente confia em Mr. T. e recebe grande parte das informações sobre o mundo por meio dele.
+
+Mr. T.
+Figura de autoridade e principal agente de manipulação. Controla o fluxo informacional e tenta direcionar a interpretação de Caju.
+
+Alfredo
+Contraponto a Mr. T. Oferece experiências e informações que desafiam a narrativa dominante.
+
+Soneca
+Representa aquele percebido como “de fora” ou diferente. É inicialmente apresentado a Caju não pelo contato direto, mas pelo discurso de terceiros.
+
+\subsection{Estrutura narrativa}
+Etapa 1 - Construção da confiança: Caju realiza tarefas para Mr. T. e passa a tratá-lo como fonte confiável.
+
+Etapa 2 - Introdução do “outro”: Mr. T. começa a falar sobre o novo gato utilizando generalizações e afirmações negativas.
+
+\begin{quote}
+“Esses gatos são primitivos...”
+
+“Eles vão roubar sua cama...”
+\end{quote}
+
+Etapa 3 - Controle informacional: Quando Caju encontra informações contraditórias, Mr. T. tenta deslegitimá-las:
+
+\begin{quote}
+“Essa mídia é comprada.”
+
+“Você não deveria se informar por ela.”
+\end{quote}
+
+não é apenas fake news. Existe tentativa de controlar quais fontes Caju considera legítimas.
+
+Etapa 4 - Contradição: Caju começa a encontrar evidências e experiências que entram em conflito com o discurso de Mr. T.
+
+Etapa 5 - Reflexão: As próprias experiências anteriores levam Caju a reconsiderar aquilo em que acreditava.
+
+\subsection{Mecânicas e objetivos de design}
+\input{tables/elementos_jogo.tex}
+
+A Tabela~\ref{tab:elementos_jogo}
+
+
+\section{Processo de concepção e desenvolvimento}
+% Como nós projetamos isso e quais decisões tomamos no caminho?
+o processo de criação do projeto. É explicar como vocês tomaram as decisões de design.
+
+A ideia original era representar uma personagem sendo progressivamente influenciada por uma figura que concentra as informações que ela recebe.
+
+Inicialmente, o personagem externo seria um cachorro. Durante o refinamento da narrativa, optou-se por transformá-lo em outro gato, evitando que a diferença entre espécies funcionasse como justificativa natural para o estranhamento. A intenção passou a ser representar alguém pertencente ao mesmo universo de Caju, mas percebido como “de fora” por sua origem e história.
+
 \section{Discussão}
-...
-\section{Trabalhos Futuros}
-...
 
-\section{Conclusão}
-...
+\subsection{Desinformação como processo, não como notícia falsa}
+Um dos pontos mais interessantes da ideia é mostrar que desinformação não acontece apenas quando alguém recebe uma informação objetivamente falsa.
+
+Mr. T. utiliza: generalização, repetição, seleção de informações, deslegitimação de fontes, apelo ao medo, controle do acesso a discursos alternativos.
+
+Roozenbeek \& van der Linden.
+
+\subsection{Construção do “outro”}
+O novo gato não faz nada inicialmente. O jogador primeiro ouve falar dele. a percepção do outro é construída antes do contato direto
+não conheço → alguém me conta quem ele é → formo uma opinião → interpreto suas ações por essa opinião.
+
+\subsection{Limitações}
+
+O protótipo não foi submetido a uma avaliação sistemática com jogadores, portanto o presente trabalho não permite afirmar que a experiência modifica atitudes, reduz preconceitos ou aumenta resistência à desinformação.
+
+o jogo foi projetado para estimular reflexão.
+
+\section{Conclusão e Trabalhos Futuros}
+Como trabalho futuro, pretende-se conduzir uma avaliação com jogadores...
+entrevistar participantes após jogar;
+verificar se perceberam a manipulação;
+verificar como interpretaram o novo gato;
+analisar em que momento começaram a desconfiar de Mr. T.;
+comparar percepção antes/depois da revelação;
+observar se diferentes jogadores interpretam a alegoria de maneiras distintas.
+
+Apresentamos e analisamos o design de um serious game que articula desinformação e construção do preconceito contra o diferente.
 
 \section*{Declaração de Uso de Inteligência Artificial}
+% REVISAR
 Em conformidade com as práticas de transparência e integridade acadêmica, declara-se que modelos de linguagem de grande porte (LLMs) foram utilizados como ferramenta de apoio neste trabalho.
 Especificamente, tais ferramentas auxiliaram na redação e na revisão do texto, no desenvolvimento do protótipo descrito na Metodologia e na geração do conjunto de afirmações empregado na avaliação experimental.
 

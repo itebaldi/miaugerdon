@@ -1,9 +1,23 @@
 \begin{thebibliography}{}
 
-\bibitem[{BIREME/OPAS/OMS} 2024]{decs}
-{BIREME/OPAS/OMS} (2024).
-\newblock {DeCS/MeSH} --- descritores em ci{\^e}ncias da sa{\'u}de.
-\newblock [Online].
-\newblock Available: \url{https://decs.bvsalud.org/}. Accessed: Jun. 18, 2026.
+\bibitem[Belman e Flanagan 2009]{Belman2009}
+Belman, J. e Flanagan, M. (2009).
+\newblock Designing games to foster empathy.
+\newblock {\em Cognitive Technology}, 14(2):5--15.
+
+\bibitem[Cross et~al. 2025]{a_path_out}
+Cross, L., Atherton, G., e Stiff, C. (2025).
+\newblock A path out: Using video games to reduce prejudice towards refugees.
+\newblock {\em Behavioral Sciences}, 15(5).
+
+\bibitem[Dallaqua e Carvalho 2024]{dallaqua}
+Dallaqua, M.~F. e Carvalho, M. M.~d. (2024).
+\newblock Serious games research streams for social change: critical review and framing.
+\newblock {\em British Journal of Educational Technology}.
+
+\bibitem[Roozenbeek e van~der Linden 2019]{bad_news}
+Roozenbeek, J. e van~der Linden, S. (2019).
+\newblock Fake news game confers psychological resistance against online misinformation.
+\newblock {\em Palgrave Communications}, 5(1):65.
 
 \end{thebibliography}
