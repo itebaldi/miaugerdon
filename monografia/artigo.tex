@@ -1,19 +1,28 @@
-\documentclass[conference]{IEEEtran}
-\IEEEoverridecommandlockouts
-% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
-\usepackage{cite}
+\documentclass[12pt]{article}
+
+\usepackage{sbc-template}
+
+\usepackage[brazilian]{babel}
+\usepackage[T1]{fontenc} % Codificação para fontes com suporte a caracteres acentuados
+\usepackage[utf8]{inputenc} % Codificação UTF-8 (necessário apenas para pdflatex)
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{graphicx,url}
+\usepackage{float}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{algorithmic}
-\usepackage{graphicx}
-\usepackage{float}
 \usepackage{textcomp}
-\usepackage{url}
-\usepackage[dvipsnames]{xcolor}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[brazil]{babel}
-\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
-    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\usepackage{enumerate}
+\usepackage{soul}
+\usepackage{verbatim}
+\usepackage[dvipsnames,table,xcdraw]{xcolor}
+\usepackage[shortlabels]{enumitem}
+\usepackage{scalefnt} % pacote para diminuir fonte das tabelas
+\usepackage{comment} % pacote de comentarios
+\usepackage{lscape}
+\usepackage{fancyhdr}
+\usepackage{sbgames}
+\usepackage[super]{nth}
 
 % hyperref tem de vir por último, depois de todos os outros pacotes.
 \usepackage{hyperref}
@@ -22,40 +31,57 @@
 \hypersetup{colorlinks=true, citecolor=OliveGreen, linkcolor=BrickRed, urlcolor=MidnightBlue}
 %\hypersetup{hidelinks}
 
+%previne hifenização
+\tolerance=1
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
+\hbadness=10000
+
+\sloppy
+
+\input{sbgames_info}
+
+\title{Miaugerdon: um serious game sobre desinformação e preconceito contra o diferente \\
+\medskip
+\small{
+    \textit{Title: Miaugerdon: a serious game on misinformation and prejudice against those who are different}
+}
+}
+
+\author{Isadora de Moura Tebaldi\inst{1}, Jonatan de Almeida Torres Souza\inst{1}}
+
+\address{Engenharia de Sistemas e Computação PESC/Coppe\\
+  Universidade Federal do Rio de Janeiro -- Rio de Janeiro -- Brasil
+  \email{itebaldi@cos.ufrj.br, jonatantorres@cos.ufrj.br}
+}
+
+
 \begin{document}
-
-\title{Miaugerdon: a vingança do gato}
-
-\author{
-\IEEEauthorblockN{Isadora de Moura Tebaldi}
-\IEEEauthorblockA{
-\textit{Engenharia de Sistemas e Computação PESC/Coppe} \\
-\textit{Universidade Federal do Rio de Janeiro} \\
-Rio de Janeiro, Brasil \\
-itebaldi@cos.ufrj.br
-}
-\and
-\IEEEauthorblockN{Jonatan de Almeida Torres Souza}
-\IEEEauthorblockA{
-\textit{Engenharia de Sistemas e Computação PESC/Coppe} \\
-\textit{Universidade Federal do Rio de Janeiro} \\
-Rio de Janeiro, Brasil \\
-jonatantorres@cos.ufrj.br
-}
-}
 
 \maketitle
 
+\thispagestyle{plain}
+
 \begin{abstract}
-....
+\textbf{Introduction:} ...
+\textbf{Objective:} ...
+\textbf{Methodology or Steps:} ...
+\textbf{Expected Results:} ...
 \end{abstract}
 
-\begin{IEEEkeywords}
-COMPLETAR
-\end{IEEEkeywords}
+\keywords{COMPLETAR}
+
+\begin{resumo}
+\textbf{Introdução:} ...
+\textbf{Objetivo:} ...
+\textbf{Metodologia ou Etapas:} ...
+\textbf{Resultados Esperados:} ...
+\end{resumo}
+
+\palavraschave{COMPLETAR}
 
 \section{Introdução}
-\cite{decs} 
+\cite{decs}
 ...
 
 % REVISAR ISSO AQUI!!
@@ -95,7 +121,7 @@ Especificamente, tais ferramentas auxiliaram na redação e na revisão do texto
 
 Todo o conteúdo produzido com auxílio de IA foi revisado, validado e, quando necessário, corrigido pelo autor, que assume integral responsabilidade pela concepção, pelo conteúdo e pelas conclusões aqui apresentadas.
 
-\bibliographystyle{IEEEtran}
+\bibliographystyle{sbc}
 \bibliography{refs}
 
 \end{document}
