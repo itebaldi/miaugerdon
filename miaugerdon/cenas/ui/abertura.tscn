@@ -1,0 +1,327 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/abertura.gd" id="1_jf5ra"]
+[ext_resource type="Script" path="res://scripts/ui/prancha_hq.gd" id="2_wmqtu"]
+[ext_resource type="Script" path="res://scripts/ui/quadro_hq.gd" id="3_oeoy6"]
+[ext_resource type="Texture2D" path="res://sprites/abertura/Q1.png" id="4_3d68u"]
+[ext_resource type="Script" path="res://scripts/ui/balao_hq.gd" id="5_p4t1a"]
+[ext_resource type="Texture2D" path="res://sprites/abertura/Q2.png" id="6_twjtp"]
+[ext_resource type="Texture2D" path="res://sprites/abertura/Q3.png" id="7_5ao64"]
+[ext_resource type="Texture2D" path="res://sprites/abertura/Q4.png" id="8_hx1rv"]
+[ext_resource type="Texture2D" path="res://sprites/abertura/Q5.png" id="9_mdsqo"]
+[ext_resource type="Texture2D" path="res://sprites/abertura/Q6.png" id="10_jjewu"]
+[ext_resource type="Texture2D" path="res://sprites/abertura/Q7.png" id="11_jwkaa"]
+
+[node name="Abertura" type="Control" unique_id=1991478977]
+layout_mode = 3
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_jf5ra")
+
+[node name="Fundo" type="ColorRect" parent="." unique_id=1638741829]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.071, 0.063, 0.055, 1)
+
+[node name="Palco" type="Control" parent="." unique_id=1686833625]
+clip_contents = true
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Prancha" type="Control" parent="Palco" unique_id=548543367]
+anchors_preset = 0
+offset_right = 1400.0
+offset_bottom = 2245.0
+mouse_filter = 2
+script = ExtResource("2_wmqtu")
+
+[node name="Q1Sala" type="Control" parent="Palco/Prancha" unique_id=573042435]
+clip_contents = true
+anchors_preset = 0
+offset_left = 44.0
+offset_top = 44.0
+offset_right = 871.0
+offset_bottom = 506.0
+mouse_filter = 2
+script = ExtResource("3_oeoy6")
+imagem = ExtResource("4_3d68u")
+
+[node name="Narracao" type="Control" parent="Palco/Prancha/Q1Sala" unique_id=1416646625]
+anchors_preset = 0
+offset_left = 222.0
+offset_top = 20.0
+offset_right = 562.0
+offset_bottom = 104.0
+pivot_offset = Vector2(170, 42)
+mouse_filter = 2
+script = ExtResource("5_p4t1a")
+tipo = 3
+texto = "Esta casa tem dois moradores. Cada um com a sua função."
+fonte = 20
+
+[node name="EtiquetaCaju" type="Control" parent="Palco/Prancha/Q1Sala" unique_id=1076197519]
+anchors_preset = 0
+offset_left = 214.0
+offset_top = 124.0
+offset_right = 464.0
+offset_bottom = 220.0
+pivot_offset = Vector2(125, 48)
+mouse_filter = 2
+script = ExtResource("5_p4t1a")
+tipo = 4
+texto = "[b]CAJU[/b]
+dono da casa. Três anos no cargo."
+fonte = 18
+aponta_para = Vector2(175, 105)
+
+[node name="EtiquetaAlfredo" type="Control" parent="Palco/Prancha/Q1Sala" unique_id=1483780314]
+anchors_preset = 0
+offset_left = 300.0
+offset_top = 236.0
+offset_right = 568.0
+offset_bottom = 354.0
+pivot_offset = Vector2(134, 59)
+mouse_filter = 2
+script = ExtResource("5_p4t1a")
+tipo = 4
+texto = "[b]ALFREDO[/b]
+servo humano. Cozinha, limpa e paga as contas."
+fonte = 18
+aponta_para = Vector2(670, 285)
+risco_inicio = Vector2(27, 58)
+risco_largura = 47.0
+
+[node name="Q2Anuncio" type="Control" parent="Palco/Prancha" unique_id=65205622]
+clip_contents = true
+anchors_preset = 0
+offset_left = 893.0
+offset_top = 44.0
+offset_right = 1356.0
+offset_bottom = 506.0
+mouse_filter = 2
+script = ExtResource("3_oeoy6")
+imagem = ExtResource("6_twjtp")
+
+[node name="FalaAlfredo" type="Control" parent="Palco/Prancha/Q2Anuncio" unique_id=1291101679]
+anchors_preset = 0
+offset_left = 14.0
+offset_top = 10.0
+offset_right = 250.0
+offset_bottom = 126.0
+pivot_offset = Vector2(118, 58)
+mouse_filter = 2
+script = ExtResource("5_p4t1a")
+texto = "Caju, senta aqui. Preciso te contar uma coisa boa."
+aponta_para = Vector2(262, 262)
+
+[node name="PensamentoCaju" type="Control" parent="Palco/Prancha/Q2Anuncio" unique_id=988486286]
+anchors_preset = 0
+offset_left = 4.0
+offset_top = 116.0
+offset_right = 256.0
+offset_bottom = 262.0
+pivot_offset = Vector2(126, 73)
+mouse_filter = 2
+script = ExtResource("5_p4t1a")
+tipo = 1
+texto = "Ele só fala assim quando vai me levar no veterinário."
+fonte = 17
+aponta_para = Vector2(170, 330)
+
+[node name="Q3Foto" type="Control" parent="Palco/Prancha" unique_id=787599891]
+clip_contents = true
+anchors_preset = 0
+offset_left = 44.0
+offset_top = 528.0
+offset_right = 1356.0
+offset_bottom = 1168.0
+mouse_filter = 2
+script = ExtResource("3_oeoy6")
+imagem = ExtResource("7_5ao64")
+foco = Vector2(0.5, 0.85)
+
+[node name="FalaAlfredo1" type="Control" parent="Palco/Prancha/Q3Foto" unique_id=1671841935]
+anchors_preset = 0
+offset_left = 14.0
+offset_top = 12.0
+offset_right = 326.0
+offset_bottom = 202.0
+pivot_offset = Vector2(156, 95)
+mouse_filter = 2
+script = ExtResource("5_p4t1a")
+texto = "Você vai ter um irmãozinho! Esse é o Soneca. Ele ficou dois anos no abrigo, ninguém quis levar."
+fonte = 19
+aponta_para = Vector2(392, 236)
+
+[node name="FalaAlfredo2" type="Control" parent="Palco/Prancha/Q3Foto" unique_id=1747805665]
+anchors_preset = 0
+offset_left = 14.0
+offset_top = 222.0
+offset_right = 326.0
+offset_bottom = 340.0
+pivot_offset = Vector2(156, 59)
+mouse_filter = 2
+script = ExtResource("5_p4t1a")
+texto = "Chega hoje à tarde. Vocês vão se dar super bem."
+fonte = 19
+aponta_para = Vector2(392, 396)
+
+[node name="Q4Impacto" type="Control" parent="Palco/Prancha" unique_id=906791971]
+clip_contents = true
+anchors_preset = 0
+offset_left = 44.0
+offset_top = 1190.0
+offset_right = 953.0
+offset_bottom = 1698.0
+mouse_filter = 2
+script = ExtResource("3_oeoy6")
+imagem = ExtResource("8_hx1rv")
+tremor = true
+
+[node name="Irmaozinho" type="Control" parent="Palco/Prancha/Q4Impacto" unique_id=136377605]
+anchors_preset = 0
+offset_left = 24.0
+offset_top = 16.0
+offset_right = 344.0
+offset_bottom = 148.0
+pivot_offset = Vector2(160, 66)
+mouse_filter = 2
+script = ExtResource("5_p4t1a")
+tipo = 2
+texto = "Irmãozinho."
+fonte = 23
+
+[node name="Substituto" type="Control" parent="Palco/Prancha/Q4Impacto" unique_id=23379958]
+anchors_preset = 0
+offset_left = 586.0
+offset_top = 268.0
+offset_right = 896.0
+offset_bottom = 500.0
+pivot_offset = Vector2(155, 116)
+mouse_filter = 2
+script = ExtResource("5_p4t1a")
+tipo = 2
+texto = "Nesta casa não tem vaga para irmão. Só para substituto."
+fonte = 20
+
+[node name="Q5Imaginacao" type="Control" parent="Palco/Prancha" unique_id=1466409189]
+clip_contents = true
+anchors_preset = 0
+offset_left = 975.0
+offset_top = 1190.0
+offset_right = 1356.0
+offset_bottom = 1698.0
+mouse_filter = 2
+script = ExtResource("3_oeoy6")
+imagem = ExtResource("9_mdsqo")
+
+[node name="PensamentoCaju" type="Control" parent="Palco/Prancha/Q5Imaginacao" unique_id=862830710]
+anchors_preset = 0
+offset_left = 16.0
+offset_top = 10.0
+offset_right = 364.0
+offset_bottom = 166.0
+pivot_offset = Vector2(174, 78)
+mouse_filter = 2
+script = ExtResource("5_p4t1a")
+tipo = 1
+texto = "Hoje é o meu colo. Amanhã é a minha cama. Depois é o meu nome."
+fonte = 19
+aponta_para = Vector2(108, 352)
+
+[node name="Q6Vazio" type="Control" parent="Palco/Prancha" unique_id=946374493]
+clip_contents = true
+anchors_preset = 0
+offset_left = 44.0
+offset_top = 1720.0
+offset_right = 689.0
+offset_bottom = 2201.0
+mouse_filter = 2
+script = ExtResource("3_oeoy6")
+imagem = ExtResource("10_jjewu")
+
+[node name="NaoSeiNada" type="Control" parent="Palco/Prancha/Q6Vazio" unique_id=1973833062]
+anchors_preset = 0
+offset_left = 246.0
+offset_top = 12.0
+offset_right = 572.0
+offset_bottom = 144.0
+pivot_offset = Vector2(163, 66)
+mouse_filter = 2
+script = ExtResource("5_p4t1a")
+tipo = 1
+texto = "E eu não sei nada sobre ele. Nem de onde ele vem."
+fonte = 19
+aponta_para = Vector2(284, 292)
+
+[node name="PrecisoFalar" type="Control" parent="Palco/Prancha/Q6Vazio" unique_id=1462552750]
+anchors_preset = 0
+offset_left = 348.0
+offset_top = 290.0
+offset_right = 588.0
+offset_bottom = 414.0
+pivot_offset = Vector2(120, 62)
+mouse_filter = 2
+script = ExtResource("5_p4t1a")
+tipo = 1
+texto = "Preciso falar com o Mr. T."
+fonte = 19
+aponta_para = Vector2(300, 306)
+
+[node name="Q7MrT" type="Control" parent="Palco/Prancha" unique_id=1216942592]
+clip_contents = true
+anchors_preset = 0
+offset_left = 711.0
+offset_top = 1720.0
+offset_right = 1356.0
+offset_bottom = 2201.0
+mouse_filter = 2
+script = ExtResource("3_oeoy6")
+imagem = ExtResource("11_jwkaa")
+
+[node name="EtiquetaMrT" type="Control" parent="Palco/Prancha/Q7MrT" unique_id=845455195]
+anchors_preset = 0
+offset_left = 24.0
+offset_top = 38.0
+offset_right = 308.0
+offset_bottom = 172.0
+pivot_offset = Vector2(142, 67)
+mouse_filter = 2
+script = ExtResource("5_p4t1a")
+tipo = 4
+texto = "[b]MR. T[/b]
+o gato mais bem informado do bairro. Sabe de tudo. Sobre todos. Antes de todos."
+fonte = 18
+aponta_para = Vector2(400, 176)
+
+[node name="Objetivo" type="Control" parent="Palco/Prancha/Q7MrT" unique_id=441759587]
+anchors_preset = 0
+offset_left = 24.0
+offset_top = 214.0
+offset_right = 324.0
+offset_bottom = 310.0
+pivot_offset = Vector2(150, 48)
+mouse_filter = 2
+script = ExtResource("5_p4t1a")
+tipo = 3
+texto = "Primeiro objetivo: fale com o Mr. T no quintal."
+fonte = 20
+
+[node name="Dica" type="Label" parent="." unique_id=1244112794]
+layout_mode = 0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -46.0
+offset_bottom = -14.0
+theme_override_font_sizes/font_size = 15
+theme_override_colors/font_color = Color(0.85, 0.78, 0.64, 0.75)
+theme_override_colors/font_outline_color = Color(0.04, 0.03, 0.03, 0.8)
+theme_override_constants/outline_size = 6
+text = "[Enter] continuar          [Esc] pular"
+horizontal_alignment = 1

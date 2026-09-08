@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/balao_hq.gd" id="1_balao"]
+
+[node name="Balao" type="Control"]
+anchors_preset = 0
+offset_right = 240.0
+offset_bottom = 110.0
+mouse_filter = 2
+script = ExtResource("1_balao")
+texto = "Fala nova."

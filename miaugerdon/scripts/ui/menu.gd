@@ -1,6 +1,6 @@
 extends Control
 
-const CENA_JOGO := "res://cenas/mapa2.tscn"
+const CENA_ABERTURA := "res://cenas/ui/abertura.tscn"
 
 
 func _ready() -> void:
@@ -10,5 +10,5 @@ func _ready() -> void:
 
 
 func _jogar() -> void:
-	Jogo.intro_vista = false
-	get_tree().change_scene_to_file(CENA_JOGO)
+	# a abertura é quem carrega o mapa depois, e marca a intro como vista
+	get_tree().change_scene_to_file(CENA_ABERTURA)

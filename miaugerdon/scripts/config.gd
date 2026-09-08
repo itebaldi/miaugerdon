@@ -1,5 +1,8 @@
 class_name Config
 
+# Intro antiga em caixa de texto. Substituída pela prancha de quadrinho em
+# cenas/ui/abertura.tscn, onde os textos agora moram nos próprios balões; só
+# continua aqui porque o painel do HUD ainda sabe exibi-la.
 const INTRO := [
 	"Caju sempre soube quem realmente mandava naquela casa. Alfredo podia preparar a comida, limpar a bagunça e pagar as contas, mas era apenas seu fiel servo humano.",
 	"Tudo seguia perfeitamente até Alfredo anunciar uma notícia terrível. Ele havia adotado um cachorro, e o novo invasor chegaria em breve.",
