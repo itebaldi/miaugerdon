@@ -1,0 +1,58 @@
+\newcommand*\DefVar[1]{\@namedef{#1}##1{\global\@namedef{get#1}{##1}}}
+\DefVar{anais}
+\DefVar{trilha}
+\DefVar{ano}
+\DefVar{local}
+\DefVar{edicao}
+\DefVar{evento}
+\DefVar{anais}
+
+\evento{\getedicao~Simpósio Brasileiro de Jogos e Entretenimento Digital (SBGames \getano) - \getlocal}
+%\anais{Anais Estendidos do \getedicao~Simpósio Brasileiro de Jogos e Entretenimento Digital}
+
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead{}
+\fancyhead[L]{
+    {\scriptsize
+        \begin{tabular}[t]{@{}l@{}}
+           \getevento\\
+           %\getanais\\
+        \end{tabular}
+    }
+}
+\fancyhead[R]{
+    {\scriptsize
+        
+        \begin{tabular}[t]{@{}r@{}}
+            Trilha: \gettrilha
+        \end{tabular}
+    }
+}
+% Updated in 17 apr 2024
+% Avoid warning
+\setlength{\headheight}{26.85pt}
+
+\fancyfoot[L]{}
+\fancyfoot[C]{}
+\fancyfoot[R]{}
+
+\fancypagestyle{plain}{
+    \fancyhead[C]{}
+	\fancyhead[L]{
+        {\scriptsize
+            \begin{tabular}[t]{@{}l@{}}
+               \getevento\\
+               %\getanais\\
+            \end{tabular}
+        }
+    }
+    \fancyhead[R]{
+        {\scriptsize
+            
+            \begin{tabular}[t]{@{}r@{}}
+                Trilha: \gettrilha
+            \end{tabular}
+        }
+    }
+}
+\pagestyle{fancy}

@@ -1,0 +1,118 @@
+{
+    "editor.fontSize": 15,
+    "editor.rulers": [
+        85
+    ],
+    "window.autoDetectHighContrast": false,
+    "security.workspace.trust.untrustedFiles": "open",
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook",
+        "*.toml": "default",
+        "*.db": "default"
+    },
+    "editor.suggestSelection": "first",
+    "terminal.integrated.defaultProfile.windows": "Command Prompt",
+    "python.envFile": "${workspaceFolder}/venv",
+    "editor.wordWrapColumn": 75,
+    "autoDocstring.docstringFormat": "numpy",
+    "files.exclude": {
+        "**/__pycache__": true
+    },
+    "terminal.integrated.gpuAcceleration": "off",
+    "cSpell.fixSpellingWithRenameProvider": false,
+    "cSpell.language": "en,pt-BR",
+    "jupyter.askForKernelRestart": false,
+    "files.eol": "\n",
+    "workbench.colorTheme": "Beautiful Dracula Darker",
+    "files.associations": {
+        "*.aqg": "json",
+        "*.aqgdwg": "json",
+    },
+    "editor.formatOnSave": true,
+    "[python]": {
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.formatOnSave": true,
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
+    "diffEditor.ignoreTrimWhitespace": false,
+    "editor.fontLigatures": false,
+    "git.suggestSmartCommit": false,
+    "cSpell.userWords": [
+        "archprog",
+        "arctan",
+        "Autocad",
+        "discretization",
+        "Elemento",
+        "linemerge",
+        "maxx",
+        "maxy",
+        "miny",
+        "ohana",
+        "Outro",
+        "persistente",
+        "pmap",
+        "polygonize",
+        "polyline",
+        "Polyline",
+        "precord",
+        "pvector",
+        "pydantic",
+        "pyrsistent",
+        "Segs",
+        "windowable",
+        "xlim",
+        "xoff",
+        "xticks",
+        "yoff",
+        "yticks",
+        "zoff"
+    ],
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "git.openRepositoryInParentFolders": "never",
+    "remote.autoForwardPortsSource": "hybrid",
+    "security.allowedUNCHosts": [
+        "wsl.localhost"
+    ],
+    "window.customTitleBarVisibility": "windowed",
+    "python.analysis.diagnosticMode": "workspace",
+    "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.extraPaths": [
+        "./venv/lib/python3.1/site-packages"
+    ],
+    "python.analysis.exclude": [
+        "**/venv"
+    ],
+    "debugpy.debugJustMyCode": false,
+    "python.testing.pytestArgs": [
+        "tests"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true,
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.completeFunctionParens": true,
+    "python-envs.defaultEnvManager": "ms-python.python:conda",
+    "python-envs.defaultPackageManager": "ms-python.python:conda",
+    "latex-workshop.view.pdf.viewer": "tab",
+    "latex-workshop.view.pdf.toolbar.hide.timeout": 0,
+    "latex-workshop.view.pdf.sidebar.open": "on",
+    "latex-workshop.view.pdf.sidebar.view": "thumbnails",
+    "latex-workshop.latex.autoBuild.run": "onSave",
+    "latex-workshop.latex.autoClean.run": "never",
+    "latex-workshop.synctex.afterBuild.enabled": true,
+    "[latex]": {
+        "editor.wordWrap": "on"
+    },
+    "[bibtex]": {
+        "editor.wordWrap": "on"
+    }
+}
