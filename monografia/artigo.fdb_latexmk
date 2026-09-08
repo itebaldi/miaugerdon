@@ -1,15 +1,15 @@
 # Fdb version 4
-["bibtex artigo"] 1788895927.00595 "artigo.aux" "artigo.bbl" "artigo" 1788895927.44491 0
-  "./refs.bib" 1788625765.47801 3069 eced8cb8ad4a6962445b84ce403490cc ""
+["bibtex artigo"] 1788899115.78392 "artigo.aux" "artigo.bbl" "artigo" 1788899139.10736 0
+  "./refs.bib" 1788898477.38072 3512 c45fa2459727bde55643e3b8d2919743 ""
   "./sbc.bst" 1788632046 21859 0b4803ea0dcdaff31a727a113a55a998 ""
-  "artigo.aux" 1788895927.38085 3178 68b77967f4038ecb9894b37b641bd64d "pdflatex"
+  "artigo.aux" 1788899139.04468 4448 7bb15eded62a866f98eaddf4ce8bf2e1 "pdflatex"
   (generated)
   "artigo.bbl"
   "artigo.blg"
   (rewritten before read)
-["pdflatex"] 1788895927.02075 "/home/isado/isa-flat/miaugerdon/monografia/artigo.tex" "artigo.pdf" "artigo" 1788895927.44506 0
+["pdflatex"] 1788899138.36535 "/home/isado/isa-flat/miaugerdon/monografia/artigo.tex" "artigo.pdf" "artigo" 1788899139.10748 0
   "/etc/texmf/web2c/texmf.cnf" 1787750125.1634 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/isado/isa-flat/miaugerdon/monografia/artigo.tex" 1788895926.29685 23258 5bdde64f1b3b8e26019096f796db0b15 ""
+  "/home/isado/isa-flat/miaugerdon/monografia/artigo.tex" 1788899138.17268 24142 0fbe0a04ef3447b897c955e04ab20a91 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/courier/pcrr8r.tfm" 1136768653 1292 bd42be2f344128bff6d35d98474adfe3 ""
@@ -98,6 +98,7 @@
   "/usr/share/texlive/texmf-dist/tex/latex/base/textcomp.sty" 1738182759 2846 e26604d3d895e65d874c07f30c291f3f ""
   "/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty" 1696191071 56128 c2ccf1a29d78c33bc553880402e4fb9a ""
   "/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty" 1696191071 72619 ee90b6612147680fd73c3b1406a74245 ""
+  "/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty" 1690576852 12494 0c0cdb824278a4d51cefeb2e79901315 ""
   "/usr/share/texlive/texmf-dist/tex/latex/carlisle/scalefnt.sty" 1137109962 1360 df2086bf924b14b72d6121fe9502fcdb ""
   "/usr/share/texlive/texmf-dist/tex/latex/colortbl/colortbl.sty" 1747945524 12709 4ca3cf5f9f1d551b8a1090fba11ac95d ""
   "/usr/share/texlive/texmf-dist/tex/latex/comment/comment.sty" 1472166125 10197 204f75d5d8d88aa345a8c402e879e63b ""
@@ -147,14 +148,20 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1769369718 41603 27f93b3067076450172040dcd57ca8b3 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1787750130 165211 6b08d096f3d0fe5ff6b266061a2b45e0 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1787750141 2266722 08b5bba5125a433c70323160f3d7654d ""
-  "artigo.aux" 1788895927.38085 3178 68b77967f4038ecb9894b37b641bd64d "pdflatex"
-  "artigo.bbl" 1788895927.01685 1137 f1841cb9fcacec91aba787f80bae7e02 "bibtex artigo"
-  "artigo.out" 1788895927.38085 3038 8be2432b6c43735a61a16d3f65033424 "pdflatex"
-  "artigo.tex" 1788895926.29685 23258 5bdde64f1b3b8e26019096f796db0b15 ""
+  "artigo.aux" 1788899139.04468 4448 7bb15eded62a866f98eaddf4ce8bf2e1 "pdflatex"
+  "artigo.bbl" 1788899115.79668 1428 73baddb408bab46c8f1a0521e399c0ae "bibtex artigo"
+  "artigo.out" 1788899139.04468 3038 8be2432b6c43735a61a16d3f65033424 "pdflatex"
+  "artigo.tex" 1788899138.17268 24142 0fbe0a04ef3447b897c955e04ab20a91 ""
+  "figures/barra_suspeita.png" 1788896108.652 387801 e98b143eae95cbf6b4a0f7bf9a7e493e ""
+  "figures/barra_suspeita.tex" 1788897861.66074 236 649579b4c29ebee8fa0cbcd719d2d9ef ""
+  "figures/miauzon.png" 1788891380.207 659216 568b91d10fbe2590503ea44cd541f96a ""
+  "figures/mr_t.png" 1788891193.461 349186 e92b08cbda35bf912afa80a2e9da1e4c ""
+  "figures/purrgle_miaut.png" 1788891359.678 542632 a367ec56bf559ca40cba1748782bb76b ""
+  "figures/tarefas.tex" 1788897826.59676 780 aaf7084c149a955f94af12ea2097107c ""
   "sbc-template.sty" 1788632046 6960 62174fef560eb8ce693dd33483b46377 ""
   "sbgames.sty" 1788632046 1243 957d5c8ee6f7a13c731ea4c8621b1eb7 ""
   "sbgames_info.tex" 1788636368.08147 253 8a4002ba0788351d73eee9fbec9d5076 ""
-  "tables/elementos_jogo.tex" 1788635292.08152 828 636f11d46f5a585344597a6bdbc7a2ac ""
+  "tables/elementos_jogo.tex" 1788897761.60077 843 40d0004f0c7359493eab9867632701e1 ""
   (generated)
   "artigo.aux"
   "artigo.log"

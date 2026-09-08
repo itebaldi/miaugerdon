@@ -9,6 +9,7 @@
 \usepackage{multirow}
 \usepackage{tabularx}
 \usepackage{graphicx,url}
+\usepackage{subcaption}
 \usepackage{float}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{algorithmic}
@@ -64,7 +65,7 @@
 \thispagestyle{plain}
 
 \begin{abstract}
-\textbf{Introduction:} Perceptions about someone little known can be shaped by the information received about them, and misinformation may involve not only false content but also generalization, repetition and the delegitimization of sources.
+\textbf{Introduction:} Perceptions of an unfamiliar person can be shaped by the information received about them, and misinformation may involve not only false content but also generalization, repetition and the delegitimization of sources.
 \textbf{Objective:} This paper presents the design of Miaugerdon, a serious game that investigates how narrative and mechanics represent the formation of prejudice mediated by misinformation.
 \textbf{Methodology or Steps:} In the game, a cat forms a negative perception of another through the discourse of a source he trusts. The work maps the game elements to their functions and analyses the design choices.
 \textbf{Expected Results:} The design articulates misinformation as a gradual process, the construction of the other before direct contact and the player's agency in the revision of beliefs. Without a systematic evaluation with players, planned as future work, no effect on attitudes is claimed.
@@ -91,23 +92,25 @@ Partindo dessa perspectiva, este trabalho apresenta Miaugerdon, um jogo digital 
 
 A proposta é representar mecanismos de influência, controle informacional e construção de preconceitos contra o diferente por meio da narrativa e das ações do jogador. Assim, o trabalho discute a concepção de \textit{Miaugerdon} como um \textit{serious game} que articula desinformação e preconceito, com foco em seu desenvolvimento e em suas escolhas de design. A partir disso, busca-se responder à seguinte pergunta de pesquisa: \textit{como narrativa e mecânicas de um serious game podem ser articuladas para representar a formação de preconceitos mediada pela desinformação?}
 
-O artigo está organizado da seguinte forma: a Seção 2 apresenta a fundamentação teórica e os trabalhos relacionados; a Seção 3 descreve a concepção e reformulação de \textit{Miaugerdon}; a Seção 4 discute suas escolhas narrativas e mecânicas e apresenta as limitações do trabalho; e a Seção 5 reúne as conclusões e os trabalhos futuros.
+O artigo está organizado da seguinte forma: a Seção 2 apresenta a fundamentação teórica e os trabalhos relacionados; a Seção 3 descreve a concepção de \textit{Miaugerdon}; a Seção 4 discute suas escolhas narrativas e mecânicas e apresenta as limitações do trabalho; e a Seção 5 reúne as conclusões e os trabalhos futuros.
 
 \section{Fundamentação Teórica e Trabalhos Relacionados}
 
 Esta seção apresenta os principais conceitos que fundamentam a proposta de Miaugerdon e discute trabalhos relacionados ao uso de jogos para reflexão social. São abordados estudos sobre serious games, empatia, preconceito e desinformação, buscando situar o jogo em relação às abordagens já exploradas na literatura.
 
 \subsection{Serious games e reflexão social}
-Os serious games são jogos desenvolvidos com objetivos que ultrapassam o entretenimento, podendo ser utilizados em contextos de aprendizagem, conscientização e transformação social. A revisão realizada por Dallaqua et al. mostra que esse campo reúne trabalhos voltados ao uso de jogos para abordar problemas sociais, explorar valores e estimular reflexão por meio de experiências interativas \cite{dallaqua}. Nesses jogos, a compreensão do tema pode surgir não apenas da apresentação de informações, mas também das situações, escolhas e consequências vivenciadas pelo jogador.
+Os serious games são jogos desenvolvidos com objetivos que ultrapassam o entretenimento, podendo ser utilizados em contextos de aprendizagem, conscientização e transformação social. A revisão realizada por Dallaqua e Carvalho mostra que esse campo reúne trabalhos voltados ao uso de jogos para abordar problemas sociais, explorar valores e estimular reflexão por meio de experiências interativas \cite{dallaqua}. Nesses jogos, a compreensão do tema pode surgir não apenas da apresentação de informações, mas também das situações, escolhas e consequências vivenciadas pelo jogador.
 
 Belman e Flanagan discutem especificamente o uso de jogos para promover empatia e tomada de perspectiva, analisando exemplos como PeaceMaker, Hush e Layoff \cite{Belman2009}. Os autores destacam que a capacidade de um jogo de provocar reflexão depende de como narrativa, personagens e ações do jogador são articulados à experiência proposta. Dessa forma, o jogador pode ser colocado diante de perspectivas e conflitos distintos dos seus, participando ativamente das situações representadas.
 
 \subsection{Preconceito, alteridade e contato com o diferente}
-O preconceito pode se formar a partir de estereótipos, generalizações e percepções negativas atribuídas a indivíduos identificados como pertencentes a grupos externos ou diferentes. Quando há pouco contato direto entre as partes, essas percepções podem ser construídas principalmente a partir de informações recebidas de terceiros, reforçando interpretações prévias sobre o “outro”. Nesse sentido, Pettigrew e Tropp demonstram, por meio de uma ampla meta-análise, que o contato intergrupal está associado à redução de atitudes preconceituosas, especialmente por permitir que expectativas e imagens previamente estabelecidas sejam confrontadas pela experiência direta \cite{Pettigrew2006}.
+O preconceito pode se formar a partir de estereótipos, generalizações e percepções negativas atribuídas a indivíduos identificados como pertencentes a grupos externos ou diferentes. Quando há pouco contato direto entre as partes, essas percepções podem ser construídas principalmente a partir de informações recebidas de terceiros, reforçando interpretações prévias sobre o ``outro''. Nesse sentido, Pettigrew e Tropp demonstram, por meio de uma ampla meta-análise, que o contato intergrupal está associado à redução de atitudes preconceituosas, especialmente por permitir que expectativas e imagens previamente estabelecidas sejam confrontadas pela experiência direta \cite{Pettigrew2006}.
 
 Essa relação também tem sido explorada em jogos digitais. Cross et al. investigaram uma experiência em que jogadores assumiam a perspectiva de um refugiado sírio e observaram redução de atitudes preconceituosas e aumento de empatia após a interação \cite{a_path_out}. O estudo evidencia como jogos podem explorar atitudes dirigidas a grupos percebidos como externos, incluindo contextos relacionados à migração e ao preconceito contra refugiados.
 
-Esses trabalhos reforçam a importância do contato e da tomada de perspectiva na revisão de julgamentos sobre grupos percebidos como diferentes, além de apontarem o potencial dos jogos como espaços para representar e explorar essas relações de forma interativa.
+De forma mais direta, Martins et al. apresentam \textit{Typical Day}, uma experiência desenvolvida para representar situações cotidianas enfrentadas por imigrantes em Portugal, incluindo episódios de discriminação e xenofobia \cite{typicalday}. O jogo utiliza essas situações para aproximar jogadores não imigrantes das dificuldades vivenciadas por esse grupo e estimular reflexão sobre experiências que podem não ser reconhecidas como formas de preconceito.
+
+Esses trabalhos reforçam a importância do contato e da tomada de perspectiva na revisão de julgamentos sobre grupos percebidos como diferentes, além de apontarem o potencial dos jogos como espaços para representar e explorar preconceito, alteridade e exclusão social de forma interativa.
 
 \subsection{Jogos e desinformação}
 Jogos digitais também têm sido explorados como ferramentas para desenvolver resistência à desinformação. Roozenbeek e van der Linden apresentam o Bad News, jogo no qual o jogador assume o papel de um produtor de notícias falsas e utiliza estratégias como polarização, apelo emocional, teorias conspiratórias e descrédito de fontes \cite{bad_news}. Ao colocar o jogador em contato direto com essas técnicas, o jogo busca tornar mais reconhecíveis os mecanismos usados para manipular informações. Os resultados do estudo indicaram melhora na capacidade dos participantes de identificar conteúdos e estratégias enganosas, reforçando o potencial de abordagens interativas para trabalhar pensamento crítico e alfabetização midiática.
@@ -122,7 +125,9 @@ Esta seção apresenta a concepção de \textit{Miaugerdon}, descrevendo sua pre
 
 O jogo acompanha Caju, um gato que vive com seu tutor humano, Alfredo, e descobre que ele pretende adotar Soneca, um novo gato vindo de um abrigo. Incomodado com a chegada do desconhecido, Caju recorre a Mr. T., um gato em quem confia e que passa a influenciar sua percepção sobre o recém-chegado por meio de comentários, generalizações e informações negativas. Mr. T. atua como principal agente de manipulação, enquanto Alfredo apresenta informações e situações que desafiam essa narrativa. Soneca, por sua vez, ocupa o papel daquele percebido como ``de fora'' ou diferente, sendo inicialmente conhecido por Caju por meio do discurso de terceiros.
 
-Sob a influência de Mr. T., Caju inicia um plano para construir uma máquina de dominação mundial, que funciona como objetivo central da partida. A experiência é apresentada em 2D, com vista isométrica, e se passa principalmente na casa de Alfredo, explorada pelo jogador enquanto cumpre uma sequência de tarefas. Durante a partida, Alfredo circula pelo ambiente e pode interromper ações consideradas suspeitas, levando o jogador a alternar entre atividades relacionadas ao plano e comportamentos comuns de um gato. A progressão combina exploração, interação com objetos e personagens, distrações e um sistema de suspeita.
+Sob a influência de Mr. T., Caju inicia um plano para construir uma máquina de dominação mundial, que funciona como objetivo central da partida. A experiência é apresentada em 2D, com vista isométrica, e se passa principalmente na casa de Alfredo, explorada pelo jogador enquanto cumpre uma sequência de tarefas, como pode ser observado na Figura~\ref{fig:tarefas}. Durante a partida, Alfredo circula pelo ambiente e pode interromper ações consideradas suspeitas, levando o jogador a alternar entre atividades relacionadas ao plano e comportamentos comuns de um gato. A progressão combina exploração, interação com objetos e personagens, distrações e um sistema de suspeita.
+
+\input{figures/tarefas.tex}
 
 Apesar dos temas abordados, a experiência adota um tom predominantemente cômico. A ideia de um gato construindo uma máquina de dominação mundial, combinada a comportamentos cotidianos utilizados para disfarçar suas ações, introduz situações exageradas e absurdas ao longo da partida. O humor funciona como parte da identidade do jogo e como recurso narrativo para abordar os temas propostos sem abandonar seu caráter lúdico.
 
@@ -137,15 +142,19 @@ A progressão ocorre por meio de pequenas tarefas necessárias para a construç�
 A experiência foi concebida para partidas curtas, com duração aproximada de cinco minutos, e apresenta quatro desfechos possíveis. Caju pode concluir a construção da máquina, desistir do plano, ser descoberto por Alfredo enquanto executa as tarefas ou não conseguir concluí-las antes do término do tempo disponível. Os finais decorrem tanto das decisões do jogador quanto de seu desempenho ao longo da partida.
 
 \subsection{Mecânicas e objetivos de design}
-\input{tables/elementos_jogo.tex}
 
-A progressão do jogador é condicionada por um sistema de suspeita associado a Alfredo. Enquanto Caju executa ações relacionadas ao plano, a barra de suspeita aumenta e pode ser reduzida por meio de comportamentos comuns de um gato. Alfredo circula pela casa seguindo trajetos de forma aleatória, mas seu comportamento se altera conforme o nível de suspeita. Quando a barra atinge o nível amarelo, ele se desloca até Caju para verificar suas ações; no nível vermelho, passa a segui-lo pela casa. Caso Caju seja flagrado executando uma ação relacionada ao plano, a partida pode ser encerrada.
+A progressão do jogador é condicionada por um sistema de suspeita associado a Alfredo. Enquanto Caju executa ações relacionadas ao plano, a barra de suspeita aumenta e pode ser reduzida por meio de comportamentos comuns de um gato. Alfredo circula pela casa seguindo trajetos de forma aleatória, mas seu comportamento se altera conforme o nível de suspeita. Quando a barra atinge o nível amarelo, ele se desloca até Caju para verificar suas ações; no nível vermelho, passa a segui-lo pela casa, como pode ser observado na Figura~\ref{fig:barra_suspeita}. Caso Caju seja flagrado executando uma ação relacionada ao plano, a partida pode ser encerrada.
+
+\input{figures/barra_suspeita.tex}
 
 Essa mecânica exige que o jogador alterne entre avançar na construção da máquina e realizar ações cotidianas para evitar a atenção de Alfredo. Além de introduzir uma condição de risco à progressão, esse contraste entre um plano de dominação mundial e comportamentos típicos de um gato contribui para o tom cômico da experiência.
 
 As demais mecânicas e situações narrativas foram organizadas de modo a relacionar as ações do jogador aos temas centrais do jogo. A repetição de tarefas para Mr. T., por exemplo, busca construir gradualmente uma relação de confiança, enquanto as informações negativas sobre Soneca surgem antes de qualquer contato direto com o personagem. Generalizações, notícias contraditórias e a deslegitimação de fontes representam diferentes formas de construção e manutenção de uma percepção negativa sobre o outro.
 
+\input{tables/elementos_jogo.tex}
+
 Em contraponto, as interações com Alfredo introduzem perspectivas alternativas, enquanto as lembranças retomadas durante a montagem da máquina permitem que Caju confronte informações recebidas anteriormente. A Tabela~\ref{tab:elementos_jogo} sintetiza a relação entre esses elementos e suas funções na experiência.
+
 
 \section{Discussão}
 
@@ -160,7 +169,7 @@ Essa escolha permite representar a desinformação como um processo gradual. A i
 
 Soneca ocupa na narrativa a posição daquele percebido como ``de fora''. Antes de qualquer contato direto, Caju forma uma imagem sobre o recém-chegado a partir das generalizações e informações negativas apresentadas por Mr. T. Dessa forma, o preconceito é construído não pela experiência com Soneca, mas por um discurso que o associa previamente a características negativas e à ideia de ameaça.
 
-Embora Soneca não represente diretamente um grupo social específico, essa dinâmica pode remeter a diferentes formas de exclusão social, entre elas a xenofobia, nas quais indivíduos percebidos como externos ao grupo são julgados a partir de estereótipos antes do contato direto. A opção por não vincular o personagem a um grupo específico preserva a alegoria do ``outro'' e permite que a experiência seja interpretada a partir de diferentes contextos de alteridade.
+Embora Soneca não represente diretamente um grupo social específico, essa dinâmica pode remeter a diferentes formas de exclusão social, entre elas a xenofobia, na qual indivíduos percebidos como externos ao grupo podem ser associados a estereótipos e características negativas antes do contato direto. Essa forma de construção do ``outro'' também aparece em jogos que abordam experiências de migração e discriminação, como \textit{Typical Day} \cite{typicalday}. A opção por não vincular Soneca a um grupo específico, entretanto, preserva a alegoria do ``outro'' e permite que a experiência seja interpretada a partir de diferentes contextos de alteridade.
 
 Essa escolha narrativa dialoga com estudos sobre contato intergrupal, que associam a interação entre grupos à revisão de percepções e atitudes preconceituosas \cite{Pettigrew2006}, bem como com experiências em jogos que exploram preconceito contra grupos percebidos como externos \cite{a_path_out}. Em \textit{Miaugerdon}, esse processo aparece no contraste entre aquilo que Caju ouve sobre Soneca e as informações e experiências que gradualmente desafiam essa imagem inicial.
 
