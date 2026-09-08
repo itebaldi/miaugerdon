@@ -19,7 +19,25 @@ const COR_TENSO := Color(1.0, 0.945, 0.929)
 const COR_NARRACAO := Color(0.945, 0.886, 0.745)
 const COR_ETIQUETA := Color(0.992, 0.969, 0.902)
 
+# A etiqueta é desenhada como folha de papel envelhecido: três camadas de
+# polígono com a borda irregular, da mais queimada para a mais clara, e umas
+# manchas por cima.
+const PAPEL_QUEIMADO := Color(0.47, 0.31, 0.13)
+const PAPEL_CLARO := Color(0.93, 0.84, 0.62)
+const PAPEL_MANCHA := Color(0.52, 0.35, 0.15, 0.05)
+const PAPEL_TINTA := Color(0.21, 0.13, 0.06)
+const PAPEL_PASSO := 9.0
+const PAPEL_RASGO := 8.0
+const PAPEL_CAMADAS := 6
+const PAPEL_BORDA := 16.0
+const PAPEL_SOMBRA := Vector2(6, 7)
+
 const ESPESSURA := 4.0
+const RAIO_FALA := 26.0
+# meia-largura da boca do rabicho, em pixels. Como ângulo fixo, um balão largo
+# abria a boca no lado inteiro; em pixels a boca fica igual em qualquer balão.
+const BOCA_RABICHO := 17.0
+const RECUO_RABICHO := 12.0
 const LOBULOS := 9
 const LOBULOS_TENSO := 15
 const RECORTE := 0.18
@@ -30,8 +48,7 @@ const FOLGA_QUADRO := 6.0
 @export var tipo := Tipo.FALA:
 	set(valor):
 		tipo = valor
-		_aplicar_medidas()
-		queue_redraw()
+		_escrever()
 
 @export_multiline var texto := "":
 	set(valor):
@@ -59,6 +76,32 @@ const FOLGA_QUADRO := 6.0
 @export var risco_largura := 0.0:
 	set(valor):
 		risco_largura = valor
+		queue_redraw()
+
+@export var risco_cor := Color(0.78, 0.13, 0.11):
+	set(valor):
+		risco_cor = valor
+		queue_redraw()
+
+## Muda o recorte das bordas rasgadas da etiqueta, para duas fichas na mesma
+## página não saírem idênticas.
+@export var semente := 0:
+	set(valor):
+		semente = valor
+		queue_redraw()
+
+## Se preenchida, substitui o papel desenhado por uma imagem (uma textura de
+## pergaminho gerada fora, por exemplo). Só vale para a etiqueta.
+@export var textura: Texture2D:
+	set(valor):
+		textura = valor
+		queue_redraw()
+
+## Tinge a textura. Serve para baixar a saturação de um pergaminho que chega
+## mais berrante que a arte em volta.
+@export var textura_cor := Color(1, 1, 1):
+	set(valor):
+		textura_cor = valor
 		queue_redraw()
 
 var _caixa_texto: CenterContainer
@@ -111,8 +154,10 @@ func _escrever() -> void:
 	_rotulo.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_rotulo.add_theme_font_size_override("normal_font_size", fonte)
 	_rotulo.add_theme_font_size_override("bold_font_size", fonte)
-	_rotulo.add_theme_color_override("default_color", COR_TINTA)
-	_rotulo.text = "[center]%s[/center]" % texto
+	_rotulo.add_theme_color_override("default_color", PAPEL_TINTA if tipo == Tipo.ETIQUETA else COR_TINTA)
+	# etiqueta é ficha de personagem: nome centralizado no próprio texto e os
+	# marcadores alinhados à esquerda, como uma lista. O resto vai centralizado.
+	_rotulo.text = texto if tipo == Tipo.ETIQUETA else "[center]%s[/center]" % texto
 	_caixa_texto.add_child(_rotulo)
 
 	_aplicar_medidas()
@@ -178,7 +223,7 @@ func _margem_interna() -> Vector2:
 		Tipo.PENSAMENTO, Tipo.PENSAMENTO_TENSO:
 			return size * _recorte() + Vector2(6, 6)
 		Tipo.ETIQUETA:
-			return Vector2(14, 10)
+			return Vector2(34, 28)
 		_:
 			return Vector2(18, 14)
 
@@ -205,10 +250,17 @@ func _draw() -> void:
 			var fechada := forma.duplicate()
 			fechada.append(forma[0])
 			draw_polyline(fechada, COR_TINTA, ESPESSURA, true)
+		Tipo.ETIQUETA:
+			_desenhar_papel()
 		_:
 			draw_style_box(_caixa(), Rect2(Vector2.ZERO, size))
 
-	if aponta_para != Vector2.ZERO:
+	# o rabicho vem depois do corpo de propósito: o preenchimento dele apaga o
+	# trecho de borda entre os dois pontos de saída, e é isso que faz o balão
+	# "abrir" no rabicho em vez de ficar um triângulo encostado
+	if tipo == Tipo.FALA and aponta_para != Vector2.ZERO:
+		_desenhar_rabicho()
+	elif aponta_para != Vector2.ZERO:
 		_desenhar_ligacao()
 	if risco_largura > 0.0:
 		_desenhar_risco()
@@ -225,7 +277,7 @@ func _caixa() -> StyleBoxFlat:
 		Tipo.ETIQUETA:
 			estilo.set_corner_radius_all(6)
 		_:
-			estilo.set_corner_radius_all(26)
+			estilo.set_corner_radius_all(int(RAIO_FALA))
 	return estilo
 
 
@@ -250,7 +302,9 @@ func _forma_nuvem() -> PackedVector2Array:
 
 func _desenhar_ligacao() -> void:
 	var centro := size * 0.5
-	var alvo := aponta_para - position
+	# o alvo vem em coordenadas do quadro; a inversa da transformação já cuida
+	# de posição, pivô, rotação e escala do balão
+	var alvo := get_transform().affine_inverse() * aponta_para
 	var direcao := alvo - centro
 	if direcao.length() < 1.0:
 		return
@@ -261,8 +315,6 @@ func _desenhar_ligacao() -> void:
 			_desenhar_bolhas(_borda_elipse(centro, direcao), alvo)
 		Tipo.ETIQUETA:
 			_desenhar_ponteiro(_borda_retangulo(centro, direcao), alvo)
-		Tipo.FALA:
-			_desenhar_rabicho(centro, direcao, alvo)
 		_:
 			pass
 
@@ -282,16 +334,53 @@ func _borda_elipse(centro: Vector2, direcao: Vector2) -> Vector2:
 	return centro + direcao * ((1.0 / d) * (1.0 - _recorte() * 0.5))
 
 
-func _desenhar_rabicho(centro: Vector2, direcao: Vector2, alvo: Vector2) -> void:
-	var base := _borda_retangulo(centro, direcao)
-	var perpendicular := Vector2(-direcao.y, direcao.x)
-	var largura: float = clampf((alvo - base).length() * 0.22, 12.0, 22.0)
-	var a := base + perpendicular * largura
-	var b := base - perpendicular * largura
+func _desenhar_rabicho() -> void:
+	var centro := size * 0.5
+	var alvo := get_transform().affine_inverse() * aponta_para
+	var direcao := alvo - centro
+	if direcao.length() < 1.0:
+		return
+	direcao = direcao.normalized()
 
-	draw_colored_polygon(PackedVector2Array([a, b, alvo]), _cor_fundo())
+	# os dois pontos de saída ficam sobre a borda arredondada de verdade, um de
+	# cada lado da direção do alvo
+	var base := _borda_forma(centro, direcao)
+	var abertura: float = clampf(BOCA_RABICHO / maxf((base - centro).length(), 1.0), 0.05, 0.6)
+	var a := _borda_forma(centro, direcao.rotated(abertura))
+	var b := _borda_forma(centro, direcao.rotated(-abertura))
+	var recuo := direcao * RECUO_RABICHO
+
+	# o polígono entra um pouco para dentro do balão para cobrir a borda
+	draw_colored_polygon(PackedVector2Array([a, alvo, b, b - recuo, a - recuo]), _cor_fundo())
 	draw_line(a, alvo, COR_TINTA, ESPESSURA, true)
 	draw_line(b, alvo, COR_TINTA, ESPESSURA, true)
+
+
+# Onde o raio saindo do centro cruza o retângulo arredondado. A distância até a
+# forma cresce junto com t, então uma busca binária resolve sem marcha nem
+# aproximação por canto.
+func _borda_forma(centro: Vector2, direcao: Vector2) -> Vector2:
+	var perto := 0.0
+	var longe := size.length()
+	for i in 24:
+		var meio := (perto + longe) * 0.5
+		if _fora_da_forma(centro + direcao * meio) <= 0.0:
+			perto = meio
+		else:
+			longe = meio
+	return centro + direcao * perto
+
+
+func _fora_da_forma(ponto: Vector2) -> float:
+	var interno := Rect2(
+		Vector2(RAIO_FALA, RAIO_FALA),
+		Vector2(maxf(size.x - RAIO_FALA * 2.0, 1.0), maxf(size.y - RAIO_FALA * 2.0, 1.0))
+	)
+	var perto := Vector2(
+		clampf(ponto.x, interno.position.x, interno.end.x),
+		clampf(ponto.y, interno.position.y, interno.end.y)
+	)
+	return ponto.distance_to(perto) - RAIO_FALA
 
 
 func _desenhar_bolhas(inicio: Vector2, alvo: Vector2) -> void:
@@ -308,8 +397,80 @@ func _desenhar_ponteiro(inicio: Vector2, alvo: Vector2) -> void:
 	draw_circle(alvo, 7.0, COR_TINTA)
 
 
+# --- papel envelhecido ------------------------------------------------------
+
+func _desenhar_papel() -> void:
+	if textura != null:
+		# a sombra reusa o alfa da própria textura, então sai no formato exato
+		# da folha rasgada e descola a ficha da parede do quadro
+		draw_texture_rect(textura, Rect2(PAPEL_SOMBRA, size), false, Color(0, 0, 0, 0.30))
+		draw_texture_rect(textura, Rect2(Vector2.ZERO, size), false, textura_cor)
+		return
+
+	# camadas encaixadas da borda queimada até o miolo claro: um degradê feito de
+	# polígonos, já que a borda rasgada não caberia num gradiente reto
+	for c in PAPEL_CAMADAS:
+		var t := float(c) / float(PAPEL_CAMADAS - 1)
+		var recuo := lerpf(0.0, PAPEL_BORDA, t)
+		var forca := lerpf(1.0, 0.40, t)
+		draw_colored_polygon(_forma_papel(recuo, forca), PAPEL_QUEIMADO.lerp(PAPEL_CLARO, pow(t, 0.7)))
+	_desenhar_manchas()
+
+
+# Percorre o perímetro deslocando cada ponto para fora com um ruído fixo, o que
+# dá a borda rasgada. Cada camada usa os mesmos índices, então as três ficam
+# paralelas e formam a faixa queimada.
+func _forma_papel(recuo: float, forca: float) -> PackedVector2Array:
+	var canto := Vector2(recuo, recuo)
+	var medida := Vector2(maxf(size.x - recuo * 2.0, 8.0), maxf(size.y - recuo * 2.0, 8.0))
+	var area := Rect2(canto, medida)
+	var cantos := [
+		area.position,
+		Vector2(area.end.x, area.position.y),
+		area.end,
+		Vector2(area.position.x, area.end.y),
+	]
+	var por_lado := [
+		maxi(int(size.x / PAPEL_PASSO), 3),
+		maxi(int(size.y / PAPEL_PASSO), 3),
+		maxi(int(size.x / PAPEL_PASSO), 3),
+		maxi(int(size.y / PAPEL_PASSO), 3),
+	]
+
+	var pontos := PackedVector2Array()
+	var i := 0
+	for lado in 4:
+		var a: Vector2 = cantos[lado]
+		var b: Vector2 = cantos[(lado + 1) % 4]
+		var fora := (b - a).normalized().rotated(-PI * 0.5)
+		var quantos: int = por_lado[lado]
+		for k in quantos:
+			pontos.append(a.lerp(b, float(k) / float(quantos)) + fora * _rasgo(i) * forca)
+			i += 1
+	return pontos
+
+
+func _rasgo(indice: int) -> float:
+	var s := float(semente) * 7.31
+	var alto := sin(float(indice) * 12.9898 + s) * 43758.5453
+	alto = alto - floorf(alto)
+	var baixo := sin(float(indice) * 0.63 + s * 0.5)
+	return (alto * 2.0 - 1.0) * PAPEL_RASGO * 0.75 + baixo * PAPEL_RASGO * 0.3
+
+
+# Manchas em círculos concêntricos de alfa baixo: sem isso a borda do círculo
+# aparece como um disco cinza chapado.
+func _desenhar_manchas() -> void:
+	for m in 5:
+		var s := float(semente) * 3.7 + float(m) * 19.3
+		var ponto := Vector2(
+			lerpf(size.x * 0.20, size.x * 0.80, sin(s) * 0.5 + 0.5),
+			lerpf(size.y * 0.28, size.y * 0.72, cos(s * 1.7) * 0.5 + 0.5)
+		)
+		var raio := lerpf(size.y * 0.14, size.y * 0.26, absf(sin(s * 2.3)))
+		for camada in 4:
+			draw_circle(ponto, raio * (0.4 + 0.2 * float(camada)), PAPEL_MANCHA)
+
+
 func _desenhar_risco() -> void:
-	var fim := risco_inicio + Vector2(risco_largura, 0)
-	var meio := risco_inicio.lerp(fim, 0.5) + Vector2(0, -2.0)
-	draw_line(risco_inicio, meio, COR_TINTA, 3.0, true)
-	draw_line(meio, fim + Vector2(0, 0.5), COR_TINTA, 3.0, true)
+	draw_line(risco_inicio, risco_inicio + Vector2(risco_largura, 0), risco_cor, 3.0, true)

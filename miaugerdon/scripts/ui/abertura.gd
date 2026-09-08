@@ -10,7 +10,10 @@ extends Control
 const CENA_JOGO := "res://cenas/mapa2.tscn"
 
 const FOLGA := 40.0
-const ZOOM_MAXIMO := 1.15
+# O texto dos balões é rasterizado no tamanho nativo e só depois a prancha
+# inteira é escalada, então ampliar borra as letras. Teto em 1.0 mantém os
+# quadros em escala 1:1 e o texto nítido.
+const ZOOM_MAXIMO := 1.0
 const DURACAO_CAMERA := 0.55
 const DESLIZE := 26.0
 
@@ -146,7 +149,8 @@ func _calcular_enquadramento(area: Rect2) -> Dictionary:
 	var centro := area.position + area.size * 0.5
 	return {
 		"escala": Vector2(escala, escala),
-		"posicao": tela * 0.5 - centro * escala,
+		# posição inteira: meio pixel de deslocamento também borra o texto
+		"posicao": (tela * 0.5 - centro * escala).round(),
 	}
 
 

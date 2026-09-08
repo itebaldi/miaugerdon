@@ -1,22 +1,37 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dpx61egtm53j"]
 
-[ext_resource type="Script" path="res://scripts/ui/abertura.gd" id="1_jf5ra"]
-[ext_resource type="Script" path="res://scripts/ui/prancha_hq.gd" id="2_wmqtu"]
-[ext_resource type="Script" path="res://scripts/ui/quadro_hq.gd" id="3_oeoy6"]
-[ext_resource type="Texture2D" path="res://sprites/abertura/Q1.png" id="4_3d68u"]
-[ext_resource type="Script" path="res://scripts/ui/balao_hq.gd" id="5_p4t1a"]
-[ext_resource type="Texture2D" path="res://sprites/abertura/Q2.png" id="6_twjtp"]
-[ext_resource type="Texture2D" path="res://sprites/abertura/Q3.png" id="7_5ao64"]
-[ext_resource type="Texture2D" path="res://sprites/abertura/Q4.png" id="8_hx1rv"]
-[ext_resource type="Texture2D" path="res://sprites/abertura/Q5.png" id="9_mdsqo"]
-[ext_resource type="Texture2D" path="res://sprites/abertura/Q6.png" id="10_jjewu"]
-[ext_resource type="Texture2D" path="res://sprites/abertura/Q7.png" id="11_jwkaa"]
+[ext_resource type="Script" uid="uid://ieuhgihgh1q6" path="res://scripts/ui/abertura.gd" id="1_jf5ra"]
+[ext_resource type="Script" uid="uid://cu2j1vhl38d5b" path="res://scripts/ui/prancha_hq.gd" id="2_wmqtu"]
+[ext_resource type="Script" uid="uid://mxj0sqbn428w" path="res://scripts/ui/quadro_hq.gd" id="3_oeoy6"]
+[ext_resource type="Texture2D" uid="uid://clcimgo3tc0qi" path="res://sprites/abertura/Q1.png" id="4_3d68u"]
+[ext_resource type="Script" uid="uid://bi6cxt2m6jfbd" path="res://scripts/ui/balao_hq.gd" id="5_p4t1a"]
+[ext_resource type="Texture2D" uid="uid://ihx7jg2iuqc2" path="res://sprites/abertura/Q2.png" id="6_twjtp"]
+[ext_resource type="Texture2D" uid="uid://cal6b8oomi84c" path="res://sprites/abertura/Q3.png" id="7_5ao64"]
+[ext_resource type="Texture2D" uid="uid://7t5jif6sgj6b" path="res://sprites/abertura/Q4.png" id="8_hx1rv"]
+[ext_resource type="Texture2D" uid="uid://tth1qmpys68o" path="res://sprites/abertura/Q5.png" id="9_mdsqo"]
+[ext_resource type="Texture2D" uid="uid://ttkl358g1gsq" path="res://sprites/abertura/Q6.png" id="10_jjewu"]
+[ext_resource type="Texture2D" uid="uid://crmxeyotrou6b" path="res://sprites/abertura/Q7.png" id="11_jwkaa"]
+[ext_resource type="Texture2D" uid="uid://r6y51q6vlt2x" path="res://sprites/abertura/ficha1.png" id="12_ficha1"]
+
+[sub_resource type="Gradient" id="Gradient_vinheta"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0.62)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vinheta"]
+gradient = SubResource("Gradient_vinheta")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
 
 [node name="Abertura" type="Control" unique_id=1991478977]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_jf5ra")
 
 [node name="Fundo" type="ColorRect" parent="." unique_id=1638741829]
@@ -24,10 +39,18 @@ layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-color = Color(0.071, 0.063, 0.055, 1)
+color = Color(0.135, 0.105, 0.083, 1)
+
+[node name="Vinheta" type="TextureRect" parent="." unique_id=1811223744]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_vinheta")
+expand_mode = 1
+stretch_mode = 1
 
 [node name="Palco" type="Control" parent="." unique_id=1686833625]
-clip_contents = true
 anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -54,47 +77,55 @@ imagem = ExtResource("4_3d68u")
 [node name="Narracao" type="Control" parent="Palco/Prancha/Q1Sala" unique_id=1416646625]
 anchors_preset = 0
 offset_left = 222.0
-offset_top = 20.0
+offset_top = 18.0
 offset_right = 562.0
-offset_bottom = 104.0
+offset_bottom = 102.0
 pivot_offset = Vector2(170, 42)
 mouse_filter = 2
 script = ExtResource("5_p4t1a")
 tipo = 3
-texto = "Esta casa tem dois moradores. Cada um com a sua função."
+texto = "Esta casa tem dois moradores, cada um com a sua função."
 fonte = 20
 
 [node name="EtiquetaCaju" type="Control" parent="Palco/Prancha/Q1Sala" unique_id=1076197519]
 anchors_preset = 0
-offset_left = 214.0
-offset_top = 124.0
-offset_right = 464.0
-offset_bottom = 220.0
-pivot_offset = Vector2(125, 48)
+offset_left = 170.0
+offset_top = 111.0
+offset_right = 432.0
+offset_bottom = 264.0
+pivot_offset = Vector2(131, 76.5)
 mouse_filter = 2
 script = ExtResource("5_p4t1a")
 tipo = 4
-texto = "[b]CAJU[/b]
-dono da casa. Três anos no cargo."
+texto = "[center][font_size=22][b]CAJU[/b][/font_size][/center]
+•  codinome: pss pss
+•  dono da casa
+•  três anos no cargo"
 fonte = 18
-aponta_para = Vector2(175, 105)
+semente = 3
+textura = ExtResource("12_ficha1")
+textura_cor = Color(0.9, 0.89, 0.95, 1)
 
 [node name="EtiquetaAlfredo" type="Control" parent="Palco/Prancha/Q1Sala" unique_id=1483780314]
 anchors_preset = 0
-offset_left = 300.0
-offset_top = 236.0
-offset_right = 568.0
-offset_bottom = 354.0
-pivot_offset = Vector2(134, 59)
+offset_left = 316.0
+offset_top = 284.0
+offset_right = 608.0
+offset_bottom = 442.0
+pivot_offset = Vector2(146, 79)
 mouse_filter = 2
 script = ExtResource("5_p4t1a")
 tipo = 4
-texto = "[b]ALFREDO[/b]
-servo humano. Cozinha, limpa e paga as contas."
+texto = "[center][font_size=22][b]ALFREDO[/b][/font_size][/center]
+•  servo humano
+•  cozinha e limpa
+•  paga as contas"
 fonte = 18
-aponta_para = Vector2(670, 285)
-risco_inicio = Vector2(27, 58)
-risco_largura = 47.0
+risco_inicio = Vector2(51, 72)
+risco_largura = 44.0
+semente = 7
+textura = ExtResource("12_ficha1")
+textura_cor = Color(0.9, 0.89, 0.95, 1)
 
 [node name="Q2Anuncio" type="Control" parent="Palco/Prancha" unique_id=65205622]
 clip_contents = true
@@ -109,29 +140,29 @@ imagem = ExtResource("6_twjtp")
 
 [node name="FalaAlfredo" type="Control" parent="Palco/Prancha/Q2Anuncio" unique_id=1291101679]
 anchors_preset = 0
-offset_left = 14.0
-offset_top = 10.0
-offset_right = 250.0
-offset_bottom = 126.0
-pivot_offset = Vector2(118, 58)
+offset_left = 10.0
+offset_top = 22.0
+offset_right = 210.0
+offset_bottom = 172.0
+pivot_offset = Vector2(100, 75)
 mouse_filter = 2
 script = ExtResource("5_p4t1a")
-texto = "Caju, senta aqui. Preciso te contar uma coisa boa."
-aponta_para = Vector2(262, 262)
+texto = "Caju, senta aqui. Preciso te contar uma coisa boa..."
+aponta_para = Vector2(258, 164)
 
 [node name="PensamentoCaju" type="Control" parent="Palco/Prancha/Q2Anuncio" unique_id=988486286]
 anchors_preset = 0
-offset_left = 4.0
-offset_top = 116.0
-offset_right = 256.0
-offset_bottom = 262.0
-pivot_offset = Vector2(126, 73)
+offset_left = 200.0
+offset_top = 308.0
+offset_right = 456.0
+offset_bottom = 448.0
+pivot_offset = Vector2(128, 70)
 mouse_filter = 2
 script = ExtResource("5_p4t1a")
 tipo = 1
 texto = "Ele só fala assim quando vai me levar no veterinário."
 fonte = 17
-aponta_para = Vector2(170, 330)
+aponta_para = Vector2(180, 272)
 
 [node name="Q3Foto" type="Control" parent="Palco/Prancha" unique_id=787599891]
 clip_contents = true
@@ -148,28 +179,26 @@ foco = Vector2(0.5, 0.85)
 [node name="FalaAlfredo1" type="Control" parent="Palco/Prancha/Q3Foto" unique_id=1671841935]
 anchors_preset = 0
 offset_left = 14.0
-offset_top = 12.0
+offset_top = 10.0
 offset_right = 326.0
-offset_bottom = 202.0
-pivot_offset = Vector2(156, 95)
+offset_bottom = 162.0
+pivot_offset = Vector2(156, 76)
 mouse_filter = 2
 script = ExtResource("5_p4t1a")
 texto = "Você vai ter um irmãozinho! Esse é o Soneca. Ele ficou dois anos no abrigo, ninguém quis levar."
 fonte = 19
-aponta_para = Vector2(392, 236)
 
 [node name="FalaAlfredo2" type="Control" parent="Palco/Prancha/Q3Foto" unique_id=1747805665]
 anchors_preset = 0
 offset_left = 14.0
-offset_top = 222.0
+offset_top = 182.0
 offset_right = 326.0
-offset_bottom = 340.0
-pivot_offset = Vector2(156, 59)
+offset_bottom = 292.0
+pivot_offset = Vector2(156, 55)
 mouse_filter = 2
 script = ExtResource("5_p4t1a")
 texto = "Chega hoje à tarde. Vocês vão se dar super bem."
 fonte = 19
-aponta_para = Vector2(392, 396)
 
 [node name="Q4Impacto" type="Control" parent="Palco/Prancha" unique_id=906791971]
 clip_contents = true
@@ -187,13 +216,13 @@ tremor = true
 anchors_preset = 0
 offset_left = 24.0
 offset_top = 16.0
-offset_right = 344.0
+offset_right = 357.0
 offset_bottom = 148.0
-pivot_offset = Vector2(160, 66)
+pivot_offset = Vector2(166.5, 66)
 mouse_filter = 2
 script = ExtResource("5_p4t1a")
 tipo = 2
-texto = "Irmãozinho."
+texto = "Irmãozinho?!?!"
 fonte = 23
 
 [node name="Substituto" type="Control" parent="Palco/Prancha/Q4Impacto" unique_id=23379958]
@@ -206,7 +235,7 @@ pivot_offset = Vector2(155, 116)
 mouse_filter = 2
 script = ExtResource("5_p4t1a")
 tipo = 2
-texto = "Nesta casa não tem vaga para irmão. Só para substituto."
+texto = "Nesta casa não tem vaga para irmão, só para um substituto!!"
 fonte = 20
 
 [node name="Q5Imaginacao" type="Control" parent="Palco/Prancha" unique_id=1466409189]
@@ -219,18 +248,19 @@ offset_bottom = 1698.0
 mouse_filter = 2
 script = ExtResource("3_oeoy6")
 imagem = ExtResource("9_mdsqo")
+imaginacao = true
 
 [node name="PensamentoCaju" type="Control" parent="Palco/Prancha/Q5Imaginacao" unique_id=862830710]
 anchors_preset = 0
-offset_left = 16.0
-offset_top = 10.0
-offset_right = 364.0
-offset_bottom = 166.0
-pivot_offset = Vector2(174, 78)
+offset_left = 26.0
+offset_top = 26.0
+offset_right = 356.0
+offset_bottom = 182.0
+pivot_offset = Vector2(165, 78)
 mouse_filter = 2
 script = ExtResource("5_p4t1a")
 tipo = 1
-texto = "Hoje é o meu colo. Amanhã é a minha cama. Depois é o meu nome."
+texto = "Hoje é o meu colo... Amanhã é a minha cama... Depois é o meu nome!!"
 fonte = 19
 aponta_para = Vector2(108, 352)
 
@@ -255,7 +285,7 @@ pivot_offset = Vector2(163, 66)
 mouse_filter = 2
 script = ExtResource("5_p4t1a")
 tipo = 1
-texto = "E eu não sei nada sobre ele. Nem de onde ele vem."
+texto = "E eu não sei nada sobre ele, só que vem de abrigo..."
 fonte = 19
 aponta_para = Vector2(284, 292)
 
@@ -269,7 +299,7 @@ pivot_offset = Vector2(120, 62)
 mouse_filter = 2
 script = ExtResource("5_p4t1a")
 tipo = 1
-texto = "Preciso falar com o Mr. T."
+texto = "Preciso falar com o Mr. T!"
 fonte = 19
 aponta_para = Vector2(300, 306)
 
@@ -286,30 +316,35 @@ imagem = ExtResource("11_jwkaa")
 
 [node name="EtiquetaMrT" type="Control" parent="Palco/Prancha/Q7MrT" unique_id=845455195]
 anchors_preset = 0
-offset_left = 24.0
-offset_top = 38.0
-offset_right = 308.0
-offset_bottom = 172.0
-pivot_offset = Vector2(142, 67)
+offset_left = 18.0
+offset_top = 32.0
+offset_right = 316.0
+offset_bottom = 188.0
+pivot_offset = Vector2(149, 78)
 mouse_filter = 2
 script = ExtResource("5_p4t1a")
 tipo = 4
-texto = "[b]MR. T[/b]
-o gato mais bem informado do bairro. Sabe de tudo. Sobre todos. Antes de todos."
-fonte = 18
-aponta_para = Vector2(400, 176)
+texto = "[center][font_size=22][b]MR. T[/b][/font_size][/center]
+•  o mais informado do bairro
+•  sabe de tudo, sobre todos
+•  e antes de todos"
+fonte = 16
+semente = 11
+textura = ExtResource("12_ficha1")
+textura_cor = Color(0.9, 0.89, 0.95, 1)
 
 [node name="Objetivo" type="Control" parent="Palco/Prancha/Q7MrT" unique_id=441759587]
 anchors_preset = 0
-offset_left = 24.0
-offset_top = 214.0
-offset_right = 324.0
-offset_bottom = 310.0
-pivot_offset = Vector2(150, 48)
+offset_left = 18.0
+offset_top = 212.0
+offset_right = 316.0
+offset_bottom = 312.0
+pivot_offset = Vector2(149, 50)
 mouse_filter = 2
 script = ExtResource("5_p4t1a")
 tipo = 3
-texto = "Primeiro objetivo: fale com o Mr. T no quintal."
+texto = "Primeiro objetivo:
+[b][color=#c7211c]fale com o Mr. T no quintal[/color][/b]"
 fonte = 20
 
 [node name="Dica" type="Label" parent="." unique_id=1244112794]
@@ -319,9 +354,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = -46.0
 offset_bottom = -14.0
-theme_override_font_sizes/font_size = 15
 theme_override_colors/font_color = Color(0.85, 0.78, 0.64, 0.75)
 theme_override_colors/font_outline_color = Color(0.04, 0.03, 0.03, 0.8)
 theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 15
 text = "[Enter] continuar          [Esc] pular"
 horizontal_alignment = 1

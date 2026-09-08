@@ -24,6 +24,13 @@ Jogo="*res://scripts/jogo.gd"
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[gui]
+
+# glifos encaixados em pixel inteiro: no automático o Godot posiciona em
+# frações de pixel e as hastes das letras saem com espessuras diferentes
+theme/default_font_subpixel_positioning=0
+theme/default_font_hinting=0
+
 [input]
 
 esquerda={
