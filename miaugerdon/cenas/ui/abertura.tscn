@@ -185,7 +185,7 @@ offset_bottom = 162.0
 pivot_offset = Vector2(156, 76)
 mouse_filter = 2
 script = ExtResource("5_p4t1a")
-texto = "Você vai ter um irmãozinho! Esse é o Soneca. Ele ficou dois anos no abrigo, ninguém quis levar."
+texto = "Você vai ter um irmãozinho! Esse é o Soneca. Ele ficou dois anos no abrigo, ninguém quis adotar..."
 fonte = 19
 
 [node name="FalaAlfredo2" type="Control" parent="Palco/Prancha/Q3Foto" unique_id=1747805665]
@@ -197,7 +197,7 @@ offset_bottom = 292.0
 pivot_offset = Vector2(156, 55)
 mouse_filter = 2
 script = ExtResource("5_p4t1a")
-texto = "Chega hoje à tarde. Vocês vão se dar super bem."
+texto = "Ele chega hoje à tarde! Vocês vão se dar super bem."
 fonte = 19
 
 [node name="Q4Impacto" type="Control" parent="Palco/Prancha" unique_id=906791971]
