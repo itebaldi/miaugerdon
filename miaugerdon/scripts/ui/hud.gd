@@ -5,6 +5,7 @@ const COR_BAIXA := Color(0.45, 0.75, 0.4)
 const COR_MEDIA := Color(0.92, 0.76, 0.3)
 const COR_ALTA := Color(0.87, 0.32, 0.26)
 const DURACAO_AVISO := 3.0
+const COR_FALANTE := Color(1, 0.78, 0.35)
 
 @onready var _barra_suspeita: ProgressBar = %BarraSuspeita
 @onready var _cronometro: Label = %Cronometro
@@ -39,7 +40,7 @@ const DURACAO_AVISO := 3.0
 @onready var _estilo_suspeita: StyleBoxFlat = _barra_suspeita.get_theme_stylebox("fill")
 
 var _aviso_restante := 0.0
-var _falas: PackedStringArray = []
+var _falas: Array = []
 var _fala_atual := 0
 var _pagina_da_intro := 0
 var _tela_atual := ""
@@ -53,6 +54,9 @@ func _ready() -> void:
 	Jogo.progresso_alterado.connect(_ao_mudar_progresso)
 	Jogo.inventario_alterado.connect(_ao_mudar_inventario)
 	Jogo.dialogo.connect(_ao_abrir_dialogo)
+	# o projeto filtra tudo em nearest por causa da pixel art; os retratos são
+	# ilustração grande reduzida e serrilham sem mipmap
+	_retrato.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
 	Jogo.observado_alterado.connect(_ao_mudar_observado)
 	Jogo.aviso.connect(_ao_avisar)
 	Jogo.recado.connect(_ao_receber_recado)
@@ -221,23 +225,57 @@ func _ao_mudar_inventario() -> void:
 		_lista_itens.add_child(linha)
 
 
-func _ao_abrir_dialogo(nome: String, falas: PackedStringArray, retrato: String) -> void:
-	_retrato.visible = retrato != ""
-	if retrato != "":
-		_retrato.texture = load(retrato)
+func _ao_abrir_dialogo(falas: Array) -> void:
+	# o retrato já entra na primeira fala, mesmo que quem abra seja o Caju:
+	# assim a caixa não muda de largura quando o outro começa a falar
+	_retrato.texture = null
+	for fala in falas:
+		var retrato := _retrato_de(fala[0])
+		if retrato:
+			_retrato.texture = retrato
+			break
+	_retrato.visible = _retrato.texture != null
 
 	_falas = falas
 	_fala_atual = 0
-	_falante.text = nome
-	_fala.text = _falas[0]
+	_mostrar_fala()
 	_caixa_dialogo.visible = true
 	get_tree().paused = true
+
+
+func _retrato_de(nome: String) -> Texture2D:
+	var dados: Dictionary = Config.FALANTES.get(nome, {})
+	var caminho: String = dados.get("retrato", "")
+	if caminho == "":
+		return null
+	var textura: Texture2D = load(caminho)
+	if not dados.has("recorte"):
+		return textura
+	var recorte := AtlasTexture.new()
+	recorte.atlas = textura
+	recorte.region = dados["recorte"]
+	return recorte
+
+
+# quem não tem retrato fala com o do outro esmaecido ao lado
+func _mostrar_fala() -> void:
+	var nome: String = _falas[_fala_atual][0]
+	var dados: Dictionary = Config.FALANTES.get(nome, {})
+	_falante.text = nome
+	_falante.add_theme_color_override("font_color", dados.get("cor", COR_FALANTE))
+	_fala.text = _falas[_fala_atual][1]
+
+	var retrato := _retrato_de(nome)
+	if retrato:
+		_retrato.texture = retrato
+		_retrato.visible = true
+	_retrato.modulate = Color.WHITE if retrato else Color(1, 1, 1, 0.35)
 
 
 func _avancar_dialogo() -> void:
 	_fala_atual += 1
 	if _fala_atual < _falas.size():
-		_fala.text = _falas[_fala_atual]
+		_mostrar_fala()
 		return
 
 	_caixa_dialogo.visible = false

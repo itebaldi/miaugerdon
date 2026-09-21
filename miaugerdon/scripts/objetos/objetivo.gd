@@ -1,11 +1,12 @@
 @tool
 extends Interagivel
 
-var falas: PackedStringArray = []
-var nome_falante := ""
-var retrato := ""
+var falas: Array = []
 
-var _indice := -1
+# etapas que acontecem neste ponto do mapa: o quintal do Mr. T recebe mais de
+# uma visita, e cada visita é uma etapa com a própria conversa
+var _indices: Array[int] = []
+var _etapa := {}
 var _aguardando_dialogo := false
 var _oculto_ate_liberar := false
 
@@ -17,33 +18,64 @@ func _ready() -> void:
 
 	for i in Config.OBJETIVOS.size():
 		var etapa: Dictionary = Config.OBJETIVOS[i]
-		if etapa["id"] != id:
+		if Config.local(etapa) != id:
 			continue
-		_indice = i
-		falas = PackedStringArray(etapa.get("falas", []))
-		nome_falante = etapa.get("falante", "")
-		retrato = etapa.get("retrato", "")
-		_oculto_ate_liberar = etapa.get("oculto", false)
-		break
+		_indices.append(i)
+		if etapa.get("oculto", false):
+			_oculto_ate_liberar = true
 
+	_carregar_etapa()
 	if _oculto_ate_liberar:
 		visible = false
-		Jogo.objetivo_alterado.connect(_ao_trocar_objetivo)
+	Jogo.objetivo_alterado.connect(_ao_trocar_objetivo)
+
+
+# a primeira etapa deste ponto que ainda não foi feita; feitas todas, a última
+func _carregar_etapa() -> void:
+	if _indices.is_empty():
+		return
+	var escolhida: int = _indices[-1]
+	for i in _indices:
+		if not Jogo.esta_concluido(i):
+			escolhida = i
+			break
+
+	_etapa = Config.OBJETIVOS[escolhida]
+	rotulo = _etapa.get("rotulo", rotulo)
+	pensamento = _etapa.get("pensamento_perto", "")
+	duracao = _etapa.get("duracao", duracao)
+	tela = _etapa.get("tela", "")
+	falas = _etapa.get("falas", [])
 
 
 func _ao_trocar_objetivo(_indice: int, _titulo: String) -> void:
+	_carregar_etapa()
+	if not _oculto_ate_liberar:
+		return
+
 	var liberado := _e_a_vez_dele()
 	if liberado == visible:
 		return
 	visible = liberado
 
 	if liberado and _caju:
-		Jogo.pensar_uma_vez("prox:" + id, pensamento)
+		Jogo.pensar_uma_vez(_chave_pensamento(), pensamento)
+
+
+func _chave_pensamento() -> String:
+	return "prox:" + _etapa.get("id", id)
 
 
 func _e_a_vez_dele() -> bool:
 	var atual := Jogo.objetivo_atual()
-	return not atual.is_empty() and atual["id"] == id
+	return not atual.is_empty() and Config.local(atual) == id
+
+
+func _todas_feitas() -> bool:
+	for i in _indices:
+		if not Jogo.esta_concluido(i):
+			return false
+	return not _indices.is_empty()
 
 
 func _esta_ativo() -> bool:
@@ -61,21 +93,21 @@ func _ao_progredir(delta: float) -> void:
 
 func _concluir() -> void:
 	if falas.is_empty():
-		Jogo.concluir_objetivo(id)
+		Jogo.concluir_objetivo(_etapa["id"])
 		return
 
 	_aguardando_dialogo = true
 	Jogo.dialogo_terminado.connect(_no_fim_do_dialogo, CONNECT_ONE_SHOT)
-	Jogo.conversar(nome_falante, falas, retrato)
+	Jogo.conversar(falas)
 
 
 func _no_fim_do_dialogo() -> void:
 	_aguardando_dialogo = false
-	Jogo.concluir_objetivo(id)
+	Jogo.concluir_objetivo(_etapa["id"])
 
 
 func _motivo_indisponivel() -> String:
-	if Jogo.esta_concluido(_indice):
+	if _todas_feitas():
 		return "%s: já está pronto" % rotulo
 	var atual := Jogo.objetivo_atual()
 	if atual.is_empty():
@@ -84,7 +116,7 @@ func _motivo_indisponivel() -> String:
 
 
 func _texto_prompt() -> String:
-	if Jogo.esta_concluido(_indice):
+	if _todas_feitas():
 		return "%s — pronto" % rotulo
 	if not _esta_ativo():
 		return "%s — ainda não" % rotulo
@@ -93,4 +125,4 @@ func _texto_prompt() -> String:
 
 func _cor_prompt() -> Color:
 	# mesmo verde das etapas marcadas no inventario
-	return Color(0.6, 0.86, 0.6) if Jogo.esta_concluido(_indice) else Color.WHITE
+	return Color(0.6, 0.86, 0.6) if _todas_feitas() else Color.WHITE

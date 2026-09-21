@@ -414,7 +414,7 @@ theme_override_constants/separation = 18
 [node name="Retrato" type="TextureRect" parent="Raiz/CaixaDialogo/Linha"]
 unique_name_in_owner = true
 visible = false
-custom_minimum_size = Vector2(130, 0)
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5

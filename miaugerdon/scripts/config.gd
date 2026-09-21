@@ -13,26 +13,61 @@ const INTRO := [
 ]
 
 
+# Retrato de quem fala na caixa de diálogo. Quem não tiver retrato fala com o
+# do outro esmaecido ao lado. O recorte, em pixels da imagem, tira o corpo de
+# baixo para o rosto caber maior na caixa.
+const FALANTES := {
+	"Mr. T": {
+		"retrato": "res://sprites/personagens/retrato_mrt.png",
+		"recorte": Rect2(0, 80, 1024, 1100),
+		"cor": Color(1, 0.78, 0.35),
+	},
+	"Caju": {
+		"retrato": "res://sprites/personagens/retrato_caju.png",
+		"recorte": Rect2(0, 150, 1024, 1100),
+		"cor": Color(0.62, 0.84, 1),
+	},
+	"Alfredo": {
+		"retrato": "res://sprites/personagens/retrato_alfredo.png",
+		"recorte": Rect2(0, 60, 1024, 1100),
+		"cor": Color(0.55, 0.85, 0.75),
+	},
+}
+
+
+# Cada fala é [quem fala, texto]. Uma etapa com "local" acontece no ponto do
+# mapa de outra: é assim que Caju volta ao quintal para receber a próxima ordem.
 const OBJETIVOS := [
 	{
 		"id": "mr_t",
 		"rotulo": "Falar com o Mr. T",
-		"pensamento_perto": "Aquele é o Mr. T. Dizem que ele resolve as coisas.",
+		"pensamento_perto": "Aquele é o Mr. T. Ele sempre sabe das coisas antes de todo mundo.",
 		"titulo": "Fale com o Mr. T no quintal",
 		"duracao": 2.0,
 		"suspeita": 3.0,
 		"itens": [],
-		"falante": "Mr. T",
-		"retrato": "res://sprites/personagens/MrT.png",
 		"falas": [
-			"Ora, ora. Outro gato pequeno com problemas pequenos.",
-			"Eu tenho o melhor quintal. O maior quintal. Todos os gatos comentam.",
-			"Um cachorro? Na SUA casa? Isso é uma invasão. Uma invasão total.",
-			"Você precisa de uma máquina. Uma máquina de controle mental. As melhores máquinas são de controle mental.",
-			"Humanos, cachorros, o carteiro, todos vão obedecer. Vai ser tremendo.",
-			"Faça, Caju. Ninguém nunca fez isso melhor do que você vai fazer.",
+			["Mr. T", "Ora, ora. O Caju. Faz tempo que não aparece no meu quintal. O melhor quintal do bairro, aliás."],
+			["Caju", "Mr. T, o Alfredo vai adotar outro gato. Chega hoje à tarde."],
+			["Mr. T", "Outro gato... Veio de onde?"],
+			["Caju", "Do abrigo. O nome dele é Soneca."],
+			["Mr. T", "Abrigo?! Eu não ia dizer nada, mas..."],
+			["Caju", "Que foi?"],
+			["Mr. T", "Nada contra, tenho até amigos que vieram de abrigo, mas você sabe como eles são..."],
+			["Caju", "Como assim?"],
+			["Mr. T", "Lá não tem tutor, não tem regra, não tem tigela própria. Eles aprendem a pegar o que é dos outros. É da natureza deles."],
+			["Mr. T", "Primeiro é um cantinho do sofá. Depois a sua cama. Depois a sua tigela. Quando você vê, o Alfredo chama ELE de Caju."],
+			["Caju", "...M-mas ele é gato, que nem a gente."],
+			["Mr. T", "Mas não é gato de casa. Não é gato daqui. Tem diferença, Caju. Uma diferença tremenda."],
+			["Mr. T", "Gato de abrigo mia a noite inteira, rasga tudo e traz pulga. Todo mundo sabe disso."],
+			["Mr. T", "E o Alfredo vai dizer que o Soneca é um amor. Claro que vai. Humano acredita em qualquer foto bonitinha. Eu, não!! Confia em mim!"],
+			["Mr. T", "Primeiro vem um. Depois vêm os amigos dele. Daqui a pouco a rua inteira é deles."],
+			["Caju", "E agora?! O que eu faço?!"],
+			["Mr. T", "Uma máquina! Você precisa de uma máquina! Uma máquina de controle mental! Máquinas de controle mental são as melhores! O Alfredo esquece essa ideia e a casa continua sendo só sua."],
+			["Mr. T", "Vai, Caju. Pega papel e caneta, escreve o plano e volta aqui pra me mostrar."],
+			["Mr. T", "Lembre-se: eu sou o único que fala a verdade pra você."],
 		],
-		"pensamento_depois": "Ele fala bonito... mas por que eu saí de lá me sentindo pior?",
+		"pensamento_depois": "Ele disse que não tinha nada contra... então por que tudo o que ele falou foi contra?",
 	},
 	{
 		"id": "papel_caneta",
@@ -53,6 +88,29 @@ const OBJETIVOS := [
 		"suspeita": 5.0,
 		"itens": ["Plano de dominação mundial (rascunho)"],
 		"pensamento_depois": "Escrito assim no papel, parece meio... exagerado?",
+	},
+	{
+		"id": "mostrar_plano",
+		"local": "mr_t",
+		"rotulo": "Mostrar o plano ao Mr. T",
+		"pensamento_perto": "Ele vai saber o que fazer com isso.",
+		"titulo": "Mostre o plano ao Mr. T no quintal",
+		"duracao": 2.0,
+		"suspeita": 3.0,
+		"itens": [],
+		"falas": [
+			["Mr. T", "E aí? Trouxe o plano?"],
+			["Caju", "Trouxe. Mas... escrito assim, parece meio exagerado."],
+			["Mr. T", "Exagerado? Exagerado é deixar um estranho dormir na sua cama. Isso aqui é prevenção."],
+			["Caju", "O Alfredo disse que ele ficou dois anos no abrigo e ninguém quis adotar..."],
+			["Mr. T", "E você não se perguntou por quê? Dois anos, Caju. Dois anos! Alguma coisa ele fez."],
+			["Caju", "Ele também disse que a gente vai se dar super bem."],
+			["Mr. T", "O Alfredo já escolheu o lado dele. Você não devia se informar por ele."],
+			["Mr. T", "O plano está bom. Mas falta o principal: as peças."],
+			["Mr. T", "Usa o computador do Alfredo. Entra no PurrgleMiaut que eu te passo a lista, e encomenda tudo na Miauzon."],
+			["Mr. T", "E ninguém pode saber. Nem o Alfredo. Principalmente o Alfredo."],
+		],
+		"pensamento_depois": "Dois anos esperando alguém... isso é culpa dele?",
 	},
 	{
 		"id": "computador",
@@ -172,6 +230,10 @@ const ACOES := {
 		"atrai_alfredo": false,
 	},
 }
+
+static func local(etapa: Dictionary) -> String:
+	return etapa.get("local", etapa["id"])
+
 
 static func dados(id: String) -> Dictionary:
 	if ACOES.has(id):

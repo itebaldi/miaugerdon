@@ -9,7 +9,7 @@ signal ruido(posicao: Vector2)
 signal observado_alterado(observado: bool)
 signal inventario_alterado()
 signal pensamento(texto: String)
-signal dialogo(nome: String, falas: PackedStringArray, retrato: String)
+signal dialogo(falas: Array)
 signal dialogo_terminado()
 signal aviso(texto: String)
 signal recado(imagem: String, texto: String)
@@ -176,9 +176,9 @@ func pensar_uma_vez(chave: String, texto: String) -> void:
 	pensamento.emit(texto)
 
 
-func conversar(nome: String, falas: PackedStringArray, retrato := "") -> void:
+func conversar(falas: Array) -> void:
 	if not falas.is_empty():
-		dialogo.emit(nome, falas, retrato)
+		dialogo.emit(falas)
 
 
 func encerrar_dialogo() -> void:

@@ -99,7 +99,7 @@ func _ao_entrar(corpo: Node2D) -> void:
 	_caju = corpo
 
 	if visible:
-		Jogo.pensar_uma_vez("prox:" + id, pensamento)
+		Jogo.pensar_uma_vez(_chave_pensamento(), pensamento)
 
 
 func _ao_sair(corpo: Node2D) -> void:
@@ -112,6 +112,10 @@ func cancelar() -> void:
 	if _progresso > 0.0:
 		_progresso = 0.0
 		Jogo.definir_progresso(0.0)
+
+
+func _chave_pensamento() -> String:
+	return "prox:" + id
 
 
 func _esta_ativo() -> bool:
