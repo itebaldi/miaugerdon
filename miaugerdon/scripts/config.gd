@@ -35,6 +35,45 @@ const FALANTES := {
 }
 
 
+# Itens que o Caju leva na boca, um de cada vez. Cada um tem um nó de origem no
+# mapa, longe do quarto: a graça da etapa é a travessia com o item à mostra.
+#
+# O sprite da boca não é sempre o mesmo do chão. O papel fica no chão como pilha,
+# mas na boca vai uma folha só: carregar o bloco inteiro ficava estranho.
+const CARREGAVEIS := {
+	"caneta": {
+		"rotulo": "Pegar a caneta",
+		"pensamento_perto": "A caneta da lista de compras do Alfredo, caída do balcão. Cabe na boca.",
+		"duracao": 1.2,
+		"suspeita": 2.0,
+		"nome": "a caneta",
+		"sprite_boca": "res://sprites/interativo/caneta.png",
+		"escala_boca": 0.4,
+	},
+	"papel": {
+		"rotulo": "Pegar uma folha",
+		"pensamento_perto": "Papel na estante. Gato carregando papel é só bagunça de gato... espero.",
+		"duracao": 1.2,
+		"suspeita": 2.0,
+		"nome": "a folha",
+		"sprite_boca": "res://sprites/interativo/folha.png",
+		"escala_boca": 0.42,
+	},
+	"plano": {
+		"rotulo": "Pegar o plano",
+		"pensamento_perto": "O plano escrito. O Mr. T está esperando por isso.",
+		"duracao": 1.0,
+		"suspeita": 2.0,
+		"nome": "o plano",
+		"sprite_boca": "res://sprites/interativo/plano.png",
+		"escala_boca": 0.42,
+		# a caneta e o papel já estão pela casa desde o começo; o plano só existe
+		# depois de escrito
+		"so_na_vez": true,
+	},
+}
+
+
 # Cada fala é [quem fala, texto]. Uma etapa com "local" acontece no ponto do
 # mapa de outra: é assim que Caju volta ao quintal para receber a próxima ordem.
 const OBJETIVOS := [
@@ -69,46 +108,86 @@ const OBJETIVOS := [
 		],
 		"pensamento_depois": "Ele disse que não tinha nada contra... então por que tudo o que ele falou foi contra?",
 	},
+	# As duas etapas de transporte acontecem no mesmo ponto do mapa (o chão atrás
+	# da cama), mas cada uma exige que o Caju chegue lá com o item certo na boca.
+	# Quem pega o item é o nó de origem, em outro canto da casa.
 	{
-		"id": "papel_caneta",
-		"rotulo": "Pegar papel e caneta",
-		"pensamento_perto": "Papel e caneta na estante. Todo plano começa escrito.",
-		"titulo": "Pegue papel e caneta na estante",
-		"duracao": 4.0,
-		"suspeita": 5.0,
-		"itens": ["Papel", "Caneta"],
+		"id": "levar_caneta",
+		"local": "mesa_plano",
+		"carga": "caneta",
+		"rotulo": "Largar a caneta",
+		"pensamento_perto": "Aqui atrás da cama ele nunca me procura. É onde o plano vai nascer.",
+		"titulo_pegar": "Pegue a caneta na cozinha",
+		"titulo": "Leve a caneta para trás da cama",
+		"duracao": 1.0,
+		"suspeita": 2.0,
+		"itens": ["Caneta"],
+		# o ponto ainda está vazio enquanto esta etapa não termina
+		"sprite_ponto": "",
 		"pensamento_depois": "O Alfredo comprou essa caneta pra fazer a lista de compras. Ele anota ração de gato primeiro.",
 	},
 	{
+		"id": "levar_papel",
+		"local": "mesa_plano",
+		"carga": "papel",
+		"rotulo": "Largar o papel",
+		"pensamento_perto": "Falta o papel.",
+		"titulo_pegar": "Pegue o papel na estante",
+		"titulo": "Leve o papel para trás da cama",
+		"duracao": 1.0,
+		"suspeita": 2.0,
+		"itens": ["Papel"],
+		"sprite_ponto": "res://sprites/interativo/caneta.png",
+		"pensamento_depois": "Papel e caneta atrás da cama. Duas viagens e ele não viu nada.",
+	},
+	{
 		"id": "escrever_plano",
+		"local": "mesa_plano",
 		"rotulo": "Escrever o plano",
-		"pensamento_perto": "O chão atrás da cama serve. Ele nunca me procura aqui.",
+		"pensamento_perto": "Está tudo aqui. Agora é escrever.",
 		"titulo": "Escreva o plano atrás da cama",
 		"duracao": 7.0,
 		"suspeita": 5.0,
 		"itens": ["Plano de dominação mundial (rascunho)"],
-		"pensamento_depois": "Escrito assim no papel, parece meio... exagerado?",
+		"sprite_ponto": "res://sprites/interativo/papel_e_caneta.png",
+		# escrito o plano, este ponto sai de cena: no mesmo lugar aparece o próprio
+		# plano, como item para levar ao Mr. T
+		"some_ao_terminar": true,
+		"recado": {
+			"imagem": "res://sprites/recados/plano_escrito.png",
+			# o rótulo do painel não quebra linha sozinho: as quebras vão no texto
+			"texto": "Uma folha, uma caneta mastigada e nenhum polegar opositor.\n"
+				+ "Mesmo assim, o plano ficou pronto: letra torta, antena torta,\n"
+				+ "e a assinatura do Caju embaixo de cada ideia do Mr. T.",
+		},
+		# a primeira rachadura: o monstro do plano contra o gato da foto da abertura
+		"pensamento_depois": "No plano, o Soneca é um monstro. Na foto do Alfredo, ele tinha meias brancas.",
 	},
 	{
 		"id": "mostrar_plano",
 		"local": "mr_t",
-		"rotulo": "Mostrar o plano ao Mr. T",
+		# o Caju atravessa a casa com o plano na boca: é a última travessia da missão
+		# e a mais arriscada, porque o papel escrito é a prova do crime
+		"carga": "plano",
+		"rotulo": "Entregar o plano ao Mr. T",
 		"pensamento_perto": "Ele vai saber o que fazer com isso.",
-		"titulo": "Mostre o plano ao Mr. T no quintal",
+		"titulo_pegar": "Pegue o plano atrás da cama",
+		"titulo": "Leve o plano ao Mr. T no quintal",
 		"duracao": 2.0,
 		"suspeita": 3.0,
 		"itens": [],
 		"falas": [
 			["Mr. T", "E aí? Trouxe o plano?"],
 			["Caju", "Trouxe. Mas... escrito assim, parece meio exagerado."],
-			["Mr. T", "Exagerado? Exagerado é deixar um estranho dormir na sua cama. Isso aqui é prevenção."],
+			["Mr. T", "Exagerado? Exagerado é deixar um estranho dormir na sua cama!"],
 			["Caju", "O Alfredo disse que ele ficou dois anos no abrigo e ninguém quis adotar..."],
 			["Mr. T", "E você não se perguntou por quê? Dois anos, Caju. Dois anos! Alguma coisa ele fez."],
 			["Caju", "Ele também disse que a gente vai se dar super bem."],
-			["Mr. T", "O Alfredo já escolheu o lado dele. Você não devia se informar por ele."],
-			["Mr. T", "O plano está bom. Mas falta o principal: as peças."],
-			["Mr. T", "Usa o computador do Alfredo. Entra no PurrgleMiaut que eu te passo a lista, e encomenda tudo na Miauzon."],
-			["Mr. T", "E ninguém pode saber. Nem o Alfredo. Principalmente o Alfredo."],
+			["Mr. T", "Sabe o que o Alfredo também te disse? Que o veterinário seria divertido!!!!!"],
+			["Mr. T", "O plano está bom. Mas eu teria colocado um muro. Um muro enorme, lindo, em volta da casa. E quem paga é o Soneca."],
+			["Mr. T", "Precisamos falar com o nosso engenheiro, Elano Mosca."],
+			["Mr. T", "Usa o computador do Alfredo! Entra no PurrgleMiaut, que a gente discute o projeto e já encomenda tudo na Miauzon."],
+			["Mr. T", "Ah, ninguém pode saber. Nem o Alfredo. PRINCIPALMENTE o Alfredo."],
 		],
 		"pensamento_depois": "Dois anos esperando alguém... isso é culpa dele?",
 	},
@@ -238,6 +317,8 @@ static func local(etapa: Dictionary) -> String:
 static func dados(id: String) -> Dictionary:
 	if ACOES.has(id):
 		return ACOES[id]
+	if CARREGAVEIS.has(id):
+		return CARREGAVEIS[id]
 	for etapa in OBJETIVOS:
 		if etapa["id"] == id:
 			return etapa

@@ -10,7 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://dlrqeamwx5syv" path="res://sprites/interativo/FINAL_arranhar sofá.png" id="2_arranhar"]
 [ext_resource type="Texture2D" uid="uid://b0ry3n0na0jek" path="res://sprites/interativo/FINAL_Brinquedo.png" id="2_brinq"]
 [ext_resource type="Texture2D" uid="uid://cvfx4pdoqauxu" path="res://sprites/interativo/FINAL_copo.png" id="2_copo"]
-[ext_resource type="Texture2D" uid="uid://btd45ox51vhgu" path="res://sprites/interativo/FINAL_escrever o plano.png" id="2_plano"]
+[ext_resource type="PackedScene" path="res://cenas/objetos/item_carregavel.tscn" id="1_item"]
+[ext_resource type="Texture2D" path="res://sprites/interativo/caneta.png" id="2_caneta"]
+[ext_resource type="Texture2D" path="res://sprites/interativo/plano.png" id="2_plano_item"]
 [ext_resource type="PackedScene" uid="uid://rqve7obh0jbx" path="res://cenas/personagens/caju.tscn" id="2_rn1ff"]
 [ext_resource type="Texture2D" uid="uid://46tdmjt2dpxm" path="res://sprites/interativo/FINAL_cavar terra.png" id="2_terra"]
 [ext_resource type="Texture2D" uid="uid://o1iqthgagql7" path="res://sprites/interativo/FINAL_tijela.png" id="2_tigela"]
@@ -45,7 +47,7 @@
 [ext_resource type="Texture2D" uid="uid://c0xklsy16w23s" path="res://sprites/objetos/FINAL_parede6.png" id="29_wchsd"]
 [ext_resource type="Texture2D" uid="uid://camy06ykgct1k" path="res://sprites/objetos/FINAL_Mesa jardim.png" id="30_0l6vf"]
 [ext_resource type="Texture2D" uid="uid://b31hyhyovh6y" path="res://sprites/objetos/FINAL_parede8.png" id="31_evc1v"]
-[ext_resource type="Texture2D" uid="uid://c75b2bvxbw6tv" path="res://sprites/interativo/FINAL_papel e caneta.png" id="37_647cg"]
+[ext_resource type="Texture2D" path="res://sprites/interativo/papel.png" id="37_papel"]
 [ext_resource type="Texture2D" uid="uid://blr1rystg1rbh" path="res://sprites/objetos/caixa.png" id="39_647cg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m4srr"]
@@ -509,16 +511,9 @@ y_sort_enabled = true
 position = Vector2(1215, 505)
 id = "mr_t"
 
-[node name="PapelCaneta" parent="Objetivos" unique_id=1137580839 instance=ExtResource("1_objetivo")]
-position = Vector2(1046, 356)
-id = "papel_caneta"
-textura = ExtResource("37_647cg")
-escala_arte = 0.5
-
-[node name="EscreverPlano" parent="Objetivos" unique_id=1489469019 instance=ExtResource("1_objetivo")]
+[node name="MesaDoPlano" parent="Objetivos" unique_id=1489469019 instance=ExtResource("1_objetivo")]
 position = Vector2(738, 199)
-id = "escrever_plano"
-textura = ExtResource("2_plano")
+id = "mesa_plano"
 escala_arte = 0.5
 
 [node name="Computador" parent="Objetivos" unique_id=1891954633 instance=ExtResource("1_objetivo")]
@@ -530,6 +525,27 @@ position = Vector2(358, 729)
 id = "maquina"
 textura = ExtResource("39_647cg")
 escala_arte = 0.07
+
+[node name="Itens" type="Node2D" parent="." unique_id=1770034501]
+y_sort_enabled = true
+
+[node name="Caneta" parent="Itens" instance=ExtResource("1_item")]
+position = Vector2(560, 610)
+id = "caneta"
+textura = ExtResource("2_caneta")
+escala_arte = 0.4
+
+[node name="Papel" parent="Itens" instance=ExtResource("1_item")]
+position = Vector2(1046, 356)
+id = "papel"
+textura = ExtResource("37_papel")
+escala_arte = 0.5
+
+[node name="Plano" parent="Itens" instance=ExtResource("1_item")]
+position = Vector2(738, 199)
+id = "plano"
+textura = ExtResource("2_plano_item")
+escala_arte = 0.5
 
 [node name="Acoes" type="Node2D" parent="." unique_id=683011875]
 y_sort_enabled = true

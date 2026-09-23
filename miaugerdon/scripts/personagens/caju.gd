@@ -14,9 +14,19 @@ const RECARGA_MIADO := 8.0
 const RECARGA_LIMPEZA := 6.0
 const DURACAO_BLOQUEIO := 1.5
 
+# Onde o item carregado fica, em pixels, relativo aos pés do Caju. Cada pose tem
+# a boca num lugar: de costas o focinho está mais alto e escondido.
+const OFFSET_BOCA := {
+	"baixo": Vector2(-1, -14),
+	"cima": Vector2(-1, -23),
+	"esquerda": Vector2(-15, -13),
+	"direita": Vector2(13, -13),
+}
+
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var _som_miado: AudioStreamPlayer = %SomMiado
 @onready var _som_lambida: AudioStreamPlayer = %SomLambida
+@onready var _item_na_boca: Sprite2D = $ItemNaBoca
 
 var ultima_direcao := "baixo"
 var recarga_miado := 0.0
@@ -29,6 +39,10 @@ var _bloqueio := 0.0
 
 func _ready() -> void:
 	add_to_group("jogador")
+	# o sprite do item é reduzido em tempo de execução; em nearest isso serrilha
+	_item_na_boca.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+	Jogo.carga_alterada.connect(_ao_mudar_carga)
+	_ao_mudar_carga(Jogo.carga)
 
 
 func _physics_process(delta: float) -> void:
@@ -73,6 +87,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		animated_sprite_2d.play("parado_" + ultima_direcao)
 
+	_posicionar_item()
 	move_and_slide()
 
 
@@ -89,3 +104,31 @@ func levar_para(destino: Vector2) -> void:
 	velocity = Vector2.ZERO
 	_bloqueio = DURACAO_BLOQUEIO
 	_acao_secreta_ate = 0
+
+
+func _ao_mudar_carga(id: String) -> void:
+	if id == "":
+		_item_na_boca.visible = false
+		_item_na_boca.texture = null
+		return
+
+	var dados: Dictionary = Config.CARREGAVEIS.get(id, {})
+	var caminho: String = dados.get("sprite_boca", "")
+	if caminho == "":
+		_item_na_boca.visible = false
+		return
+
+	_item_na_boca.texture = load(caminho)
+	_item_na_boca.scale = Vector2.ONE * float(dados.get("escala_boca", 0.4))
+	_item_na_boca.visible = true
+	_posicionar_item()
+
+
+func _posicionar_item() -> void:
+	if not _item_na_boca.visible:
+		return
+	_item_na_boca.position = OFFSET_BOCA.get(ultima_direcao, OFFSET_BOCA["baixo"])
+	_item_na_boca.flip_h = ultima_direcao == "direita"
+	# a caneta tem a ponta no canto esquerdo: vira para o lado em que ele anda.
+	# O item fica sempre à frente: z_index negativo aqui o mandaria para trás do
+	# chão do mapa, não só para trás do gato.

@@ -68,6 +68,10 @@ func _aplicar_arte() -> void:
 func _process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
+	# fora de cena não responde: um ponto escondido que ainda ouvisse o E vazaria
+	# aviso de etapa futura, ou falaria por cima do item que ocupa o seu lugar
+	if not visible:
+		return
 
 	var perto := _caju != null
 	_label.visible = perto

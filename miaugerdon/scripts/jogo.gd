@@ -9,6 +9,7 @@ signal ruido(posicao: Vector2)
 signal observado_alterado(observado: bool)
 signal inventario_alterado()
 signal pensamento(texto: String)
+signal carga_alterada(id: String)
 signal dialogo(falas: Array)
 signal dialogo_terminado()
 signal aviso(texto: String)
@@ -24,6 +25,9 @@ const LIMITE_ALTA := 70.0
 const LIMPAR_SE := 8.0
 const SUSPEITA_MIADO := 3.0
 const FLAGRANTE := 15.0
+# o Alfredo tirar o item da boca custa menos que ser pego no flagra: a punição
+# já é perder a viagem
+const SUSPEITA_CONFISCO := 10.0
 
 const FATOR_OBSERVADO := 2.5
 
@@ -42,6 +46,8 @@ var tempo_restante := TEMPO_TOTAL
 var indice := 0
 var concluidos: Array[bool] = []
 var itens: Array[String] = []
+# id do item que o Caju está levando na boca; "" quando está de boca livre
+var carga := ""
 
 var _faixa := Faixa.BAIXA
 var _pensamentos_vistos := {}
@@ -56,6 +62,7 @@ func iniciar_partida() -> void:
 	concluidos.resize(OBJETIVOS.size())
 	concluidos.fill(false)
 	itens.clear()
+	carga = ""
 	_pensamentos_vistos.clear()
 	_faixa = Faixa.BAIXA
 	observado = false
@@ -67,7 +74,8 @@ func iniciar_partida() -> void:
 	tempo_alterado.emit(tempo_restante)
 	progresso_alterado.emit(0.0, "")
 	inventario_alterado.emit()
-	objetivo_alterado.emit(indice, OBJETIVOS[indice]["titulo"])
+	carga_alterada.emit(carga)
+	objetivo_alterado.emit(indice, _titulo(OBJETIVOS[indice]))
 
 
 func _process(delta: float) -> void:
@@ -144,7 +152,7 @@ func concluir_objetivo(id: String) -> void:
 
 		escolha_final.emit()
 		return
-	objetivo_alterado.emit(indice, OBJETIVOS[indice]["titulo"])
+	objetivo_alterado.emit(indice, _titulo(OBJETIVOS[indice]))
 	pensar(frase)
 
 
@@ -162,6 +170,67 @@ func definir_observado(valor: bool) -> void:
 
 func esta_concluido(i: int) -> bool:
 	return i >= 0 and i < concluidos.size() and concluidos[i]
+
+
+# A etapa de transporte troca de título conforme a boca do Caju: enquanto o item
+# está no canto dele é "pegue", depois que ele pega vira "leve".
+func _titulo(etapa: Dictionary) -> String:
+	if etapa.has("carga") and carga != etapa["carga"]:
+		return etapa.get("titulo_pegar", etapa["titulo"])
+	return etapa["titulo"]
+
+
+func pegar_carga(id: String) -> void:
+	if not em_partida or carga != "":
+		return
+	carga = id
+	carga_alterada.emit(carga)
+	_reemitir_objetivo()
+
+
+func largar_carga() -> void:
+	if carga == "":
+		return
+	carga = ""
+	carga_alterada.emit(carga)
+	_reemitir_objetivo()
+
+
+# a entrega limpa a boca sem reanunciar o objetivo: quem anuncia o próximo é o
+# concluir_objetivo, logo na sequência
+func consumir_carga() -> void:
+	if carga == "":
+		return
+	carga = ""
+	carga_alterada.emit(carga)
+
+
+# O Alfredo não tira o item do jogo: devolve ao canto de onde saiu. O nó de
+# origem reaparece sozinho, porque ele acompanha o sinal de carga.
+func confiscar_carga() -> void:
+	if carga == "":
+		return
+	var dados: Dictionary = Config.CARREGAVEIS.get(carga, {})
+	var nome: String = dados.get("nome", "o item")
+	largar_carga()
+	aumentar_suspeita(SUSPEITA_CONFISCO)
+	avisar("Alfredo tirou %s da sua boca e guardou de volta." % nome)
+	pensar_uma_vez(
+		"confisco",
+		"Caramba... assim não dá. Preciso distrair o Alfredo antes de sair carregando as coisas."
+	)
+
+
+func titulo_atual() -> String:
+	var atual := objetivo_atual()
+	return "" if atual.is_empty() else _titulo(atual)
+
+
+func _reemitir_objetivo() -> void:
+	var atual := objetivo_atual()
+	if not atual.is_empty():
+		objetivo_alterado.emit(indice, _titulo(atual))
+
 
 
 func pensar(texto: String) -> void:

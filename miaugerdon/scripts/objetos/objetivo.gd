@@ -9,6 +9,9 @@ var _indices: Array[int] = []
 var _etapa := {}
 var _aguardando_dialogo := false
 var _oculto_ate_liberar := false
+# o ponto atrás da cama vai mudando de cara conforme as peças chegam; os outros
+# pontos do mapa têm sprite fixo, posto na cena
+var _sprite_por_etapa := false
 
 
 func _ready() -> void:
@@ -23,6 +26,8 @@ func _ready() -> void:
 		_indices.append(i)
 		if etapa.get("oculto", false):
 			_oculto_ate_liberar = true
+		if etapa.has("sprite_ponto"):
+			_sprite_por_etapa = true
 
 	_carregar_etapa()
 	if _oculto_ate_liberar:
@@ -46,10 +51,21 @@ func _carregar_etapa() -> void:
 	duracao = _etapa.get("duracao", duracao)
 	tela = _etapa.get("tela", "")
 	falas = _etapa.get("falas", [])
+	if _sprite_por_etapa:
+		_atualizar_sprite()
+
+
+# mostra o que já foi entregue: nada, a caneta, a caneta com o papel
+func _atualizar_sprite() -> void:
+	var caminho: String = _etapa.get("sprite_ponto", "")
+	textura = load(caminho) if caminho != "" else null
 
 
 func _ao_trocar_objetivo(_indice: int, _titulo: String) -> void:
 	_carregar_etapa()
+	if _todas_feitas() and _etapa.get("some_ao_terminar", false):
+		visible = false
+		return
 	if not _oculto_ate_liberar:
 		return
 
@@ -79,7 +95,11 @@ func _todas_feitas() -> bool:
 
 
 func _esta_ativo() -> bool:
-	return not _aguardando_dialogo and _e_a_vez_dele()
+	if _aguardando_dialogo or not _e_a_vez_dele():
+		return false
+	# etapa de transporte: só vale se o item estiver na boca
+	var exigido: String = _etapa.get("carga", "")
+	return exigido == "" or Jogo.carga == exigido
 
 
 func _ao_progredir(delta: float) -> void:
@@ -92,8 +112,11 @@ func _ao_progredir(delta: float) -> void:
 
 
 func _concluir() -> void:
+	var id_etapa: String = _etapa["id"]
+	if _etapa.has("carga"):
+		Jogo.consumir_carga()
 	if falas.is_empty():
-		Jogo.concluir_objetivo(_etapa["id"])
+		Jogo.concluir_objetivo(id_etapa)
 		return
 
 	_aguardando_dialogo = true
@@ -109,10 +132,13 @@ func _no_fim_do_dialogo() -> void:
 func _motivo_indisponivel() -> String:
 	if _todas_feitas():
 		return "%s: já está pronto" % rotulo
-	var atual := Jogo.objetivo_atual()
-	if atual.is_empty():
+	var exigido: String = _etapa.get("carga", "")
+	if _e_a_vez_dele() and exigido != "" and Jogo.carga != exigido:
+		var dados: Dictionary = Config.CARREGAVEIS.get(exigido, {})
+		return "Traga %s até aqui" % dados.get("nome", "o item")
+	if Jogo.objetivo_atual().is_empty():
 		return "%s: ainda não" % rotulo
-	return "Antes disso: %s" % atual["titulo"]
+	return "Antes disso: %s" % Jogo.titulo_atual()
 
 
 func _texto_prompt() -> String:

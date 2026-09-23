@@ -194,7 +194,12 @@ func _tem_linha_de_visao(ponto: Vector2) -> bool:
 func _verificar_flagrante() -> void:
 	if _estado == Estado.BRAVO or alvo == null:
 		return
-	if not alvo.has_method("esta_em_acao_secreta") or not alvo.esta_em_acao_secreta():
+
+	# carregar item é tão flagrável quanto estar mexendo em algo: a caneta na
+	# boca não tem como ser disfarçada
+	var carregando := Jogo.carga != ""
+	var em_acao: bool = alvo.has_method("esta_em_acao_secreta") and alvo.esta_em_acao_secreta()
+	if not carregando and not em_acao:
 		return
 	if global_position.distance_to(alvo.global_position) > RAIO_FLAGRANTE:
 		return
@@ -204,6 +209,13 @@ func _verificar_flagrante() -> void:
 	_estado = Estado.BRAVO
 	_espera = ESPERA_BRAVO
 	get_tree().call_group("interagivel", "cancelar")
+
+	# com item na boca ele só toma de volta: perder a viagem já é a punição, e
+	# somar o castigo do flagrante em cima disso seria punir duas vezes
+	if carregando:
+		Jogo.confiscar_carga()
+		return
+
 	Jogo.avisar("Alfredo te pegou!")
 	Jogo.aumentar_suspeita(Jogo.FLAGRANTE)
 	if alvo.has_method("levar_para"):
