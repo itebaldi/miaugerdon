@@ -174,7 +174,7 @@ func _unhandled_input(evento: InputEvent) -> void:
 		return
 
 	if _painel_fim.visible:
-		if evento.is_action_pressed("ui_accept"):
+		if evento.is_action_pressed("ui_accept") or evento.is_action_pressed("interagir"):
 			_reiniciar()
 		return
 

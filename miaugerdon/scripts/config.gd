@@ -87,7 +87,7 @@ const OBJETIVOS := [
 		"itens": [],
 		"falas": [
 			["Mr. T", "Ora, ora. O Caju. Faz tempo que não aparece no meu quintal. O melhor quintal do bairro, aliás."],
-			["Caju", "Mr. T, o Alfredo vai adotar outro gato. Chega hoje à tarde."],
+			["Caju", "Mr. T, o Alfredo vai adotar outro gato. Chega amanhã."],
 			["Mr. T", "Outro gato... Veio de onde?"],
 			["Caju", "Do abrigo. O nome dele é Soneca."],
 			["Mr. T", "Abrigo?! Eu não ia dizer nada, mas..."],

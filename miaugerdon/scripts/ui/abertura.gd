@@ -100,7 +100,7 @@ func _avancar() -> void:
 
 func _tocar_passo(passo: Dictionary) -> void:
 	var ultimo := _passo == _passos.size() - 1
-	_dica.text = "[Enter] começar          [Esc] pular" if ultimo else "[Enter] continuar          [Esc] pular"
+	_dica.text = "[E] começar          [Esc] pular" if ultimo else "[E] continuar          [Esc] pular"
 
 	_tween = create_tween()
 	_tween.set_parallel(true)
