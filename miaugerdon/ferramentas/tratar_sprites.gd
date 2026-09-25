@@ -13,8 +13,9 @@ const CONTORNO := Color(0.36, 0.31, 0.26, 1.0)
 
 # origem, destino, maior dimensão final, contornar
 const TAREFAS := [
-	# a caneta já veio com contorno próprio e cor forte: só cortar e reduzir
-	["res://sprites/origem/caneta_1024.png", "res://sprites/interativo/caneta.png", 64, false, 0.0],
+	# a caneta já veio com contorno próprio e cor forte: só cortar e reduzir.
+	# Com 64 ela ficava do tamanho da pilha de papel e parecia uma baqueta.
+	["res://sprites/origem/caneta_1024.png", "res://sprites/interativo/caneta.png", 40, false, 0.0],
 	# papel e plano são claros sobre chão claro; sem contorno viram mancha
 	["res://sprites/origem/papel_1024.png", "res://sprites/interativo/papel.png", 46, true, 0.0],
 	["res://sprites/origem/plano_1024.png", "res://sprites/interativo/plano.png", 46, true, 0.70],
@@ -99,7 +100,8 @@ func _compor_papel_e_caneta() -> void:
 	var papel := Image.load_from_file(ProjectSettings.globalize_path("res://sprites/interativo/papel.png"))
 	var caneta := Image.load_from_file(ProjectSettings.globalize_path("res://sprites/interativo/caneta.png"))
 	var c := caneta.get_region(caneta.get_used_rect())
-	c.resize(int(c.get_width() * 0.62), int(c.get_height() * 0.62), Image.INTERPOLATE_LANCZOS)
+	# mesma proporção caneta/papel que os dois têm soltos no chão
+	c.resize(int(c.get_width() * 0.8), int(c.get_height() * 0.8), Image.INTERPOLATE_LANCZOS)
 
 	var largura := papel.get_width() + int(c.get_width() * 0.55)
 	var altura := maxi(papel.get_height(), c.get_height()) + 6
