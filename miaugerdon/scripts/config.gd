@@ -5,9 +5,9 @@ class_name Config
 # continua aqui porque o painel do HUD ainda sabe exibi-la.
 const INTRO := [
 	"Caju sempre soube quem realmente mandava naquela casa. Alfredo podia preparar a comida, limpar a bagunça e pagar as contas, mas era apenas seu fiel servo humano.",
-	"Tudo seguia perfeitamente até Alfredo anunciar uma notícia terrível. Ele havia adotado um cachorro, e o novo invasor chegaria em breve.",
+	"Tudo seguia perfeitamente até Alfredo anunciar uma notícia terrível. Ele havia adotado outro gato, e o novo invasor chegaria amanhã.",
 	"Para Caju, aquilo não era uma simples mudança. Era uma ameaça ao seu território, à sua rotina e à ordem natural das coisas. Se Alfredo acreditava que poderia colocar outro animal em seu lugar, estava muito enganado.",
-	"Tomado pela indignação, Caju decidiu que não bastava defender a casa. Era hora de executar seu plano mais ambicioso e dominar o mundo antes da chegada do cachorro.",
+	"Tomado pela indignação, Caju decidiu que não bastava defender a casa. Era hora de executar seu plano mais ambicioso e dominar o mundo antes da chegada do Soneca.",
 	"Mas nenhum grande plano começa sem informações. No quintal vive um gato que pode ajudá-lo, o misterioso e influente Mr. T.",
 	"Primeiro objetivo. Vá até o quintal e fale com Mr. T.",
 ]
