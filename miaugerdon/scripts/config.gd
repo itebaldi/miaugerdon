@@ -14,23 +14,24 @@ const INTRO := [
 
 
 # Retrato de quem fala na caixa de diálogo. Quem não tiver retrato fala com o
-# do outro esmaecido ao lado. O recorte, em pixels da imagem, tira o corpo de
-# baixo para o rosto caber maior na caixa.
+# do outro apagado na polaroid. O recorte, em pixels da imagem, tira o corpo de
+# baixo para o rosto caber maior na caixa. A cor é a tinta do nome na tira de
+# papel, por isso escura.
 const FALANTES := {
 	"Mr. T": {
 		"retrato": "res://sprites/personagens/retrato_mrt.png",
 		"recorte": Rect2(0, 80, 1024, 1100),
-		"cor": Color(1, 0.78, 0.35),
+		"cor": Color(0.6, 0.27, 0.04),
 	},
 	"Caju": {
 		"retrato": "res://sprites/personagens/retrato_caju.png",
 		"recorte": Rect2(0, 150, 1024, 1100),
-		"cor": Color(0.62, 0.84, 1),
+		"cor": Color(0.13, 0.3, 0.52),
 	},
 	"Alfredo": {
 		"retrato": "res://sprites/personagens/retrato_alfredo.png",
 		"recorte": Rect2(0, 60, 1024, 1100),
-		"cor": Color(0.55, 0.85, 0.75),
+		"cor": Color(0.08, 0.38, 0.34),
 	},
 }
 

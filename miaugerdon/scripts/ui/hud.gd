@@ -4,20 +4,47 @@ extends CanvasLayer
 const COR_BAIXA := Color(0.45, 0.75, 0.4)
 const COR_MEDIA := Color(0.92, 0.76, 0.3)
 const COR_ALTA := Color(0.87, 0.32, 0.26)
+# a cara do Alfredo ao lado da barra acompanha a faixa: tranquilo, desconfiado,
+# pegou no flagra
+const ROSTO_BAIXA := preload("res://sprites/ui/suspeita_1.png")
+const ROSTO_MEDIA := preload("res://sprites/ui/suspeita_2.png")
+const ROSTO_ALTA := preload("res://sprites/ui/suspeita_3.png")
+const CAIXA_VAZIA := preload("res://sprites/ui/checkbox_vazio.png")
+const CAIXA_MARCADA := preload("res://sprites/ui/checkbox_feito.png")
+const FONTE_MAO := preload("res://fontes/PatrickHand-Regular.ttf")
 const DURACAO_AVISO := 3.0
-const COR_FALANTE := Color(1, 0.78, 0.35)
+const COR_FALANTE := Color(0.2, 0.13, 0.08)
+# os painéis são papel: o texto é tinta escura, e o destaque é tinta de cor
+const COR_TINTA := Color(0.2, 0.13, 0.08)
+const COR_TINTA_DESTAQUE := Color(0.55, 0.2, 0.06)
+const COR_TINTA_VITORIA := Color(0.16, 0.4, 0.2)
+const COR_TINTA_DERROTA := Color(0.62, 0.16, 0.08)
+const COR_TINTA_APAGADA := Color(0.2, 0.13, 0.08, 0.45)
+# com retrato, a fala começa depois da polaroid; sem, encosta na borda
+const MARGEM_COM_RETRATO := 164.0
+const MARGEM_SEM_RETRATO := 30.0
+# A moldura da caixa vem no dobro da resolução e é desenhada em meia escala.
+# As orelhas, o rabo e o novelo passam da caixa: estas são as sobras, em
+# pixels da textura, entre a borda da imagem e o retângulo da moldura.
+const MOLDURA_ESCALA := 0.5
+const MOLDURA_SOBRA_INICIO := Vector2(20, 71)
+const MOLDURA_SOBRA_FIM := Vector2(24, 34)
 
-@onready var _barra_suspeita: ProgressBar = %BarraSuspeita
+@onready var _barra_suspeita: TextureProgressBar = %BarraSuspeita
+@onready var _rosto_suspeita: TextureRect = %RostoSuspeita
 @onready var _cronometro: Label = %Cronometro
 @onready var _objetivo: Label = %Objetivo
 @onready var _caixa_progresso: VBoxContainer = %CaixaProgresso
-@onready var _barra_progresso: ProgressBar = %BarraProgresso
+@onready var _barra_progresso: TextureProgressBar = %BarraProgresso
 @onready var _aviso: Label = %Aviso
-@onready var _observado: Label = %Observado
+@onready var _observado: Control = %Observado
 @onready var _painel_inventario: PanelContainer = %PainelInventario
 @onready var _lista_etapas: VBoxContainer = %ListaEtapas
 @onready var _lista_itens: VBoxContainer = %ListaItens
-@onready var _caixa_dialogo: PanelContainer = %CaixaDialogo
+@onready var _caixa_dialogo: Control = %CaixaDialogo
+@onready var _polaroid: Control = %Polaroid
+@onready var _nome_tira: Control = %NomeTira
+@onready var _pata: TextureRect = %Pata
 @onready var _retrato: TextureRect = %Retrato
 @onready var _falante: Label = %Falante
 @onready var _fala: Label = %Fala
@@ -37,7 +64,8 @@ const COR_FALANTE := Color(1, 0.78, 0.35)
 @onready var _botao_tentar: Button = %BotaoTentar
 @onready var _botao_menu: Button = %BotaoMenu
 
-@onready var _estilo_suspeita: StyleBoxFlat = _barra_suspeita.get_theme_stylebox("fill")
+@onready var _estilo_caixa: StyleBox = %Corpo.get_theme_stylebox("panel")
+@onready var _moldura_caixa: NinePatchRect = %MolduraCaixa
 
 var _aviso_restante := 0.0
 var _falas: Array = []
@@ -66,10 +94,20 @@ func _ready() -> void:
 	_botao_tentar.pressed.connect(_reiniciar)
 	_botao_menu.pressed.connect(_voltar_ao_menu)
 
+	_caixa_dialogo.resized.connect(_ajustar_moldura_caixa)
+	_ajustar_moldura_caixa()
+
 	if Jogo.intro_vista:
 		_mostrar_tutorial.call_deferred()
 	else:
 		_mostrar_intro.call_deferred()
+
+
+# a caixa acompanha a largura da tela; a moldura estica junto, só no meio
+func _ajustar_moldura_caixa() -> void:
+	_moldura_caixa.scale = Vector2.ONE * MOLDURA_ESCALA
+	_moldura_caixa.position = -MOLDURA_SOBRA_INICIO * MOLDURA_ESCALA
+	_moldura_caixa.size = _caixa_dialogo.size / MOLDURA_ESCALA + MOLDURA_SOBRA_INICIO + MOLDURA_SOBRA_FIM
 
 
 func _process(delta: float) -> void:
@@ -80,6 +118,9 @@ func _process(delta: float) -> void:
 
 	if _observado.visible:
 		_observado.modulate.a = 0.55 + 0.45 * (sin(Time.get_ticks_msec() / 170.0) * 0.5 + 0.5)
+
+	if _caixa_dialogo.visible:
+		_pata.position.y = -absf(sin(Time.get_ticks_msec() / 260.0)) * 4.0
 
 
 func _ao_mudar_observado(observado: bool) -> void:
@@ -110,7 +151,7 @@ func _pintar_intro() -> void:
 	_pagina_intro.text = "%d / %d" % [_pagina_da_intro + 1, Config.INTRO.size()]
 
 	var chamada := _pagina_da_intro == Config.INTRO.size() - 1
-	_texto_intro.modulate = Color(1, 0.85, 0.45) if chamada else Color.WHITE
+	_texto_intro.add_theme_color_override("font_color", COR_TINTA_DESTAQUE if chamada else COR_TINTA)
 
 
 func _avancar_intro() -> void:
@@ -196,33 +237,45 @@ func _ao_mudar_inventario() -> void:
 			lista.remove_child(filho)
 			filho.queue_free()
 
+	# a lista é a letra do Caju na folha: o que já foi leva a pata carimbada, o
+	# da vez fica em tinta de destaque e o que ainda vem fica apagado
 	for i in Jogo.OBJETIVOS.size():
-		var linha := Label.new()
-		linha.add_theme_font_size_override("font_size", 14)
 		var feito := Jogo.esta_concluido(i)
-		linha.text = "%s  %s" % ["[x]" if feito else "[ ]", Jogo.OBJETIVOS[i]["titulo"]]
+		var cor := COR_TINTA_APAGADA
 		if feito:
-			linha.modulate = Color(0.6, 0.86, 0.6)
+			cor = COR_TINTA
 		elif i == Jogo.indice:
-			linha.modulate = Color(1, 0.9, 0.55)
-		else:
-			linha.modulate = Color(0.58, 0.56, 0.52)
+			cor = COR_TINTA_DESTAQUE
+
+		var linha := HBoxContainer.new()
+		linha.add_theme_constant_override("separation", 8)
+		var caixa := TextureRect.new()
+		caixa.texture = CAIXA_MARCADA if feito else CAIXA_VAZIA
+		caixa.custom_minimum_size = Vector2(22, 22)
+		caixa.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		caixa.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		caixa.modulate.a = 1.0 if feito or i == Jogo.indice else 0.55
+		linha.add_child(caixa)
+		linha.add_child(_linha_escrita(Jogo.OBJETIVOS[i]["titulo"], cor))
 		_lista_etapas.add_child(linha)
 
 	if Jogo.itens.is_empty():
-		var vazio := Label.new()
-		vazio.add_theme_font_size_override("font_size", 13)
-		vazio.text = "(nada ainda)"
-		vazio.modulate = Color(0.58, 0.56, 0.52)
-		_lista_itens.add_child(vazio)
+		_lista_itens.add_child(_linha_escrita("(nada ainda)", COR_TINTA_APAGADA))
 		return
 
 	for item in Jogo.itens:
-		var linha := Label.new()
-		linha.add_theme_font_size_override("font_size", 13)
-		linha.text = "·  " + item
-		linha.modulate = Color(0.9, 0.88, 0.8)
-		_lista_itens.add_child(linha)
+		_lista_itens.add_child(_linha_escrita("·  " + item, COR_TINTA))
+
+
+func _linha_escrita(texto: String, cor: Color) -> Label:
+	var linha := Label.new()
+	linha.text = texto
+	linha.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	linha.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	linha.add_theme_font_override("font", FONTE_MAO)
+	linha.add_theme_font_size_override("font_size", 19)
+	linha.add_theme_color_override("font_color", cor)
+	return linha
 
 
 func _ao_abrir_dialogo(falas: Array) -> void:
@@ -234,7 +287,10 @@ func _ao_abrir_dialogo(falas: Array) -> void:
 		if retrato:
 			_retrato.texture = retrato
 			break
-	_retrato.visible = _retrato.texture != null
+	var tem_retrato := _retrato.texture != null
+	_polaroid.visible = tem_retrato
+	_estilo_caixa.content_margin_left = MARGEM_COM_RETRATO if tem_retrato else MARGEM_SEM_RETRATO
+	_nome_tira.position.x = MARGEM_COM_RETRATO - 14.0 if tem_retrato else 18.0
 
 	_falas = falas
 	_fala_atual = 0
@@ -257,7 +313,8 @@ func _retrato_de(nome: String) -> Texture2D:
 	return recorte
 
 
-# quem não tem retrato fala com o do outro esmaecido ao lado
+# quem não tem retrato fala com o do outro apagado na polaroid. Apagado e não
+# transparente: metade da polaroid fica para fora da caixa, sobre o mapa
 func _mostrar_fala() -> void:
 	var nome: String = _falas[_fala_atual][0]
 	var dados: Dictionary = Config.FALANTES.get(nome, {})
@@ -268,8 +325,8 @@ func _mostrar_fala() -> void:
 	var retrato := _retrato_de(nome)
 	if retrato:
 		_retrato.texture = retrato
-		_retrato.visible = true
-	_retrato.modulate = Color.WHITE if retrato else Color(1, 1, 1, 0.35)
+		_polaroid.visible = true
+	_retrato.modulate = Color.WHITE if retrato else Color(0.62, 0.58, 0.52)
 
 
 func _avancar_dialogo() -> void:
@@ -291,21 +348,25 @@ func _ao_mudar_suspeita(valor: float) -> void:
 func _ao_mudar_faixa(nova: Jogo.Faixa) -> void:
 	match nova:
 		Jogo.Faixa.BAIXA:
-			_estilo_suspeita.bg_color = COR_BAIXA
+			_barra_suspeita.tint_progress = COR_BAIXA
+			_rosto_suspeita.texture = ROSTO_BAIXA
 		Jogo.Faixa.MEDIA:
-			_estilo_suspeita.bg_color = COR_MEDIA
+			_barra_suspeita.tint_progress = COR_MEDIA
+			_rosto_suspeita.texture = ROSTO_MEDIA
 		Jogo.Faixa.ALTA:
-			_estilo_suspeita.bg_color = COR_ALTA
+			_barra_suspeita.tint_progress = COR_ALTA
+			_rosto_suspeita.texture = ROSTO_ALTA
 
 
 func _ao_mudar_tempo(segundos: float) -> void:
 	var total := int(ceilf(maxf(segundos, 0.0)))
 	_cronometro.text = "%02d:%02d" % [total / 60, total % 60]
-	_cronometro.modulate = Color(1, 0.45, 0.4) if segundos <= 30.0 else Color.WHITE
+	_cronometro.add_theme_color_override("font_color", COR_TINTA_DERROTA if segundos <= 30.0 else COR_TINTA)
 
 
+# o post-it já diz que é o objetivo
 func _ao_mudar_objetivo(_indice: int, titulo: String) -> void:
-	_objetivo.text = "Objetivo: " + titulo
+	_objetivo.text = titulo
 
 
 func _ao_receber_recado(imagem: String, texto: String) -> void:
@@ -344,7 +405,7 @@ func _ao_terminar(motivo: Jogo.Motivo) -> void:
 	var final: Dictionary = Jogo.FINAIS[motivo]
 	_fim_titulo.text = final["titulo"]
 	_fim_texto.text = final["texto"]
-	_fim_titulo.modulate = Color(0.72, 0.94, 0.7) if final["vitoria"] else Color(0.96, 0.6, 0.52)
+	_fim_titulo.add_theme_color_override("font_color", COR_TINTA_VITORIA if final["vitoria"] else COR_TINTA_DERROTA)
 
 	var arte: String = final.get("imagem", "")
 	var ilustracao: Texture2D = load(arte) if arte != "" else null

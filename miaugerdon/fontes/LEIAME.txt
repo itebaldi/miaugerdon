@@ -1,0 +1,6 @@
+Fontes do Google Fonts, todas sob a SIL Open Font License 1.1 (arquivos *-OFL.txt).
+A licença pede que o texto dela acompanhe a fonte quando o jogo for distribuído.
+
+LilitaOne-Regular.ttf    títulos, nomes de quem fala, cronômetro, botões
+Nunito.ttf               texto corrido (peso variável; texto.tres fixa o SemiBold)
+PatrickHand-Regular.ttf  letra do Caju: post-it do objetivo e lista do plano

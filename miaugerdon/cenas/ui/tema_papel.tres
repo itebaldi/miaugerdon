@@ -1,0 +1,56 @@
+[gd_resource type="Theme" format=3]
+
+[ext_resource type="Texture2D" path="res://sprites/ui/botao_papel.png" id="1_botao"]
+[ext_resource type="FontVariation" path="res://fontes/texto.tres" id="2_texto"]
+[ext_resource type="FontFile" path="res://fontes/LilitaOne-Regular.ttf" id="3_titulo"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_normal"]
+content_margin_left = 26.0
+content_margin_top = 9.0
+content_margin_right = 26.0
+content_margin_bottom = 9.0
+texture = ExtResource("1_botao")
+texture_margin_left = 18.0
+texture_margin_top = 14.0
+texture_margin_right = 18.0
+texture_margin_bottom = 14.0
+modulate_color = Color(0.9, 0.86, 0.78, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hover"]
+content_margin_left = 26.0
+content_margin_top = 9.0
+content_margin_right = 26.0
+content_margin_bottom = 9.0
+texture = ExtResource("1_botao")
+texture_margin_left = 18.0
+texture_margin_top = 14.0
+texture_margin_right = 18.0
+texture_margin_bottom = 14.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pressed"]
+content_margin_left = 26.0
+content_margin_top = 11.0
+content_margin_right = 26.0
+content_margin_bottom = 7.0
+texture = ExtResource("1_botao")
+texture_margin_left = 18.0
+texture_margin_top = 14.0
+texture_margin_right = 18.0
+texture_margin_bottom = 14.0
+modulate_color = Color(0.76, 0.7, 0.6, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_foco"]
+
+[resource]
+default_font = ExtResource("2_texto")
+Button/fonts/font = ExtResource("3_titulo")
+Button/colors/font_color = Color(0.2, 0.13, 0.08, 1)
+Button/colors/font_hover_color = Color(0.55, 0.2, 0.06, 1)
+Button/colors/font_pressed_color = Color(0.55, 0.2, 0.06, 1)
+Button/colors/font_focus_color = Color(0.55, 0.2, 0.06, 1)
+Button/colors/font_hover_pressed_color = Color(0.55, 0.2, 0.06, 1)
+Button/styles/normal = SubResource("StyleBoxTexture_normal")
+Button/styles/hover = SubResource("StyleBoxTexture_hover")
+Button/styles/pressed = SubResource("StyleBoxTexture_pressed")
+Button/styles/hover_pressed = SubResource("StyleBoxTexture_pressed")
+Button/styles/focus = SubResource("StyleBoxEmpty_foco")
