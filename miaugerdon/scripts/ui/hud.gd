@@ -134,6 +134,7 @@ func _ao_avisar(texto: String) -> void:
 
 
 func _mostrar_intro() -> void:
+	Efeitos.tocar(&"papel")
 	Jogo.intro_vista = true
 	_pagina_da_intro = 0
 	_pintar_intro()
@@ -155,6 +156,7 @@ func _pintar_intro() -> void:
 
 
 func _avancar_intro() -> void:
+	Efeitos.tocar(&"fala")
 	_pagina_da_intro += 1
 	if _pagina_da_intro < Config.INTRO.size():
 		_pintar_intro()
@@ -164,22 +166,26 @@ func _avancar_intro() -> void:
 
 
 func _mostrar_tutorial() -> void:
+	Efeitos.tocar(&"papel")
 	_painel_tutorial.visible = true
 	_pausar_para_ler()
 
 
 func _ao_pedir_escolha() -> void:
+	Efeitos.tocar(&"papel")
 	_caixa_progresso.visible = false
 	_painel_escolha.visible = true
 	get_tree().paused = true
 
 
 func _reiniciar() -> void:
+	Efeitos.tocar(&"botao")
 	get_tree().paused = false
 	get_tree().reload_current_scene()
 
 
 func _voltar_ao_menu() -> void:
+	Efeitos.tocar(&"botao")
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://cenas/ui/menu.tscn")
 
@@ -188,6 +194,7 @@ func _unhandled_input(evento: InputEvent) -> void:
 	if _painel_recado.visible:
 		if evento.is_action_pressed("ui_accept") or evento.is_action_pressed("interagir"):
 			_painel_recado.visible = false
+			Efeitos.tocar(&"fala")
 			get_tree().paused = false
 		return
 
@@ -199,6 +206,7 @@ func _unhandled_input(evento: InputEvent) -> void:
 	if _painel_tutorial.visible:
 		if evento.is_action_pressed("ui_accept") or evento.is_action_pressed("interagir"):
 			_painel_tutorial.visible = false
+			Efeitos.tocar(&"fala")
 			get_tree().paused = false
 		return
 
@@ -227,6 +235,7 @@ func _alternar_inventario() -> void:
 	if not Jogo.em_partida:
 		return
 	var abrir := not _painel_inventario.visible
+	Efeitos.tocar(&"papel")
 	_painel_inventario.visible = abrir
 	get_tree().paused = abrir
 
@@ -330,6 +339,7 @@ func _mostrar_fala() -> void:
 
 
 func _avancar_dialogo() -> void:
+	Efeitos.tocar(&"fala")
 	_fala_atual += 1
 	if _fala_atual < _falas.size():
 		_mostrar_fala()
@@ -370,6 +380,7 @@ func _ao_mudar_objetivo(_indice: int, titulo: String) -> void:
 
 
 func _ao_receber_recado(imagem: String, texto: String) -> void:
+	Efeitos.tocar(&"papel")
 	_recado_imagem.texture = load(imagem)
 	_recado_texto.text = texto
 	_painel_recado.visible = true

@@ -1,0 +1,27 @@
+Sons e músicas do Miaugerdon
+
+MÚSICA
+
+sounds/musica/menu.mp3
+  "Sirens in Darkness", por The Cynic Project — CC0 (domínio público)
+  o autor pede, sem obrigar: "The Cynic Project / cynicmusic.com / pixelsphere.org"
+  https://opengameart.org/content/sirens-in-darkness
+
+sounds/musica/jogo.wav
+  "I'm Misbehaving", por Alex McCulloch (Pro Sensory) — CC0 (domínio público)
+  o autor pede, sem obrigar, que o nome seja lembrado
+  https://opengameart.org/content/im-misbehaving
+
+Nenhuma das duas exige crédito, mas vale citar os autores nos créditos do jogo.
+
+EFEITOS DE INTERFACE
+
+sounds/ui/fala.ogg, etapa.ogg        Kenney, "Interface Sounds" — CC0
+sounds/ui/papel.ogg                  Kenney, "RPG Audio" — CC0
+sounds/ui/botao.ogg                  Kenney, "UI Audio" — CC0
+sounds/ui/derrota.ogg                Kenney, "Music Jingles" (pizzicato) — CC0
+  https://kenney.nl
+
+sounds/ui/vitoria.ogg
+  "Win Jingle" (versão pizzicato), por Fupi — CC0 (domínio público)
+  https://opengameart.org/content/win-jingle

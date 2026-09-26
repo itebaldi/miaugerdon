@@ -18,6 +18,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 Jogo="*res://scripts/jogo.gd"
+Musica="*res://scripts/musica.gd"
+Efeitos="*res://scripts/efeitos.gd"
 
 [display]
 

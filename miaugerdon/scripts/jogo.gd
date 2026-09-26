@@ -16,6 +16,7 @@ signal aviso(texto: String)
 signal recado(imagem: String, texto: String)
 signal escolha_final()
 signal partida_terminada(motivo: Motivo)
+signal etapa_concluida(id: String)
 
 const TEMPO_TOTAL := 300.0
 const SUSPEITA_MAX := 100.0
@@ -137,6 +138,7 @@ func concluir_objetivo(id: String) -> void:
 		return
 
 	concluidos[indice] = true
+	etapa_concluida.emit(id)
 	for item in atual["itens"]:
 		itens.append(item)
 	inventario_alterado.emit()
