@@ -435,8 +435,9 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_override_colors/font_color = Color(0.2, 0.13, 0.08, 1)
 theme_override_font_sizes/font_size = 15
-text = "Caju olha a máquina. Olha a porta da frente.
-Lá fora, a van com o cachorro está chegando."
+text = "Pronta, do jeito que o Mr. T mandou.
+\"Eu sou o único que fala a verdade pra você.\" Mas ele nunca viu o Soneca.
+Lá fora, um carro para na frente de casa."
 horizontal_alignment = 1
 autowrap_mode = 2
 
@@ -453,7 +454,7 @@ theme_override_fonts/font = ExtResource("15_titulo")
 layout_mode = 2
 theme_override_colors/font_color = Color(0.16, 0.4, 0.2, 1)
 theme_override_font_sizes/font_size = 18
-text = "[F]   Desistir e esperar o cachorro"
+text = "[F]   Desistir do plano e esperar o Soneca"
 horizontal_alignment = 1
 
 [node name="PainelInventario" type="PanelContainer" parent="Raiz" unique_id=590274129]

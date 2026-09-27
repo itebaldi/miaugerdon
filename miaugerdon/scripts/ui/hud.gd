@@ -30,6 +30,11 @@ const MOLDURA_ESCALA := 0.5
 const MOLDURA_SOBRA_INICIO := Vector2(20, 71)
 const MOLDURA_SOBRA_FIM := Vector2(24, 34)
 
+const CENA_NOITE := "res://cenas/ui/noite.tscn"
+# escurece para o mesmo marrom do fundo das pranchas: a HQ entra sem piscar
+const COR_NOITE := Color(0.135, 0.105, 0.083)
+const DURACAO_ESCURECER := 1.4
+
 @onready var _barra_suspeita: TextureProgressBar = %BarraSuspeita
 @onready var _rosto_suspeita: TextureRect = %RostoSuspeita
 @onready var _cronometro: Label = %Cronometro
@@ -90,6 +95,7 @@ func _ready() -> void:
 	Jogo.recado.connect(_ao_receber_recado)
 	Jogo.escolha_final.connect(_ao_pedir_escolha)
 	Jogo.partida_terminada.connect(_ao_terminar)
+	Jogo.noite.connect(_escurecer_para_a_noite)
 
 	_botao_tentar.pressed.connect(_reiniciar)
 	_botao_menu.pressed.connect(_voltar_ao_menu)
@@ -97,6 +103,9 @@ func _ready() -> void:
 	_caixa_dialogo.resized.connect(_ajustar_moldura_caixa)
 	_ajustar_moldura_caixa()
 
+	# no segundo dia a HQ da noite já deu o objetivo, e o minuto corre desde já
+	if Jogo.dia > 1:
+		return
 	if Jogo.intro_vista:
 		_mostrar_tutorial.call_deferred()
 	else:
@@ -178,6 +187,20 @@ func _ao_pedir_escolha() -> void:
 	get_tree().paused = true
 
 
+func _escurecer_para_a_noite() -> void:
+	_caixa_progresso.visible = false
+	_aviso.visible = false
+	var cortina := ColorRect.new()
+	cortina.color = Color(COR_NOITE, 0.0)
+	cortina.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(cortina)
+	cortina.set_anchors_preset(Control.PRESET_FULL_RECT)
+
+	var tween := create_tween()
+	tween.tween_property(cortina, "color:a", 1.0, DURACAO_ESCURECER)
+	tween.tween_callback(get_tree().change_scene_to_file.bind(CENA_NOITE))
+
+
 func _reiniciar() -> void:
 	Efeitos.tocar(&"botao")
 	get_tree().paused = false
@@ -196,6 +219,7 @@ func _unhandled_input(evento: InputEvent) -> void:
 			_painel_recado.visible = false
 			Efeitos.tocar(&"fala")
 			get_tree().paused = false
+			Jogo.recado_lido()
 		return
 
 	if _painel_intro.visible:

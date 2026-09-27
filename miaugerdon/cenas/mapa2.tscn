@@ -469,6 +469,9 @@ navigation_polygon = ExtResource("1_navmesh")
 [node name="PontoInicial" type="Marker2D" parent="." unique_id=1202997173 groups=["ponto_inicial"]]
 position = Vector2(702.1667, 458.33334)
 
+[node name="PontoManha" type="Marker2D" parent="." unique_id=1734106621]
+position = Vector2(662, 420)
+
 [node name="Rotas" type="Node2D" parent="." unique_id=2110807453 groups=["rotas"]]
 
 [node name="SalaEstar" type="Marker2D" parent="Rotas" unique_id=1646455637]

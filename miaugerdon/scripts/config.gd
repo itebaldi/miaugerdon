@@ -201,26 +201,62 @@ const OBJETIVOS := [
 		"tela": "res://sprites/empresas/PurrgleMiaut.png",
 		"recado": {
 			"imagem": "res://sprites/empresas/encomenda miauzon.png",
-			"texto": "Após se reunir no Purrgle Miaut, Caju encomendou na Miauzon as peças 
-			necessárias para a construção da máquina de controle mental. Graças ao plano 
-			Primiau, a encomenda já chegou na garagem.",
+			# o rótulo do painel não quebra linha sozinho: as quebras vão no texto
+			"texto": "Depois da reunião no PurrgleMiaut, Caju encomendou na Miauzon\n"
+				+ "as peças da máquina de controle mental.\n"
+				+ "Graças ao plano Primiau, elas chegam amanhã cedo, direto na garagem.",
 		},
 		"duracao": 7.0,
 		"suspeita": 5.0,
 		"itens": ["Pedido no Miauzon: peça #TR-4"],
 		"pensamento_depois": "O Mr. T tem o maior quintal do bairro. E não tem mais ninguém nele.",
+		# a última etapa do primeiro dia: lido o recado, o Alfredo vem buscar o
+		# Caju para a TV e a partida segue para a HQ da noite. Estas são as falas
+		# dele quando chega perto.
+		"fim_do_dia": [
+			["Alfredo", "Aí está você! Passou o dia inteiro aprontando, né?"],
+			["Alfredo", "Chega de bagunça por hoje. Vem, vamos ver um pouco de TV."],
+		],
 	},
+	# Segundo dia: a montagem da máquina, em três etapas no mesmo ponto da
+	# garagem. Dividir é o que obriga a distrair o Alfredo no meio, e cada peça
+	# encaixada traz de volta alguma coisa da noite anterior.
 	{
-		"id": "maquina",
-		"rotulo": "Montar a máquina",
-		"pensamento_perto": "Será que seria tão ruim ter mais um animal em casa?",
-		"titulo": "Monte a máquina na garagem",
-		"duracao": 10.0,
-		"suspeita": 5.0,
-		"itens": ["Máquina de controle mental"],
+		"id": "maquina_base",
+		"local": "maquina",
+		"rotulo": "Montar a base",
+		"pensamento_perto": "A caixa da Miauzon. Tem um bilhete do Mr. T colado na tampa.",
+		"titulo": "Monte a base da máquina na garagem",
+		"duracao": 6.0,
+		"suspeita": 4.0,
+		"itens": [],
 		# sem o plano escrito e sem a peça encomendada não há nada na garagem
 		# para montar: a máquina só aparece quando chega a vez dela
 		"oculto": true,
+		"pensamento_depois": "Uma caixa de papelão... Foi numa dessas que o Alfredo me achou.",
+	},
+	{
+		"id": "maquina_fios",
+		"local": "maquina",
+		"rotulo": "Ligar os fios",
+		"pensamento_perto": "",
+		"titulo": "Ligue os fios da máquina",
+		"duracao": 6.0,
+		"suspeita": 4.0,
+		"itens": [],
+		"pensamento_depois": "\"Todo mundo quer filhote.\" Dois anos esperando, e não foi nada que o Soneca fez.",
+	},
+	# a última peça não tem lembrança própria: quem fala depois dela é o painel
+	# da escolha, com a frase do Mr. T
+	{
+		"id": "maquina_antena",
+		"local": "maquina",
+		"rotulo": "Encaixar a antena",
+		"pensamento_perto": "",
+		"titulo": "Encaixe a antena da máquina",
+		"duracao": 6.0,
+		"suspeita": 4.0,
+		"itens": ["Máquina de controle mental"],
 		"pensamento_depois": "",
 	},
 ]

@@ -19,7 +19,12 @@ const VELOCIDADE_RESGATE := 55.0
 const LIMITE_TRAVADO := 1.2
 const MOVIMENTO_MINIMO := 3.0
 
-enum Estado { ROTINA, INVESTIGANDO, PERSEGUINDO, BRAVO }
+# fim do dia: perto assim ele para e chama o Caju para a TV. Se a rota não
+# fechar nesse tempo, a conversa começa de onde ele estiver, que o fade vem logo
+const DISTANCIA_BUSCA := 36.0
+const PACIENCIA_BUSCA := 10.0
+
+enum Estado { ROTINA, INVESTIGANDO, PERSEGUINDO, BRAVO, BUSCANDO }
 
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
@@ -38,11 +43,13 @@ var _resgatando := false
 var _tempo_travado := 0.0
 var _pos_vigia := Vector2.ZERO
 var _travamentos_seguidos := 0
+var _falas_busca: Array = []
 
 
 func _ready() -> void:
 	Jogo.ruido.connect(_ao_ouvir_ruido)
 	Jogo.faixa_alterada.connect(_ao_mudar_faixa)
+	Jogo.fim_do_dia.connect(_ao_fim_do_dia)
 
 	var passos := 0
 	while passos < 30:
@@ -72,6 +79,12 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if alvo == null:
 		alvo = get_tree().get_first_node_in_group("jogador")
+
+	# a busca vem antes do resgate e da vigia: as duas mandam ele de volta à
+	# ronda, e aqui ele não pode largar o Caju
+	if _estado == Estado.BUSCANDO:
+		_passo_buscando(delta)
+		return
 
 	if _resgatar_se_fora_do_piso():
 		return
@@ -147,6 +160,44 @@ func _passo_perseguindo(delta: float) -> void:
 		return
 
 	_andar(VELOCIDADE_CACA)
+
+
+func _ao_fim_do_dia(falas: Array) -> void:
+	_estado = Estado.BUSCANDO
+	_espera = PACIENCIA_BUSCA
+	_falas_busca = falas
+	_resgatando = false
+	_tempo_desde_recalculo = INTERVALO_RECALCULO
+
+
+# Anda até o Caju e, chegando, fala. O fim da conversa é o fim do dia.
+func _passo_buscando(delta: float) -> void:
+	if _falas_busca.is_empty():
+		_parar()
+		return
+
+	_espera -= delta
+	_tempo_desde_recalculo += delta
+	if _tempo_desde_recalculo >= INTERVALO_RECALCULO and alvo:
+		_tempo_desde_recalculo = 0.0
+		nav_agent.target_position = _no_piso(alvo.global_position)
+
+	var perto := alvo == null or global_position.distance_to(alvo.global_position) <= DISTANCIA_BUSCA
+	if not perto and _espera > 0.0 and not nav_agent.is_navigation_finished():
+		_andar(VELOCIDADE)
+		return
+
+	if alvo:
+		var direcao := global_position.direction_to(alvo.global_position)
+		if absf(direcao.x) > absf(direcao.y):
+			ultima_direcao = "direita" if direcao.x > 0 else "esquerda"
+		else:
+			ultima_direcao = "baixo" if direcao.y > 0 else "cima"
+	_parar()
+	var falas := _falas_busca
+	_falas_busca = []
+	Jogo.dialogo_terminado.connect(Jogo.encerrar_dia, CONNECT_ONE_SHOT)
+	Jogo.conversar(falas)
 
 
 func _passo_bravo(delta: float) -> void:

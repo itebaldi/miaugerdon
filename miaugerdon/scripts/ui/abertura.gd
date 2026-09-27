@@ -6,8 +6,16 @@ extends Control
 # Para mexer na diagramação, abra cenas/ui/abertura.tscn e arraste os nós. A
 # ordem de revelação é a ordem dos nós na árvore: quadros de cima para baixo,
 # e dentro de cada quadro, os balões na ordem em que aparecem.
+#
+# A HQ da noite (cenas/ui/noite.tscn) usa este mesmo script: cada cena tem a
+# sua prancha, e o que muda entre elas fica nos campos abaixo.
 
-const CENA_JOGO := "res://cenas/mapa2.tscn"
+## Cena que entra quando a prancha acaba.
+@export_file("*.tscn") var cena_seguinte := "res://cenas/mapa2.tscn"
+## Dia da partida que começa depois desta prancha.
+@export var dia := 1
+## Trilha desta prancha. Vazio mantém a que já vinha tocando.
+@export var musica: StringName = &""
 
 const FOLGA := 40.0
 # O texto dos balões é rasterizado no tamanho nativo e só depois a prancha
@@ -29,6 +37,8 @@ var _tween: Tween
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	get_tree().paused = false
+	if musica != &"":
+		Musica.tocar(musica)
 
 	_preparar()
 	get_viewport().size_changed.connect(_reenquadrar)
@@ -166,4 +176,5 @@ func _terminar() -> void:
 	if _tween != null:
 		_tween.kill()
 	Jogo.intro_vista = true
-	get_tree().change_scene_to_file(CENA_JOGO)
+	Jogo.dia = dia
+	get_tree().change_scene_to_file(cena_seguinte)

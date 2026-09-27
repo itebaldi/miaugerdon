@@ -17,8 +17,14 @@ signal recado(imagem: String, texto: String)
 signal escolha_final()
 signal partida_terminada(motivo: Motivo)
 signal etapa_concluida(id: String)
+# o primeiro dia acabou: o Alfredo vai buscar o Caju e diz estas falas
+signal fim_do_dia(falas: Array)
+# a conversa do fim do dia terminou: hora de escurecer e ir para a HQ da noite
+signal noite()
 
 const TEMPO_TOTAL := 300.0
+# o segundo dia é só a montagem, com o Soneca a caminho: um minuto e nada mais
+const TEMPO_DIA_2 := 60.0
 const SUSPEITA_MAX := 100.0
 const LIMITE_MEDIA := 35.0
 const LIMITE_ALTA := 70.0
@@ -39,6 +45,11 @@ const OBJETIVOS := Config.OBJETIVOS
 const FINAIS := Config.FINAIS
 
 var intro_vista := false
+# quem define é a HQ que abre o dia: a abertura começa o primeiro, a da noite
+# leva ao segundo. "Tentar de novo" recarrega o mapa e cai no mesmo dia.
+var dia := 1
+# fim do primeiro dia: relógio parado, Caju sem controle e o Alfredo vindo
+var em_roteiro := false
 
 var em_partida := false
 var observado := false
@@ -52,18 +63,26 @@ var carga := ""
 
 var _faixa := Faixa.BAIXA
 var _pensamentos_vistos := {}
+var _falas_fim_do_dia: Array = []
 
 
+# O segundo dia começa depois da etapa que fecha o primeiro, com tudo o que veio
+# antes já feito e guardado no inventário.
 func iniciar_partida() -> void:
 	get_tree().paused = false
 	suspeita = 0.0
-	tempo_restante = TEMPO_TOTAL
-	indice = 0
+	tempo_restante = TEMPO_TOTAL if dia == 1 else TEMPO_DIA_2
+	indice = 0 if dia == 1 else _inicio_do_dia_2()
 	concluidos.clear()
 	concluidos.resize(OBJETIVOS.size())
 	concluidos.fill(false)
 	itens.clear()
+	for i in indice:
+		concluidos[i] = true
+		itens.append_array(OBJETIVOS[i]["itens"])
 	carga = ""
+	em_roteiro = false
+	_falas_fim_do_dia = []
 	_pensamentos_vistos.clear()
 	_faixa = Faixa.BAIXA
 	observado = false
@@ -154,8 +173,40 @@ func concluir_objetivo(id: String) -> void:
 
 		escolha_final.emit()
 		return
+
+	# a próxima etapa é de amanhã: não se anuncia, e o dia para aqui
+	if atual.has("fim_do_dia"):
+		em_partida = false
+		em_roteiro = true
+		definir_observado(false)
+		pensar(frase)
+		_falas_fim_do_dia = atual["fim_do_dia"]
+		# com recado na tela, o Alfredo só aparece depois que ele for lido
+		if bilhete.is_empty():
+			recado_lido()
+		return
+
 	objetivo_alterado.emit(indice, _titulo(OBJETIVOS[indice]))
 	pensar(frase)
+
+
+func recado_lido() -> void:
+	if _falas_fim_do_dia.is_empty():
+		return
+	var falas := _falas_fim_do_dia
+	_falas_fim_do_dia = []
+	fim_do_dia.emit(falas)
+
+
+func encerrar_dia() -> void:
+	noite.emit()
+
+
+func _inicio_do_dia_2() -> int:
+	for i in OBJETIVOS.size():
+		if OBJETIVOS[i].has("fim_do_dia"):
+			return i + 1
+	return 0
 
 
 func emitir_ruido(posicao: Vector2) -> void:

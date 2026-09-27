@@ -1,0 +1,403 @@
+[gd_scene format=3 uid="uid://bi7h1aafxls8c"]
+
+[ext_resource type="Script" uid="uid://ieuhgihgh1q6" path="res://scripts/ui/abertura.gd" id="1_abertura"]
+[ext_resource type="Script" uid="uid://cu2j1vhl38d5b" path="res://scripts/ui/prancha_hq.gd" id="2_prancha"]
+[ext_resource type="Script" uid="uid://mxj0sqbn428w" path="res://scripts/ui/quadro_hq.gd" id="3_quadro"]
+[ext_resource type="Script" uid="uid://bi6cxt2m6jfbd" path="res://scripts/ui/balao_hq.gd" id="4_balao"]
+[ext_resource type="Texture2D" uid="uid://r6y51q6vlt2x" path="res://sprites/abertura/ficha1.png" id="5_ficha1"]
+[ext_resource type="Texture2D" uid="uid://c1axld0sptjda" path="res://sprites/noite/Q1.png" id="6_q1"]
+[ext_resource type="Texture2D" uid="uid://1gxcuk70sdkq" path="res://sprites/noite/Q2.png" id="7_q2"]
+[ext_resource type="Texture2D" uid="uid://cp1drfd1j8cd4" path="res://sprites/noite/Q3.png" id="8_q3"]
+[ext_resource type="Texture2D" uid="uid://b12r1oika1unx" path="res://sprites/noite/Q4.png" id="9_q4"]
+[ext_resource type="Texture2D" uid="uid://bsdbdv2u823kl" path="res://sprites/noite/Q5.png" id="10_q5"]
+[ext_resource type="Texture2D" uid="uid://cjtbljv1etxfc" path="res://sprites/noite/Q6.png" id="11_q6"]
+[ext_resource type="Texture2D" uid="uid://d4no8ci28iq8n" path="res://sprites/noite/Q7.png" id="12_q7"]
+[ext_resource type="Texture2D" uid="uid://du1r00upbbite" path="res://sprites/noite/Q9.png" id="13_q9"]
+
+[sub_resource type="Gradient" id="Gradient_vinheta"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0, 0, 0.62)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vinheta"]
+gradient = SubResource("Gradient_vinheta")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_escuro"]
+colors = PackedColorArray(0.09, 0.1, 0.17, 1, 0.02, 0.02, 0.05, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_escuro"]
+gradient = SubResource("Gradient_escuro")
+width = 256
+height = 256
+fill = 1
+fill_from = Vector2(0.5, 0.4)
+fill_to = Vector2(1, 1)
+
+[node name="Noite" type="Control" unique_id=1584295403]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_abertura")
+dia = 2
+musica = &"menu"
+
+[node name="Fundo" type="ColorRect" parent="." unique_id=207373340]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.135, 0.105, 0.083, 1)
+
+[node name="Vinheta" type="TextureRect" parent="." unique_id=788939153]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_vinheta")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Palco" type="Control" parent="." unique_id=2133290604]
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Prancha" type="Control" parent="Palco" unique_id=1213995317]
+anchors_preset = 0
+offset_right = 1400.0
+offset_bottom = 2644.0
+mouse_filter = 2
+script = ExtResource("2_prancha")
+
+[node name="N1Colo" type="Control" parent="Palco/Prancha" unique_id=883532029]
+clip_contents = true
+anchors_preset = 0
+offset_left = 44.0
+offset_top = 44.0
+offset_right = 600.0
+offset_bottom = 506.0
+mouse_filter = 2
+script = ExtResource("3_quadro")
+imagem = ExtResource("6_q1")
+foco = Vector2(0.5, 0)
+
+[node name="Narracao" type="Control" parent="Palco/Prancha/N1Colo" unique_id=586014927]
+anchors_preset = 0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 206.0
+offset_bottom = 155.0
+pivot_offset = Vector2(97, 71.5)
+mouse_filter = 2
+script = ExtResource("4_balao")
+tipo = 3
+texto = "No fim da tarde, Alfredo achou Caju antes que Caju achasse mais problemas."
+fonte = 16
+
+[node name="Descobriu" type="Control" parent="Palco/Prancha/N1Colo" unique_id=1840724123]
+anchors_preset = 0
+offset_left = 2.0
+offset_top = 318.0
+offset_right = 208.0
+offset_bottom = 454.0
+pivot_offset = Vector2(103, 68)
+mouse_filter = 2
+script = ExtResource("4_balao")
+tipo = 2
+texto = "Ele descobriu?!"
+fonte = 16
+aponta_para = Vector2(196, 238)
+
+[node name="N2Sofa" type="Control" parent="Palco/Prancha" unique_id=1251548664]
+clip_contents = true
+anchors_preset = 0
+offset_left = 622.0
+offset_top = 44.0
+offset_right = 1356.0
+offset_bottom = 506.0
+mouse_filter = 2
+script = ExtResource("3_quadro")
+imagem = ExtResource("7_q2")
+
+[node name="FalaTV" type="Control" parent="Palco/Prancha/N2Sofa" unique_id=1108355944]
+anchors_preset = 0
+offset_left = 166.0
+offset_top = 10.0
+offset_right = 386.0
+offset_bottom = 132.0
+pivot_offset = Vector2(110, 61)
+mouse_filter = 2
+script = ExtResource("4_balao")
+tipo = 5
+texto = "...e hoje vamos falar dos gatos que ninguém escolhe."
+fonte = 16
+aponta_para = Vector2(146, 110)
+
+[node name="FalaAlfredo" type="Control" parent="Palco/Prancha/N2Sofa" unique_id=1950611178]
+anchors_preset = 0
+offset_left = 166.0
+offset_top = 206.0
+offset_right = 340.0
+offset_bottom = 296.0
+pivot_offset = Vector2(87, 45)
+mouse_filter = 2
+script = ExtResource("4_balao")
+texto = "Olha, Caju. É sobre abrigo."
+fonte = 16
+aponta_para = Vector2(436, 152)
+
+[node name="N3TV" type="Control" parent="Palco/Prancha" unique_id=998834049]
+clip_contents = true
+anchors_preset = 0
+offset_left = 44.0
+offset_top = 528.0
+offset_right = 700.0
+offset_bottom = 1030.0
+mouse_filter = 2
+script = ExtResource("3_quadro")
+imagem = ExtResource("8_q3")
+foco = Vector2(1, 0.5)
+
+[node name="FalaTV" type="Control" parent="Palco/Prancha/N3TV" unique_id=1077928064]
+anchors_preset = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 262.0
+offset_bottom = 186.0
+pivot_offset = Vector2(127, 89)
+mouse_filter = 2
+script = ExtResource("4_balao")
+tipo = 5
+texto = "Os gatos adultos são os que mais esperam. Não por serem bravos: é que todo mundo quer filhote."
+fonte = 16
+aponta_para = Vector2(292, 214)
+
+[node name="PensamentoCaju" type="Control" parent="Palco/Prancha/N3TV" unique_id=472903644]
+anchors_preset = 0
+offset_left = 8.0
+offset_top = 316.0
+offset_right = 250.0
+offset_bottom = 450.0
+pivot_offset = Vector2(121, 67)
+mouse_filter = 2
+script = ExtResource("4_balao")
+tipo = 1
+texto = "O Mr. T disse que alguma coisa ele fez..."
+fonte = 16
+aponta_para = Vector2(396, 350)
+
+[node name="N4Nome" type="Control" parent="Palco/Prancha" unique_id=2093836522]
+clip_contents = true
+anchors_preset = 0
+offset_left = 722.0
+offset_top = 528.0
+offset_right = 1356.0
+offset_bottom = 1030.0
+mouse_filter = 2
+script = ExtResource("3_quadro")
+imagem = ExtResource("9_q4")
+foco = Vector2(0, 0.5)
+
+[node name="FalaAlfredo" type="Control" parent="Palco/Prancha/N4Nome" unique_id=2113642001]
+anchors_preset = 0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 350.0
+offset_bottom = 176.0
+pivot_offset = Vector2(169, 82)
+mouse_filter = 2
+script = ExtResource("4_balao")
+texto = "No abrigo disseram que o Soneca é muito calmo e dorme em qualquer lugar e em posições engraçadas. Por isso o nome."
+fonte = 16
+aponta_para = Vector2(415, 180)
+
+[node name="N5Caixa" type="Control" parent="Palco/Prancha" unique_id=2124665039]
+clip_contents = true
+anchors_preset = 0
+offset_left = 44.0
+offset_top = 1052.0
+offset_right = 800.0
+offset_bottom = 1554.0
+mouse_filter = 2
+script = ExtResource("3_quadro")
+imagem = ExtResource("10_q5")
+
+[node name="FalaAlfredo" type="Control" parent="Palco/Prancha/N5Caixa" unique_id=1734737570]
+anchors_preset = 0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 290.0
+offset_bottom = 150.0
+pivot_offset = Vector2(140, 71)
+mouse_filter = 2
+script = ExtResource("4_balao")
+texto = "Sabia que você também não tinha casa? Te achei numa caixa, embaixo da chuva."
+fonte = 16
+aponta_para = Vector2(328, 144)
+
+[node name="N6Lembranca" type="Control" parent="Palco/Prancha" unique_id=1534956492]
+clip_contents = true
+anchors_preset = 0
+offset_left = 822.0
+offset_top = 1052.0
+offset_right = 1356.0
+offset_bottom = 1554.0
+mouse_filter = 2
+script = ExtResource("3_quadro")
+imagem = ExtResource("11_q6")
+foco = Vector2(0.75, 0.5)
+imaginacao = true
+
+[node name="PensamentoCaju" type="Control" parent="Palco/Prancha/N6Lembranca" unique_id=1153058514]
+anchors_preset = 0
+offset_left = 322.0
+offset_top = 262.0
+offset_right = 500.0
+offset_bottom = 392.0
+pivot_offset = Vector2(89, 65)
+mouse_filter = 2
+script = ExtResource("4_balao")
+tipo = 1
+texto = "Eu também não era gato daqui."
+fonte = 16
+
+[node name="N7Colo" type="Control" parent="Palco/Prancha" unique_id=1344626674]
+clip_contents = true
+anchors_preset = 0
+offset_left = 44.0
+offset_top = 1576.0
+offset_right = 900.0
+offset_bottom = 2078.0
+mouse_filter = 2
+script = ExtResource("3_quadro")
+imagem = ExtResource("12_q7")
+foco = Vector2(0.5, 0)
+
+[node name="FalaAlfredo" type="Control" parent="Palco/Prancha/N7Colo" unique_id=205805762]
+anchors_preset = 0
+offset_left = 272.0
+offset_top = 8.0
+offset_right = 500.0
+offset_bottom = 104.0
+pivot_offset = Vector2(114, 48)
+mouse_filter = 2
+script = ExtResource("4_balao")
+texto = "Esse colo cabe dois, viu?"
+fonte = 17
+aponta_para = Vector2(266, 139)
+
+[node name="PensamentoCaju" type="Control" parent="Palco/Prancha/N7Colo" unique_id=78133183]
+anchors_preset = 0
+offset_left = 465.0
+offset_top = 180.0
+offset_right = 655.0
+offset_bottom = 338.0
+pivot_offset = Vector2(95, 79)
+mouse_filter = 2
+script = ExtResource("4_balao")
+tipo = 1
+texto = "O Mr. T nunca viu o Soneca."
+fonte = 16
+aponta_para = Vector2(322, 318)
+
+[node name="N8Sono" type="Control" parent="Palco/Prancha" unique_id=495083465]
+clip_contents = true
+anchors_preset = 0
+offset_left = 922.0
+offset_top = 1576.0
+offset_right = 1356.0
+offset_bottom = 2078.0
+mouse_filter = 2
+script = ExtResource("3_quadro")
+imagem = SubResource("GradientTexture2D_escuro")
+
+[node name="Narracao" type="Control" parent="Palco/Prancha/N8Sono" unique_id=435765843]
+anchors_preset = 0
+offset_left = 30.0
+offset_top = 390.0
+offset_right = 404.0
+offset_bottom = 472.0
+pivot_offset = Vector2(187, 41)
+mouse_filter = 2
+script = ExtResource("4_balao")
+tipo = 3
+texto = "Caju dormiu sem responder."
+fonte = 19
+
+[node name="N9Manha" type="Control" parent="Palco/Prancha" unique_id=938686073]
+clip_contents = true
+anchors_preset = 0
+offset_left = 44.0
+offset_top = 2100.0
+offset_right = 1356.0
+offset_bottom = 2600.0
+mouse_filter = 2
+script = ExtResource("3_quadro")
+imagem = ExtResource("13_q9")
+foco = Vector2(0.5, 0.57)
+
+[node name="Narracao" type="Control" parent="Palco/Prancha/N9Manha" unique_id=888039236]
+anchors_preset = 0
+offset_left = 16.0
+offset_top = 14.0
+offset_right = 396.0
+offset_bottom = 94.0
+pivot_offset = Vector2(190, 40)
+mouse_filter = 2
+script = ExtResource("4_balao")
+tipo = 3
+texto = "Na manhã seguinte, as peças chegaram."
+fonte = 19
+
+[node name="BilheteMrT" type="Control" parent="Palco/Prancha/N9Manha" unique_id=1264848957]
+anchors_preset = 0
+offset_left = 993.0
+offset_top = 325.0
+offset_right = 1293.0
+offset_bottom = 465.0
+pivot_offset = Vector2(150, 70)
+mouse_filter = 2
+script = ExtResource("4_balao")
+tipo = 4
+texto = "[center][font_size=22][b]Não amolece agora.[/b][/font_size][/center]
+[right]— Mr. T[/right]"
+fonte = 18
+semente = 5
+textura = ExtResource("5_ficha1")
+textura_cor = Color(0.9, 0.89, 0.95, 1)
+
+[node name="Objetivo" type="Control" parent="Palco/Prancha/N9Manha" unique_id=981568915]
+anchors_preset = 0
+offset_left = 16.0
+offset_top = 392.0
+offset_right = 390.0
+offset_bottom = 490.0
+pivot_offset = Vector2(187, 49)
+mouse_filter = 2
+script = ExtResource("4_balao")
+tipo = 3
+texto = "Último objetivo:
+[b][color=#c7211c]monte a máquina antes que o Soneca chegue[/color][/b]"
+fonte = 19
+
+[node name="Dica" type="Label" parent="." unique_id=1250215736]
+layout_mode = 0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -46.0
+offset_bottom = -14.0
+theme_override_colors/font_color = Color(0.85, 0.78, 0.64, 0.75)
+theme_override_colors/font_outline_color = Color(0.04, 0.03, 0.03, 0.8)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 15
+text = "[E] continuar          [Esc] pular"
+horizontal_alignment = 1

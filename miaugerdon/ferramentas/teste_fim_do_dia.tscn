@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://ferramentas/teste_fim_do_dia.gd" id="1"]
+
+[node name="TesteFimDoDia" type="Node2D"]
+script = ExtResource("1")

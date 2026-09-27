@@ -49,7 +49,8 @@ func _physics_process(delta: float) -> void:
 	recarga_miado = maxf(0.0, recarga_miado - delta)
 	recarga_limpeza = maxf(0.0, recarga_limpeza - delta)
 
-	if _bloqueio > 0.0:
+	# fim do dia: o Alfredo está vindo buscá-lo, e o jogador só assiste
+	if _bloqueio > 0.0 or Jogo.em_roteiro:
 		_bloqueio -= delta
 		velocity = Vector2.ZERO
 		animated_sprite_2d.play("parado_" + ultima_direcao)

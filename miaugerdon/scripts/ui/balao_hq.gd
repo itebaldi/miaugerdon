@@ -10,7 +10,9 @@ class_name BalaoHQ
 # Para o rabicho: mova "Aponta Para" (coordenadas do quadro, não da tela).
 # Vector2.ZERO em "Aponta Para" = balão sem rabicho.
 
-enum Tipo { FALA, PENSAMENTO, PENSAMENTO_TENSO, NARRACAO, ETIQUETA }
+# ELETRONICO é a voz que sai de aparelho (TV, rádio, telefone): contorno
+# serrilhado e rabicho em raio, a convenção dos quadrinhos para som de alto-falante.
+enum Tipo { FALA, PENSAMENTO, PENSAMENTO_TENSO, NARRACAO, ETIQUETA, ELETRONICO }
 
 const COR_TINTA := Color(0.106, 0.086, 0.071)
 const COR_FALA := Color(0.976, 0.965, 0.929)
@@ -44,6 +46,13 @@ const RECORTE := 0.18
 const RECORTE_TENSO := 0.24
 const PASSOS := 120
 const FOLGA_QUADRO := 6.0
+
+# serrilhado do balão eletrônico: altura de cada dente e distância entre eles
+# ao longo da borda
+const DENTE := 4.0
+const PASSO_DENTE := 11.0
+# meia-largura do raio onde ele sai do balão
+const LARGURA_RAIO := 11.0
 
 @export var tipo := Tipo.FALA:
 	set(valor):
@@ -200,6 +209,8 @@ func _altura_para(conteudo: float) -> float:
 			return (conteudo + 12.0) / maxf(1.0 - 2.0 * _recorte(), 0.2)
 		Tipo.ETIQUETA:
 			return conteudo + 20.0
+		Tipo.ELETRONICO:
+			return conteudo + 36.0
 		_:
 			return conteudo + 28.0
 
@@ -224,6 +235,8 @@ func _margem_interna() -> Vector2:
 			return size * _recorte() + Vector2(6, 6)
 		Tipo.ETIQUETA:
 			return Vector2(34, 28)
+		Tipo.ELETRONICO:
+			return Vector2(22, 18)
 		_:
 			return Vector2(18, 14)
 
@@ -252,6 +265,12 @@ func _draw() -> void:
 			draw_polyline(fechada, COR_TINTA, ESPESSURA, true)
 		Tipo.ETIQUETA:
 			_desenhar_papel()
+		Tipo.ELETRONICO:
+			var serra := _forma_serrilhada()
+			draw_colored_polygon(serra, _cor_fundo())
+			var contorno := serra.duplicate()
+			contorno.append(serra[0])
+			draw_polyline(contorno, COR_TINTA, ESPESSURA, true)
 		_:
 			draw_style_box(_caixa(), Rect2(Vector2.ZERO, size))
 
@@ -260,6 +279,8 @@ func _draw() -> void:
 	# "abrir" no rabicho em vez de ficar um triângulo encostado
 	if tipo == Tipo.FALA and aponta_para != Vector2.ZERO:
 		_desenhar_rabicho()
+	elif tipo == Tipo.ELETRONICO and aponta_para != Vector2.ZERO:
+		_desenhar_raio()
 	elif aponta_para != Vector2.ZERO:
 		_desenhar_ligacao()
 	if risco_largura > 0.0:
@@ -381,6 +402,88 @@ func _fora_da_forma(ponto: Vector2) -> float:
 		clampf(ponto.y, interno.position.y, interno.end.y)
 	)
 	return ponto.distance_to(perto) - RAIO_FALA
+
+
+# Mesmo retângulo arredondado da fala, mas com a borda em zigue-zague: cada
+# ponto do contorno sai ou entra um dente, alternando.
+func _forma_serrilhada() -> PackedVector2Array:
+	var borda := _contorno_arredondado(DENTE)
+	var pontos := PackedVector2Array()
+	# número par de pontos, senão o primeiro e o último dente saem para o
+	# mesmo lado e a serra dá um degrau onde a volta fecha
+	var total := borda.size() - borda.size() % 2
+	for i in total:
+		var ponto: Vector2 = borda[i][0]
+		var normal: Vector2 = borda[i][1]
+		pontos.append(ponto + normal * (DENTE if i % 2 == 0 else -DENTE))
+	return pontos
+
+
+# Pontos quase equidistantes sobre o retângulo arredondado, cada um com a normal
+# para fora. A volta segue no sentido horário a partir do canto superior
+# esquerdo: reta de cima, curva, reta da direita, curva e assim por diante.
+func _contorno_arredondado(folga: float) -> Array:
+	var r := RAIO_FALA
+	var inicio := Vector2(folga + r, folga + r)
+	var fim := size - inicio
+	var centros := [Vector2(fim.x, inicio.y), fim, Vector2(inicio.x, fim.y), inicio]
+
+	var saida: Array = []
+	for lado in 4:
+		var anterior: Vector2 = centros[(lado + 3) % 4]
+		var centro: Vector2 = centros[lado]
+		var angulo := -PI * 0.5 + PI * 0.5 * float(lado)
+		var normal := Vector2.from_angle(angulo)
+
+		var a := anterior + normal * r
+		var b := centro + normal * r
+		var na: int = maxi(roundi(a.distance_to(b) / PASSO_DENTE), 1)
+		for k in na:
+			saida.append([a.lerp(b, float(k) / float(na)), normal])
+
+		var nc: int = maxi(roundi(r * PI * 0.5 / PASSO_DENTE), 1)
+		for k in nc:
+			var direcao := Vector2.from_angle(angulo + PI * 0.5 * float(k) / float(nc))
+			saida.append([centro + direcao * r, direcao])
+	return saida
+
+
+# Rabicho em raio: sai largo do balão, dobra duas vezes para lados opostos e
+# fecha em ponta no aparelho.
+func _desenhar_raio() -> void:
+	var centro := size * 0.5
+	var alvo := get_transform().affine_inverse() * aponta_para
+	var direcao := alvo - centro
+	if direcao.length() < 1.0:
+		return
+	direcao = direcao.normalized()
+
+	var base := _borda_forma(centro, direcao) - direcao * DENTE
+	var lado := direcao.orthogonal()
+	var comprimento := base.distance_to(alvo)
+	var espinha := [
+		base,
+		base.lerp(alvo, 0.42) + lado * comprimento * 0.16,
+		base.lerp(alvo, 0.62) - lado * comprimento * 0.10,
+		alvo,
+	]
+	var larguras := [LARGURA_RAIO, LARGURA_RAIO * 0.62, LARGURA_RAIO * 0.45, 0.0]
+
+	var esquerda := PackedVector2Array()
+	var direita := PackedVector2Array()
+	for i in espinha.size():
+		esquerda.append(espinha[i] + lado * larguras[i])
+		direita.append(espinha[i] - lado * larguras[i])
+
+	# o polígono entra um pouco no balão para cobrir o serrilhado na saída
+	var recuo := direcao * RECUO_RABICHO
+	var poligono := PackedVector2Array([direita[0] - recuo, esquerda[0] - recuo])
+	poligono.append_array(esquerda)
+	for i in range(direita.size() - 2, -1, -1):
+		poligono.append(direita[i])
+	draw_colored_polygon(poligono, _cor_fundo())
+	draw_polyline(esquerda, COR_TINTA, ESPESSURA, true)
+	draw_polyline(direita, COR_TINTA, ESPESSURA, true)
 
 
 func _desenhar_bolhas(inicio: Vector2, alvo: Vector2) -> void:

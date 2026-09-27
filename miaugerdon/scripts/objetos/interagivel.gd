@@ -72,6 +72,9 @@ func _process(delta: float) -> void:
 	# aviso de etapa futura, ou falaria por cima do item que ocupa o seu lugar
 	if not visible:
 		return
+	if Jogo.em_roteiro:
+		_label.visible = false
+		return
 
 	var perto := _caju != null
 	_label.visible = perto
