@@ -1,22 +1,31 @@
 extends Node
 
-# Exporta a prancha da abertura inteira como PNG, na resolução em que ela foi
-# diagramada — nada de print de tela.
+# Exporta as pranchas em quadrinho inteiras como PNG, na resolução em que foram
+# diagramadas — nada de print de tela.
 #
-# Como rodar: com a cena ferramentas/exportar_prancha.tscn aberta, F6. O arquivo
-# sai na raiz do repositório, ao lado da pasta do projeto.
+# Como rodar: com a cena ferramentas/exportar_prancha.tscn aberta, F6. Os
+# arquivos saem na raiz do repositório, ao lado da pasta do projeto.
 #
 # O truque é tirar o script da raiz da cena ANTES de colocá-la na árvore: sem
 # ele a animação de revelação nunca começa, então todos os quadros e balões já
 # nascem visíveis e na posição final. Depois a prancha é movida para um
 # SubViewport do tamanho dela e fotografada de lá.
 
-const ARQUIVO := "prancha_abertura.png"
+const PRANCHAS := {
+	"prancha_abertura.png": "res://cenas/ui/abertura.tscn",
+	"prancha_noite.png": "res://cenas/ui/noite.tscn",
+}
 const QUADROS_DE_ESPERA := 12
 
 
 func _ready() -> void:
-	var cena: Control = load("res://cenas/ui/abertura.tscn").instantiate()
+	for arquivo in PRANCHAS:
+		await _exportar(PRANCHAS[arquivo], arquivo)
+	get_tree().quit()
+
+
+func _exportar(caminho_cena: String, arquivo: String) -> void:
+	var cena: Control = load(caminho_cena).instantiate()
 	cena.set_script(null)
 	add_child(cena)
 
@@ -41,10 +50,12 @@ func _ready() -> void:
 		await get_tree().process_frame
 	await RenderingServer.frame_post_draw
 
-	var caminho := ProjectSettings.globalize_path("res://").path_join("../" + ARQUIVO).simplify_path()
+	var caminho := ProjectSettings.globalize_path("res://").path_join("../" + arquivo).simplify_path()
 	var erro := alvo.get_texture().get_image().save_png(caminho)
 	if erro == OK:
 		print("prancha salva em %s (%d x %d)" % [caminho, medida.x, medida.y])
 	else:
-		push_error("falhou ao salvar a prancha: %d" % erro)
-	get_tree().quit()
+		push_error("falhou ao salvar %s: %d" % [arquivo, erro])
+
+	alvo.queue_free()
+	cena.queue_free()

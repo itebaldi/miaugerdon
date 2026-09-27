@@ -143,16 +143,16 @@ aponta_para = Vector2(146, 110)
 
 [node name="FalaAlfredo" type="Control" parent="Palco/Prancha/N2Sofa" unique_id=1950611178]
 anchors_preset = 0
-offset_left = 166.0
-offset_top = 206.0
-offset_right = 340.0
-offset_bottom = 296.0
+offset_left = 536.0
+offset_top = 34.0
+offset_right = 710.0
+offset_bottom = 124.0
 pivot_offset = Vector2(87, 45)
 mouse_filter = 2
 script = ExtResource("4_balao")
 texto = "Olha, Caju. É sobre abrigo."
 fonte = 16
-aponta_para = Vector2(436, 152)
+aponta_para = Vector2(472, 140)
 
 [node name="N3TV" type="Control" parent="Palco/Prancha" unique_id=998834049]
 clip_contents = true
@@ -329,7 +329,7 @@ pivot_offset = Vector2(187, 41)
 mouse_filter = 2
 script = ExtResource("4_balao")
 tipo = 3
-texto = "Caju dormiu sem responder."
+texto = "Caju adormeceu."
 fonte = 19
 
 [node name="N9Manha" type="Control" parent="Palco/Prancha" unique_id=938686073]
