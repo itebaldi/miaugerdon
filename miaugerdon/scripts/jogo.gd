@@ -22,7 +22,7 @@ signal fim_do_dia(falas: Array)
 # a conversa do fim do dia terminou: hora de escurecer e ir para a HQ da noite
 signal noite()
 
-const TEMPO_TOTAL := 300.0
+const TEMPO_TOTAL := 180.0
 # o segundo dia é só a montagem, com o Soneca a caminho: um minuto e nada mais
 const TEMPO_DIA_2 := 60.0
 const SUSPEITA_MAX := 100.0
