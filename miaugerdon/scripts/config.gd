@@ -75,6 +75,13 @@ const CARREGAVEIS := {
 }
 
 
+# Escala e deslocamento (em pixels da textura) dos sprites da máquina. O ponto
+# da garagem fica colado na lavanderia: o console é que ocupa o ponto, e a
+# caixa aberta vai para a esquerda, junto à parede, longe da máquina de lavar.
+const ESCALA_MAQUINA := 0.095
+const DESLOCAMENTO_MAQUINA := Vector2(-215, -175)
+
+
 # Cada fala é [quem fala, texto]. Uma etapa com "local" acontece no ponto do
 # mapa de outra: é assim que Caju volta ao quintal para receber a próxima ordem.
 const OBJETIVOS := [
@@ -233,6 +240,10 @@ const OBJETIVOS := [
 		# sem o plano escrito e sem a peça encomendada não há nada na garagem
 		# para montar: a máquina só aparece quando chega a vez dela
 		"oculto": true,
+		# a caixa fechada usa a escala posta na cena, mas fica onde a caixa aberta
+		# vai estar nos sprites da máquina, senão ela pula de lugar ao abrir
+		"sprite_ponto": "res://sprites/objetos/caixa.png",
+		"deslocamento_ponto": Vector2(-514, -180),
 		"pensamento_depois": "Uma caixa de papelão... Foi numa dessas que o Alfredo me achou.",
 	},
 	{
@@ -244,6 +255,9 @@ const OBJETIVOS := [
 		"duracao": 6.0,
 		"suspeita": 4.0,
 		"itens": [],
+		"sprite_ponto": "res://sprites/objetos/maquina_1_base.png",
+		"escala_ponto": ESCALA_MAQUINA,
+		"deslocamento_ponto": DESLOCAMENTO_MAQUINA,
 		"pensamento_depois": "\"Todo mundo quer filhote.\" Dois anos esperando, e não foi nada que o Soneca fez.",
 	},
 	# a última peça não tem lembrança própria: quem fala depois dela é o painel
@@ -257,6 +271,11 @@ const OBJETIVOS := [
 		"duracao": 6.0,
 		"suspeita": 4.0,
 		"itens": ["Máquina de controle mental"],
+		"sprite_ponto": "res://sprites/objetos/maquina_2_fios.png",
+		# montada e ainda desligada: é assim que ela fica durante a escolha
+		"sprite_pronto": "res://sprites/objetos/maquina_3_pronta.png",
+		"escala_ponto": ESCALA_MAQUINA,
+		"deslocamento_ponto": DESLOCAMENTO_MAQUINA,
 		"pensamento_depois": "",
 	},
 ]
@@ -267,25 +286,46 @@ const FINAIS := [
 		"vitoria": false,
 		"titulo": "Alfredo descobriu o plano",
 		"imagem": "res://sprites/finais/FINAL_alfredo pegou.png",
-		"texto": "Ele juntou as peças: o papel sumido, o computador ligado, o gato onde não devia.\nCaju passou a tarde trancado no quintal e o cachorro chegou sem ele poder fazer nada.",
+		# dá para ser pego em qualquer etapa, até antes da caneta: as pistas são
+		# vagas de propósito. Quem abandona o Caju é o Mr. T; quem aparece é o
+		# gato que ele pintou como ameaça.
+		"texto": "Ele juntou as pistas: coisas sumindo, rabiscos pela casa e um gato sempre onde não devia estar.\n"
+			+ "Caju passou o resto do dia de castigo no quintal.\n"
+			+ "Do outro lado da cerca, o Mr. T jurou que nunca tinha visto aquele gato na vida.\n"
+			+ "Quando o Soneca chegou, foi o único que veio até o portão fazer companhia.",
 	},
 	{
 		"vitoria": false,
-		"titulo": "O cachorro chegou",
-		"imagem": "res://sprites/finais/FINAL_gameover tempo.png",
-		"texto": "A campainha tocou antes de Caju decidir o que sentia.\nO cachorro entrou correndo e o abraçou. Caju ficou ali, paralisado, ainda com o plano no bolso.",
+		"titulo": "O Soneca chegou",
+		"imagem": "res://sprites/finais/FINAL_soneca chegou.png",
+		# o tempo acaba no dia 1 ou no dia 2, e o texto serve aos dois: não diz
+		# quando a campainha tocou, só que o plano não ficou pronto a tempo
+		"texto": "A campainha tocou antes de o plano ficar pronto.\n"
+			+ "Alfredo entrou com a caixa de transporte, e de dentro dela saiu um focinho preto e branco, curioso.\n"
+			+ "Caju ficou parado no meio da sala, sem máquina, sem plano e sem saber o que sentia.\n"
+			+ "O Soneca piscou devagar para ele. Em língua de gato, isso quer dizer: prazer.",
 	},
 	{
 		"vitoria": true,
 		"titulo": "O mundo agora pertence aos gatos",
 		"imagem": "res://sprites/finais/FINAL_estatua liberdade.png",
-		"texto": "A máquina zumbiu. Alfredo parou no meio da sala e piscou devagar.\nLá fora, o carteiro parou. O cachorro, na van, parou.\nCaju subiu no sofá e olhou a rua como quem olha um império.",
+		# vitória de quem seguiu o Mr. T até o fim: dá certo, e o preço aparece.
+		# A última linha devolve o "esse colo cabe dois" da HQ da noite.
+		"texto": "A máquina zumbiu, e o mundo inteiro parou para ouvir.\n"
+			+ "Alfredo esqueceu o abrigo, a adoção e o nome do Soneca. O carro lá fora deu meia-volta.\n"
+			+ "No quintal, o Mr. T contava para todo mundo que a ideia tinha sido dele.\n"
+			+ "Caju ganhou uma estátua, a casa inteira e um colo onde agora só cabe um.",
 	},
 	{
 		"vitoria": true,
-		"titulo": "Caju mudou de ideia",
-		"imagem": "res://sprites/finais/FINAL_com cachorro.png",
-		"texto": "Caju olhou a máquina por um tempo longo. Depois puxou o fio com a pata.\nFoi até a porta e sentou, com o rabo enrolado nas patas, esperando.\nQuando o cachorro entrou, ele não correu. Cheirou, bufou uma vez e deitou do lado.",
+		# o título é a frase do Alfredo na HQ da noite; a terceira linha desmente,
+		# uma por uma, o que o Mr. T disse do Soneca no primeiro diálogo
+		"titulo": "Esse colo cabe dois",
+		"imagem": "res://sprites/finais/FINAL_colo.png",
+		"texto": "Caju olhou para a máquina por um bom tempo. Depois, com a pata, puxou o fio da tomada.\n"
+			+ "O Soneca entrou devagar, cheirou tudo e dormiu de barriga para cima no meio do tapete.\n"
+			+ "Não miou a noite inteira, não rasgou nada, não trouxe pulga. O que o Mr. T disse ficou lá fora.\n"
+			+ "No sofá, o colo do Alfredo coube dois. Caju reclamou um pouco. Só um pouco.",
 	},
 ]
 

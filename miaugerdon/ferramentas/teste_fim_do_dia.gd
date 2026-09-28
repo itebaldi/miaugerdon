@@ -78,7 +78,7 @@ func _ready() -> void:
 	caju = mapa.get_node("Caju")
 	var maquina := mapa.get_node("Objetivos/Maquina")
 	_conferir(Jogo.em_partida and not Jogo.em_roteiro, "partida rodando de novo")
-	_conferir(absf(Jogo.tempo_restante - Jogo.TEMPO_DIA_2) < 0.5, "um minuto no relógio (%.2fs)" % Jogo.tempo_restante)
+	_conferir(absf(Jogo.tempo_restante - Jogo.TEMPO_DIA_2) < 0.5, "relógio cheio do dia 2 (%.2fs)" % Jogo.tempo_restante)
 	_conferir(Jogo.objetivo_atual()["id"] == "maquina_base", "objetivo é a base da máquina")
 	_conferir(Jogo.esta_concluido(Jogo.indice - 1), "o dia anterior conta como feito")
 	_conferir("Pedido no Miauzon: peça #TR-4" in Jogo.itens, "o inventário lembra do pedido")
@@ -96,8 +96,25 @@ func _ready() -> void:
 	_conferir(maquina.rotulo == "Encaixar a antena", "terceira peça: antena")
 	_conferir(not escolha[0], "ainda sem escolha")
 	maquina._concluir()
-	_conferir(escolha[0], "máquina pronta abre a escolha")
+	_conferir(not escolha[0], "a escolha espera a máquina aparecer")
+	_conferir(Jogo.em_roteiro, "o jogo entra em cena")
+	_conferir(maquina.textura.resource_path.ends_with("maquina_3_pronta.png"), "o ponto mostra a máquina pronta")
+	var relogio := Jogo.tempo_restante
+	await get_tree().create_timer(Jogo.PAUSA_MAQUINA_PRONTA + 0.3).timeout
+	_conferir(escolha[0], "depois da pausa vem a escolha")
+	_conferir(Jogo.tempo_restante == relogio, "o relógio não andou na pausa")
 	_conferir("Máquina de controle mental" in Jogo.itens, "a máquina entrou no inventário")
+
+	print("\n[5] ativar")
+	var final := [-1]
+	Jogo.partida_terminada.connect(func(m): final[0] = m)
+	get_tree().paused = false
+	Jogo.decidir(true)
+	await get_tree().create_timer(0.5).timeout
+	_conferir(final[0] == -1, "o final espera a máquina ligar")
+	await get_tree().create_timer(Jogo.PAUSA_MAQUINA_LIGANDO).timeout
+	_conferir(final[0] == Jogo.Motivo.ATIVOU, "depois dela ligar, o final de ativar")
+	_conferir(maquina.textura.resource_path.ends_with("maquina_4_ligada.png"), "a máquina terminou ligada")
 
 	print("\n=== %s ===" % ("TUDO OK" if _erros == 0 else "%d FALHAS" % _erros))
 	get_tree().quit()

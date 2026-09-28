@@ -44,12 +44,18 @@ var _tempo_travado := 0.0
 var _pos_vigia := Vector2.ZERO
 var _travamentos_seguidos := 0
 var _falas_busca: Array = []
+var _regiao := RID()
 
 
 func _ready() -> void:
 	Jogo.ruido.connect(_ao_ouvir_ruido)
 	Jogo.faixa_alterada.connect(_ao_mudar_faixa)
 	Jogo.fim_do_dia.connect(_ao_fim_do_dia)
+
+	if owner:
+		var regioes := owner.find_children("*", "NavigationRegion2D", true, false)
+		if not regioes.is_empty():
+			_regiao = (regioes[0] as NavigationRegion2D).get_rid()
 
 	var passos := 0
 	while passos < 30:
@@ -84,6 +90,11 @@ func _physics_process(delta: float) -> void:
 	# ronda, e aqui ele não pode largar o Caju
 	if _estado == Estado.BUSCANDO:
 		_passo_buscando(delta)
+		return
+	# cena sem jogador (a máquina pronta, por exemplo): a casa para junto, e
+	# ninguém flagra ninguém
+	if Jogo.em_roteiro:
+		_parar()
 		return
 
 	if _resgatar_se_fora_do_piso():
@@ -317,9 +328,18 @@ func _no_piso(ponto: Vector2) -> Vector2:
 	return NavigationServer2D.map_get_closest_point(nav_agent.get_navigation_map(), ponto)
 
 
+# O mapa de navegação é do mundo, não da cena: sobrevive à troca de cena. Vindo
+# da HQ da noite, que não tem piso, ele chega aqui vazio e já com a contagem
+# alta, e o ponto de piso mais perto de qualquer lugar vira (0, 0), fora da
+# casa. Por isso a contagem não basta: só vale quando o piso mais perto já é o
+# desta cena.
 func _navegacao_pronta() -> bool:
 	var mapa: RID = nav_agent.get_navigation_map()
-	return mapa.is_valid() and NavigationServer2D.map_get_iteration_id(mapa) >= 2
+	if not mapa.is_valid() or NavigationServer2D.map_get_iteration_id(mapa) < 2:
+		return false
+	if not _regiao.is_valid():
+		return true
+	return NavigationServer2D.map_get_closest_point_owner(mapa, global_position) == _regiao
 
 
 func _resgatar_se_fora_do_piso() -> bool:

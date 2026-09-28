@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bko2vn0kave00"
-path="res://.godot/imported/FINAL_gameover tempo.png-2090be68ce78af58ebc79668219da650.ctex"
+uid="uid://b8xm0xold1l46"
+path="res://.godot/imported/FINAL_soneca chegou.png-3e1d29e3170313ef4964827ff15fbb8c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/finais/FINAL_gameover tempo.png"
-dest_files=["res://.godot/imported/FINAL_gameover tempo.png-2090be68ce78af58ebc79668219da650.ctex"]
+source_file="res://sprites/finais/FINAL_soneca chegou.png"
+dest_files=["res://.godot/imported/FINAL_soneca chegou.png-3e1d29e3170313ef4964827ff15fbb8c.ctex"]
 
 [params]
 

@@ -236,6 +236,10 @@ func _unhandled_input(evento: InputEvent) -> void:
 
 	if _painel_escolha.visible:
 		if evento.is_action_pressed("interagir"):
+			# o painel sai e o jogo volta a rodar: a máquina liga na frente do
+			# jogador, e o final só aparece depois
+			_painel_escolha.visible = false
+			get_tree().paused = false
 			Jogo.decidir(true)
 		elif evento.is_action_pressed("disfarce"):
 			Jogo.decidir(false)
@@ -447,7 +451,7 @@ func _ao_terminar(motivo: Jogo.Motivo) -> void:
 	_fim_imagem.texture = ilustracao
 	_fim_imagem.visible = ilustracao != null
 
-	var meia_altura := 240.0 if ilustracao != null else 150.0
+	var meia_altura := 305.0 if ilustracao != null else 150.0
 	_painel_fim.offset_top = -meia_altura
 	_painel_fim.offset_bottom = meia_altura
 

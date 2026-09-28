@@ -14,6 +14,10 @@ func _ready() -> void:
 	_texto.text = ""
 	visible = false
 	Jogo.pensamento.connect(_ao_pensar)
+	# nos momentos encenados da máquina, lembrança atrasada na fila atropelaria
+	# a cena: o que estava para ser pensado fica para trás
+	Jogo.maquina_pronta.connect(_esquecer)
+	Jogo.maquina_ligando.connect(_esquecer)
 
 
 func _process(delta: float) -> void:
@@ -28,6 +32,12 @@ func _ao_pensar(texto: String) -> void:
 	_fila.append(texto)
 	if _restante <= 0.0:
 		_mostrar_proximo()
+
+
+func _esquecer() -> void:
+	_fila.clear()
+	_restante = 0.0
+	visible = false
 
 
 func _mostrar_proximo() -> void:

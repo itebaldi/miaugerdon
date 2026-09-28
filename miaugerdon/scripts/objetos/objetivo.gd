@@ -9,15 +9,22 @@ var _indices: Array[int] = []
 var _etapa := {}
 var _aguardando_dialogo := false
 var _oculto_ate_liberar := false
-# o ponto atrás da cama vai mudando de cara conforme as peças chegam; os outros
-# pontos do mapa têm sprite fixo, posto na cena
+# o ponto atrás da cama e a máquina na garagem vão mudando de cara conforme as
+# peças chegam; os outros pontos do mapa têm sprite fixo, posto na cena
 var _sprite_por_etapa := false
+# escala e deslocamento postos na cena valem para os sprites que não trazem os
+# seus: a caixa fechada e as máquinas foram desenhadas em escalas diferentes
+var _escala_da_cena := 1.0
+var _deslocamento_da_cena := Vector2.ZERO
 
 
 func _ready() -> void:
 	super()
 	if Engine.is_editor_hint():
 		return
+
+	_escala_da_cena = escala_arte
+	_deslocamento_da_cena = deslocamento_arte
 
 	for i in Config.OBJETIVOS.size():
 		var etapa: Dictionary = Config.OBJETIVOS[i]
@@ -33,6 +40,7 @@ func _ready() -> void:
 	if _oculto_ate_liberar:
 		visible = false
 	Jogo.objetivo_alterado.connect(_ao_trocar_objetivo)
+	Jogo.etapa_concluida.connect(_ao_concluir_etapa)
 
 
 # a primeira etapa deste ponto que ainda não foi feita; feitas todas, a última
@@ -55,10 +63,22 @@ func _carregar_etapa() -> void:
 		_atualizar_sprite()
 
 
-# mostra o que já foi entregue: nada, a caneta, a caneta com o papel
+# mostra o que já foi entregue: nada, a caneta, a caneta com o papel. Feitas
+# todas as etapas, o ponto pode trocar para o resultado: a máquina montada.
 func _atualizar_sprite() -> void:
 	var caminho: String = _etapa.get("sprite_ponto", "")
+	if _todas_feitas():
+		caminho = _etapa.get("sprite_pronto", caminho)
 	textura = load(caminho) if caminho != "" else null
+	escala_arte = _etapa.get("escala_ponto", _escala_da_cena)
+	deslocamento_arte = _etapa.get("deslocamento_ponto", _deslocamento_da_cena)
+
+
+# a última etapa não anuncia objetivo novo, quem vem depois dela é a escolha;
+# então é aqui que o ponto descobre que terminou e mostra o resultado
+func _ao_concluir_etapa(_id: String) -> void:
+	if _sprite_por_etapa and _todas_feitas():
+		_carregar_etapa()
 
 
 func _ao_trocar_objetivo(_indice: int, _titulo: String) -> void:

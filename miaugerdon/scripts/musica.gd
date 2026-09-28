@@ -115,7 +115,8 @@ func _ao_mudar_faixa(nova: Jogo.Faixa) -> void:
 
 
 func _process(delta: float) -> void:
-	if not Jogo.em_partida:
+	# em roteiro quem manda na trilha é a cena: a máquina pronta pede silêncio
+	if not Jogo.em_partida or Jogo.em_roteiro:
 		return
 
 	# a partida começou (ou recomeçou): música do jogo, do início e sem pressa

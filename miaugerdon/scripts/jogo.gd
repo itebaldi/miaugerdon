@@ -21,10 +21,17 @@ signal etapa_concluida(id: String)
 signal fim_do_dia(falas: Array)
 # a conversa do fim do dia terminou: hora de escurecer e ir para a HQ da noite
 signal noite()
+# montada a última peça: a casa para um instante para a máquina aparecer
+signal maquina_pronta()
+# o jogador escolheu ativar: a máquina liga antes de o final aparecer
+signal maquina_ligando()
 
 const TEMPO_TOTAL := 180.0
-# o segundo dia é só a montagem, com o Soneca a caminho: um minuto e nada mais
-const TEMPO_DIA_2 := 60.0
+# o segundo dia é só a montagem, com o Soneca a caminho: pouco tempo e nada mais
+const TEMPO_DIA_2 := 120.0
+# a máquina pronta fica em cena antes da escolha, e ligada antes do final
+const PAUSA_MAQUINA_PRONTA := 5.0
+const PAUSA_MAQUINA_LIGANDO := 4.0
 const SUSPEITA_MAX := 100.0
 const LIMITE_MEDIA := 35.0
 const LIMITE_ALTA := 70.0
@@ -48,7 +55,9 @@ var intro_vista := false
 # quem define é a HQ que abre o dia: a abertura começa o primeiro, a da noite
 # leva ao segundo. "Tentar de novo" recarrega o mapa e cai no mesmo dia.
 var dia := 1
-# fim do primeiro dia: relógio parado, Caju sem controle e o Alfredo vindo
+# cena sem jogador: o fim do primeiro dia e a máquina pronta. Relógio e
+# suspeita param, o Caju fica sem controle e o Alfredo só faz o que o roteiro
+# manda
 var em_roteiro := false
 
 var em_partida := false
@@ -64,6 +73,9 @@ var carga := ""
 var _faixa := Faixa.BAIXA
 var _pensamentos_vistos := {}
 var _falas_fim_do_dia: Array = []
+# conta as partidas: uma espera que termina depois de um "tentar de novo" não
+# pode disparar nada na partida nova
+var _rodada := 0
 
 
 # O segundo dia começa depois da etapa que fecha o primeiro, com tudo o que veio
@@ -82,6 +94,7 @@ func iniciar_partida() -> void:
 		itens.append_array(OBJETIVOS[i]["itens"])
 	carga = ""
 	em_roteiro = false
+	_rodada += 1
 	_falas_fim_do_dia = []
 	_pensamentos_vistos.clear()
 	_faixa = Faixa.BAIXA
@@ -99,7 +112,7 @@ func iniciar_partida() -> void:
 
 
 func _process(delta: float) -> void:
-	if not em_partida:
+	if not em_partida or em_roteiro:
 		return
 
 	tempo_restante -= delta
@@ -120,7 +133,7 @@ func faixa() -> Faixa:
 
 
 func aumentar_suspeita(quantidade: float) -> void:
-	if not em_partida:
+	if not em_partida or em_roteiro:
 		return
 	_definir_suspeita(suspeita + quantidade)
 	if suspeita >= SUSPEITA_MAX:
@@ -169,9 +182,12 @@ func concluir_objetivo(id: String) -> void:
 	if not bilhete.is_empty():
 		recado.emit(bilhete["imagem"], bilhete["texto"])
 
+	# a máquina ficou pronta: a escolha espera uns segundos para ela aparecer
 	if indice >= OBJETIVOS.size():
-
-		escolha_final.emit()
+		em_roteiro = true
+		definir_observado(false)
+		maquina_pronta.emit()
+		_depois(PAUSA_MAQUINA_PRONTA, escolha_final.emit)
 		return
 
 	# a próxima etapa é de amanhã: não se anuncia, e o dia para aqui
@@ -316,7 +332,19 @@ func definir_progresso(fracao: float, tela := "") -> void:
 
 
 func decidir(ativou: bool) -> void:
-	_terminar(Motivo.ATIVOU if ativou else Motivo.DESISTIU)
+	if not ativou:
+		_terminar(Motivo.DESISTIU)
+		return
+	# ativar não é um clique: a máquina liga em cena, e só então vem o final
+	maquina_ligando.emit()
+	_depois(PAUSA_MAQUINA_LIGANDO, _terminar.bind(Motivo.ATIVOU))
+
+
+func _depois(segundos: float, acao: Callable) -> void:
+	var rodada := _rodada
+	await get_tree().create_timer(segundos).timeout
+	if rodada == _rodada:
+		acao.call()
 
 
 func _terminar(motivo: Motivo) -> void:
