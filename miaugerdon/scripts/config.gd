@@ -300,10 +300,10 @@ const FINAIS := [
 		"imagem": "res://sprites/finais/FINAL_soneca chegou.png",
 		# o tempo acaba no dia 1 ou no dia 2, e o texto serve aos dois: não diz
 		# quando a campainha tocou, só que o plano não ficou pronto a tempo
-		"texto": "A campainha tocou antes de o plano ficar pronto.\n"
+		"texto": "A campainha tocou antes do plano ficar pronto.\n"
 			+ "Alfredo entrou com a caixa de transporte, e de dentro dela saiu um focinho preto e branco, curioso.\n"
 			+ "Caju ficou parado no meio da sala, sem máquina, sem plano e sem saber o que sentia.\n"
-			+ "O Soneca piscou devagar para ele. Em língua de gato, isso quer dizer: prazer.",
+			+ "O Soneca piscou devagar para ele. Em língua de gato, isso quer dizer: Oi.",
 	},
 	{
 		"vitoria": true,
